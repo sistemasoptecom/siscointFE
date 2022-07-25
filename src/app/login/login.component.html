@@ -1,0 +1,47 @@
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-bottom">
+                        <form  (ngSubmit)="login()"  class="login-form">
+                            
+                            <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password.</div>
+                            <br/>
+                            <div class="form-group">
+                                <!-- <label for="username" class="sr-only">Usuario : </label> -->
+                                <input type="text" id="username" name="username"  [(ngModel)]="usuario"
+                                class="form-control" placeholder="Usuario..." autocomplete="off" required>
+                                
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                <!-- <label for="password" class="sr-only">Contraseña : </label> -->
+                                <input type="password" id="password" name="password"  [(ngModel)]="password"
+                                class="form-control" placeholder="Contraseña..." autocomplete="off" required>
+                            </div>
+                            
+                            <br/>
+                            <br/>
+                            <div class="col-xs-4"></div>
+                            <div class="form-group">
+                                <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+                                <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
+                                    <div *ngIf="recaptcha.errors?.['required']">This field is required.</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <button class="btn" type="submit" ><span style="color:black;font-family:arial">INGRESAR</span></button>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+</div>

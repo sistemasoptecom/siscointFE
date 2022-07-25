@@ -1,0 +1,37 @@
+body {
+    background: url("../../assets/backgrounds/1.png") no-repeat;
+    
+    width: 100%;
+    background-size:cover;
+  }
+
+input[type="text"],
+input[type="password"],
+textarea,
+textarea.form-control {
+    /*margin: 0;
+    vertical-align: middle;
+    background: #fff;*/
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    /*font-weight: 300;
+    line-height: 50px;
+    color: #888;*/
+
+}
+
+textarea,
+textarea.form-control {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	line-height: 30px;
+}
+
+button.btn {
+    height:50;
+    margin: 0;
+    vertical-align: middle;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+
+}
