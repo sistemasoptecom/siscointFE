@@ -46,44 +46,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('jwt', data);
         this.router.navigateByUrl('/home')
       })
-      // .subscribe({
-      //   next : (response) => {
-      //     //console.log(response.token)
-      //     //localStorage.setItem('jwt', response.token);
-      //     let body = response.json();
-      //     console.log(body);
-      //   },
-      //   error : (error) => {
-      //     if (error.status == 400)
-      //       this.toastr.error('Incorrect username or password.', 'Authentication failed.');
-      //     else  
-      //       console.log(error);
-      //   }
-      // })
-      // .subscribe((res : any) => {
-      //     //console.log(res.token)
-      //     localStorage.setItem('token', res.token);
-      //     this.router.navigateByUrl('/');
-      // }, 
-      //   err => {
-      //     if (err.status == 400)
-      //       this.toastr.error('Incorrect username or password.', 'Authentication failed.');
-      //     else
-      //       console.log(err);
-      //   }
-      // );
-      //.map(res => res.json())
-      // .subscribe( 
-      //   // next : (response : AuthenticatedResponse) => {
-      //   //   //console.log(response);
-      //   //   const token = response.text;
-      //   //   console.log(token);
-      //   //   localStorage.setItem("jwt", token);
-      //   //   this.invalidLogin = false;
-      //   //   //console.log("token : ", token);
-      //   // },
-      //   )
-    
+      
   }
 
 }

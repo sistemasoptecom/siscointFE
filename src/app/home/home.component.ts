@@ -9,21 +9,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  userDetails : string = "";
-  usuario : string = "Usuario";
+  
+
 
   constructor(private router : Router, private siscointServive : SiscointService) { }
 
   ngOnInit(): void {
-    this.getCurrentUser();
+    //this.getCurrentUser();
   }
 
-  getCurrentUser(){
-    this.siscointServive.getCurrentUser().subscribe(data => { this.userDetails = data; })
-  }
-  onLogout(){
-    localStorage.removeItem('jwt');
-    this.router.navigate(['/']);
-  }
+  
+
+  
+  
 
 }

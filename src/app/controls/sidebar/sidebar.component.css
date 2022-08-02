@@ -497,10 +497,7 @@ progress {
   color: white;
 }
 
-.fondoHome {
-  background-image: url('../../assets/backgrounds/fondo.jpg');
-  height: 600px;
-}
+
 
 .display-1 {
   font-size: calc(1.625rem + 4.5vw);

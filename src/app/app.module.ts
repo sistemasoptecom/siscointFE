@@ -7,12 +7,19 @@ import { AppComponent } from './app.component';
 import { JwtModule } from "@auth0/angular-jwt";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptor } from './guards/auth.interceptor';
 import { HomeComponent } from './home/home.component';
+import { FormsModule } from '@angular/forms';
+import { UsuariosComponent } from './views/usuarios/usuarios.component';
+import { SidebarComponent } from './controls/sidebar/sidebar.component';
+import { NavbarComponent } from './controls/navbar/navbar.component';
+import { ToolbarComponent } from './controls/toolbar/toolbar.component';
+import { VentanabusquedaComponent } from './controls/ventanabusqueda/ventanabusqueda.component';
+
 export function tokenGetter() { 
   return localStorage.getItem("jwt"); 
 }
@@ -22,6 +29,12 @@ export function tokenGetter() {
     AppComponent,
     LoginComponent,
     HomeComponent,
+    UsuariosComponent,
+    SidebarComponent,
+    NavbarComponent,
+    ToolbarComponent,
+    VentanabusquedaComponent,
+    
    
   ],
   imports: [

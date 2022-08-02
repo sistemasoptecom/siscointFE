@@ -492,14 +492,95 @@ progress {
   font-weight: 300;
 }
 
-.backgroudNav {
+.backgroudNavUsu {
   background-color: #001b58;
   color: white;
+  font-size: 14px;
+  font-weight: normal;
+  height: 40px;
+  padding: 10px 5px;
+  
+  width: 1490px;
+}
+.panelHeadind {
+    height: 40px;;
+}
+.borderFormUsuario{
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+.rowFormUser{
+    
+    padding: 10px ;
+    
+}
+.req{
+    font-weight: bold;
+    color: #001b58;
+}
+.windowBody {
+    max-height: 550px;
+    border-color: #000;
+    
+}
+.barra .btn-group button {
+    font-size: 12px;
 }
 
-.fondoHome {
+    .barra .btn-group button i {
+        font-size: 20px;
+        display: block;
+    }
+.barra {
+    transition: all .5s;
+    /*position: fixed;*/
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    /*padding-bottom: 8px;
+    padding-top: 8px;*/
+    background: #fff;
+
+    /*-webkit-box-shadow: 0 -5px 5px 0 rgba(199,199,199,.7);
+    -moz-box-shadow: 0 -5px 5px 0 rgba(199,199,199,.7);
+    box-shadow: 0 -5px 5px 0 rgba(199,199,199,.7);*/
+}
+.barra button {
+    border-radius: 0;
+    background: #001b58;
+}
+.barra.movbar {
+    padding-left: 0 !important;
+    z-index: 10;
+}
+.modal-body .barra {
+    padding: 0px !important;
+}
+
+.modal-view .body .barra .btn-buscar,
+.modal-view .body .barra .btn-imprimier,
+.modal-view .body .barra .btn-editar,
+.modal-view .body .barra .btn-eliminar,
+.modal-view .body .barra .btn-cerrar {
+    display: none;
+}
+
+/* .fondoHome {
   background-image: url('../../assets/backgrounds/fondo.jpg');
   height: 600px;
+} */
+
+.window-body {
+    height: calc(100% - 67px);
+    overflow: hidden;
+    overflow-y: auto;
+}
+.panel-body {
+    padding: 5px !important;
+    overflow:hidden !important;
+    height:100% !important;
 }
 
 .display-1 {
