@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { SiscointService } from 'src/app/siscoint.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { VentanabusquedaComponent } from '../ventanabusqueda/ventanabusqueda.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -17,7 +19,7 @@ export class ToolbarComponent implements OnInit {
   confirmar : boolean = false;
   cancelar : boolean = false;
   cerrar : boolean = true;
-  constructor(private siscointService : SiscointService) { }
+  constructor(private siscointService : SiscointService, private modalService : NgbModal) { }
 
   ngOnInit(): void {
   }
@@ -28,6 +30,20 @@ export class ToolbarComponent implements OnInit {
     }else{
       this.habilitarGuardar();
     }
+  }
+
+  openModal(){
+    this.modalService.open(VentanabusquedaComponent)
+    this.siscointService.enabledModal.emit(true);
+    // modalRef.result.then((result) => {
+    //   console.log("result es ",result);
+      
+        
+    //   this.siscointService.enabledModal.emit(true);
+    // }).catch((error) => {
+    //   console.log("error es  ",error);
+    // });
+    
   }
 
   habilitarToolbarInicio(){

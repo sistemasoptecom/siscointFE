@@ -1,6 +1,6 @@
 <div class="col-xs-12 barra">
     <div class="btn-group">
-        <button type="button" class="btn btn-primary btn-buscar" *ngIf="buscar">
+        <button type="button" class="btn btn-primary btn-buscar" *ngIf="buscar" (click)="openModal()">
             <i class="fa fa-search" aria-hidden="true"></i> Buscar
         </button>
         <button type="button" class="btn btn-primary btn-imprimir" *ngIf="imprimir">

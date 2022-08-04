@@ -558,6 +558,18 @@ progress {
 .modal-body .barra {
     padding: 0px !important;
 }
+.buscarVentana{
+  width: 100%;
+}
+
+.modalVentanaBusqueda{
+  width: 400px;
+  border-color: black;
+  
+}
+.modalVentana{
+  max-height: 500px;
+}
 
 .modal-view .body .barra .btn-buscar,
 .modal-view .body .barra .btn-imprimier,
@@ -5670,6 +5682,7 @@ textarea.form-control-lg {
   position: relative;
   flex: 1 1 auto;
   padding: 1rem;
+  max-height: 400px;
 }
 
 .modal-footer {

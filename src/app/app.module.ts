@@ -19,6 +19,7 @@ import { SidebarComponent } from './controls/sidebar/sidebar.component';
 import { NavbarComponent } from './controls/navbar/navbar.component';
 import { ToolbarComponent } from './controls/toolbar/toolbar.component';
 import { VentanabusquedaComponent } from './controls/ventanabusqueda/ventanabusqueda.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function tokenGetter() { 
   return localStorage.getItem("jwt"); 
@@ -48,6 +49,7 @@ export function tokenGetter() {
     ToastrModule.forRoot({
       progressBar: true
     }),
+    NgbModule,
     // JwtModule.forRoot({
     //   config: {
     //     tokenGetter: tokenGetter,
