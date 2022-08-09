@@ -39,10 +39,10 @@ export class LoginComponent implements OnInit {
         Password : this.password
       }
 
-      console.log(this.credenciales);
+      //console.log(this.credenciales);
       this.siscointService.Authenticated(this.credenciales)
       .subscribe(data => {
-        console.log(data);
+        //console.log(data);
         localStorage.setItem('jwt', data);
         this.router.navigateByUrl('/home')
       })

@@ -513,7 +513,10 @@ progress {
 .rowFormUser{
     
     padding: 10px ;
-    
+}
+.controlBusquedaRapida{
+  vertical-align:top;
+  width: 20%;
 }
 .req{
     font-weight: bold;

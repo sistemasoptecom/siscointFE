@@ -6,7 +6,7 @@ import { genericTable } from 'src/app/_inteface/genericTable.model';
 import { UsuariosModels } from 'src/app/_inteface/usuario.model';
 
 //import * as $ from 'jquery'
-//declare let $ : any
+declare let $ : any
 
 @Component({
   selector: 'app-ventanabusqueda',
@@ -71,11 +71,12 @@ export class VentanabusquedaComponent implements OnInit {
 
   buscarUsuarios(e : any){
     this.valueBuscar = e.target.value;
-    const usuariosM : UsuariosModels = {id: 0, username : this.valueBuscar, codigo : this.valueBuscar, nombre_usuario : this.valueBuscar, password:'', id_tipo_usuario:0, estado:0, cargo:'',area:'', modulo:0 }
+    const usuariosM : UsuariosModels = {id: 0, username : this.valueBuscar, codigo : this.valueBuscar, nombre_usuario : this.valueBuscar, password:'', pssword:'', id_tipo_usuario:0, estado:0, cargo:'',area:'', modulo:0 }
     
     this.siscointService.getUsuarios(usuariosM).subscribe((res : UsuariosModels[]) => {
       this.arrayTabla = res;
-      console.log(this.arrayTabla)
+      //localStorage.setItem('usuario', JSON.stringify(this.arrayTabla));
+      //console.log(this.arrayTabla)
       this.esTablaUsuario = true;
       //this.setHtmlTablaVentanaVacia(this.route.url, this.usuariosArray)
       this.armarArrayGeneric(this.route.url, this.arrayTabla);
@@ -120,5 +121,7 @@ export class VentanabusquedaComponent implements OnInit {
   validarRow(data : any){
     //sconsole.log("el id row es ",data)
     this.siscointService.showsUserValues.emit(data);
+    this.siscointService.esHabilitarGuardar.emit(true);
+    $("#modal").modal("hide");
   }
 }

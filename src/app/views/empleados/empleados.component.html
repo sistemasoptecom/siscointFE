@@ -1,0 +1,86 @@
+<div class="d-flex" id="wrapper">
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <app-navbar></app-navbar>
+        <div class="container-fluid">
+            <div class="window-body windowBody">
+                <form>
+                    <div class="col-xs-16">
+                        <div class="col-xs-16">
+                            <div class="panel panel-primary borderFormUsuario">
+                                <div class="panel-heading panelHeadind">
+                                    <h3 class="panel-title backgroudNavUsu">Datos Personales</h3>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">Cedula<span class="req">*</span></label>
+                                        <input type="text" id="cedula" name="cedula" class="form-control"
+                                        [disabled]="disabled" [(ngModel)]="cedula" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="col">
+                                        <label class="req">Primer Nombre<span class="req">*</span></label>
+                                        <input type="text" id="pNombre" name="pNombre" class="form-control"
+                                        [disabled]="disabled" [(ngModel)]="pNombre" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="col">
+                                        <label class="req">Segundo Nombre</label>
+                                        <input type="text" id="pNombre" name="pNombre" class="form-control"
+                                        [disabled]="disabled" [(ngModel)]="sNombre" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">Primer Apellido<span class="req">*</span></label>
+                                        <input type="text" id="pApellido" name="pApellido" class="form-control"
+                                        [disabled]="disabled" [(ngModel)]="pApellido" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="col">
+                                        <label class="req">Segundo Apellido<span class="req">*</span></label>
+                                        <input type="text" id="sApellido" name="sApellido" class="form-control"
+                                        [disabled]="disabled" [(ngModel)]="sApellido" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="col">
+                                        <label class="req">Empresa<span class="req">*</span></label>
+                                        <select class="form-control" [disabled]="disabled" [(ngModel)]="empEmpleado" [ngModelOptions]="{standalone: true}">
+                                            <!-- <option *ngFor="let item of tipoUsuarios"  value="{{item.id}}">{{item.nombre}}</option> -->
+                                            <option *ngFor="let item of empresas"  value="{{item.id}}">{{item.nombre}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">Area<span class="req">*</span></label>
+                                        <app-busquedarapida></app-busquedarapida>
+                                    </div>
+                                    <div class="col">
+                                        <label class="req">C. Costos<span class="req">*</span></label>
+                                        <input type="text" id="cCostos" name="cCostos" class="form-control"
+                                        [disabled]="disabled" [(ngModel)]="cCostos" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">Cargo<span class="req">*</span></label>
+                                        <input type="text" id="cargo" name="cargo" class="form-control"
+                                        [disabled]="disabled" [(ngModel)]="cargo" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="col">
+                                        <label class="req">Permiso E.<span class="req">*</span></label>
+                                        <input type="checkbox" class="form-control form-check-input" [checked]="permisoE"
+                                        (change)="permisoE = !permisoE"  [disabled]="disabled" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="window-footer">
+                <app-toolbar></app-toolbar>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: none;">
+    <app-ventanabusqueda></app-ventanabusqueda>
+</div>

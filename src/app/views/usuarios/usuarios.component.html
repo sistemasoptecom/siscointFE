@@ -23,39 +23,39 @@
                             <div class="row rowFormUser">
                                 <div class="col">
                                     <label class="req">Usuario<span class="req">*</span></label>
-                                    <input type="text" id="usuario" name="USUARIO" class="form-control"
-                                    [disabled]="disabled">
+                                    <input type="text" id="username" name="username" class="form-control"
+                                    [disabled]="disabled" [(ngModel)]="username" [ngModelOptions]="{standalone: true}">
                                 </div>
                                 <div class="col">
                                     <label class="req">Documento<span class="req">*</span></label>
-                                    <input type="number" name="CODIGO" id="codigo" class="form-control"
-                                    [disabled]="disabled">
+                                    <input type="number" name="codigo" id="codigo" class="form-control"
+                                    [disabled]="disabled" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}">
                                 </div>
                                 <div class="col">
                                     <label class="req">Nombre<span class="req">*</span></label>
                                     <input class="form-control" name="NOMBRE DE USUARIO" id="nombre_usuario" 
-                                    [disabled]="disabled"/>
+                                    [disabled]="disabled" [(ngModel)]="nombre_usuario" [ngModelOptions]="{standalone: true}"/>
                                 </div>
                                 <div class="col">
-                                    <label class="req">Tipo Usuario</label>
-                                    <select class="form-control" [disabled]="disabled">
-                                        <option value=""></option>
+                                    <label class="req">Tipo Usuario<span class="req">*</span></label>
+                                    <select class="form-control" [disabled]="disabled" [(ngModel)]="id_tipo_usuario" [ngModelOptions]="{standalone: true}">
+                                        <option *ngFor="let item of tipoUsuarios"  value="{{item.id}}">{{item.nombre}}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row rowFormUser">
                                 <div class="col">
                                     <label class="req">Contraseña<span class="req">*</span></label>
-                                    <input type="password" name="CONTRASEÑA"  class="form-control"
-                                    [disabled]="disabled"/>
+                                    <input type="password" name="pssword"  class="form-control"
+                                    [disabled]="disabled" [(ngModel)]="pssword" [ngModelOptions]="{standalone: true}"/>
                                 </div>
                                 <div class="col">
                                     <label class="req">Confirmar contraseña<span class="req">*</span></label>
-                                    <input type="password" name="CONF. Contraseña" class="form-control" 
-                                    [disabled]="disabled"/>
+                                    <input type="password" name="pssword2" class="form-control" 
+                                    [disabled]="disabled" (keyup)="keyup($event)"/>
                                 </div>
                             </div>
-
+                            {{mensajePassword}}
                             
                         </div>
                     </div>
@@ -83,12 +83,15 @@
                                                 <tr *ngFor="let item of dataviews">
                                                     
                                                     <td style="text-align: center" ><span >{{item.id}}</span></td>
-                                                    <td>{{item.module_name}}</td>
+                                                    <td>{{item.name_module}}</td>
                                                     <td>{{item.module}}</td>
                                                     
-                                                    <td><input type="checkbox"  [disabled]="disabled"/></td>
-                                                    <td><input type="checkbox"  [disabled]="disabled"/></td>
-                                                    <td><input type="checkbox"  [disabled]="disabled"/></td>
+                                                    <td><input type="checkbox"  [checked]="item.autorizacion"
+                                                        (change)="item.autorizacion = !item.autorizacion"  [disabled]="disabled"/></td>
+                                                    <td><input type="checkbox" [checked]="item.pe1"
+                                                        (change)="item.pe1 = !item.pe1"  [disabled]="disabled"/></td>
+                                                    <td><input type="checkbox"  [checked]="item.pe2"
+                                                        (change)="item.pe2 = !item.pe2" [disabled]="disabled"/></td>
                                                 </tr>
                                             </tbody>
                                             

@@ -9,13 +9,13 @@
         <button type="button" class="btn btn-primary btn-nuevo" *ngIf="crear" (click)="habiliarCampos(false)">
             <i class="fa fa-plus" aria-hidden="true"></i> Crear
         </button>
-        <button type="button" class="btn btn-primary btn-guardar" *ngIf="guardar">
+        <button type="button" class="btn btn-primary btn-guardar" *ngIf="guardar" (click)="agregarFormulario()">
             <i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar
         </button>
         <button type="button" class="btn btn-primary btn-editar" *ngIf="editar">
             <i class="fa fa-pencil" aria-hidden="true"></i> Editar
         </button>
-        <button type="button" class="btn btn-primary btn-actualizar" *ngIf="actulizar">
+        <button type="button" class="btn btn-primary btn-actualizar" *ngIf="actulizar" (click)="actualizarFormulario()">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Actualizar
         </button>
         <!--<button id="{{formulario}}-eliminar" type="button" class="btn btn-primary btn-eliminar"
@@ -28,7 +28,7 @@
         <button  type="button" class="btn btn-primary btn-cancelar" *ngIf="cancelar" (click)="habiliarCampos(true)">
             <i class="fa fa-ban" aria-hidden="true"></i> Cancelar
         </button>
-        <button  type="button" class="btn btn-primary btn-cerrar" *ngIf="cerrar">
+        <button  type="button" class="btn btn-primary btn-cerrar" *ngIf="cerrar" (click)="cerrarModulo()" >
             <i class="fa fa-times" aria-hidden="true"></i> Cerrar
         </button>
     </div>
