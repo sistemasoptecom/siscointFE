@@ -93,6 +93,12 @@ export class ToolbarComponent implements OnInit {
     switch(this.router.url){
       case '/usuarios':
         this.siscointService.esGuardarFromUser.emit(true);
+        break;
+      case '/empleados':
+        this.siscointService.esGuardarFormEmpleado.emit(true);
+        break;
+
+
     }
   }
 

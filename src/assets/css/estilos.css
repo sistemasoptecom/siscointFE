@@ -518,6 +518,10 @@ progress {
   vertical-align:top;
   width: 20%;
 }
+.ContentVentanaBusquedaRapida{
+  max-height: 550px;
+  border-color: #000;
+}
 .req{
     font-weight: bold;
     color: #001b58;

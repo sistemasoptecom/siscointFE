@@ -1,1 +1,54 @@
-<p>ventanabusquedarapida works!</p>
+
+<div class="modal-header">
+  <h5 class="modal-title">{{tituloVentanaRapida}}</h5>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+      <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <div>
+        <div class="modalVentanaBusqueda">
+            <input type="text" name="buscarVentana" id="buscarVentana" (keydown.enter)="valorBuscar($event)" >
+        </div>
+        <div class="ContentVentanaBusquedaRapida">
+            <div class="col-md-12">
+                <table class="table table-bordered table-hover table-striped" width="100px" style="overflow-y:scroll">
+                    <thead>
+                        <tr>
+                            <th *ngIf="columnaHidden" style="display: none;">{{tituloColumnaHidden}}</th>
+                            <th *ngIf="columna1">{{titulocolumna1}}</th>
+                            <th *ngIf="columna2">{{titulocolumna2}}</th>
+                            <th *ngIf="columna3">{{titulocolumna3}}</th>
+                            <th *ngIf="columna4">{{titulocolumna4}}</th>
+                            <th *ngIf="columna5">{{titulocolumna5}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of arrayGeneric" (click)="validarRow(item.id)">
+                              <td *ngIf="columnaHidden" style="text-align: center; display: none;" >
+                                <span>{{item.id}}</span>
+                              </td>
+                              <td *ngIf="columna1" style="text-align: center" >
+                                <span>{{item.valor1}}</span>
+                              </td>
+                              <td *ngIf="columna2" style="text-align: center" >
+                                <span>{{item.valor2}}</span>
+                              </td>
+                              <td *ngIf="columna3" style="text-align: center" >
+                                <span>{{item.valor3}}</span>
+                              </td>
+                              <td *ngIf="columna4" style="text-align: center" >
+                                <span>{{item.valor4}}</span>
+                              </td>
+                              <td *ngIf="columna5" style="text-align: center" >
+                                <span>{{item.valor5}}</span>
+                              </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
