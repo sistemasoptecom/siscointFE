@@ -12,6 +12,7 @@ import { empresaModel } from './_inteface/empresas.model';
 import { busquedaRapida } from './_inteface/busquedaRapida.model';
 import { empleado } from './_inteface/empleado.model';
 import { centroCosto } from './_inteface/centroCosto.model';
+import { tipoArticulo } from './_inteface/tipoArticulo.model';
 
 
 
@@ -29,6 +30,7 @@ export class SiscointService {
   ShowsCcostosValues = new EventEmitter<number>();
   esHabilitarGuardar = new EventEmitter<boolean>();
   esActualizarFormUser = new EventEmitter<boolean>();
+  esActualizarFormEmpleado = new EventEmitter<boolean>();
   esGuardarFromUser = new EventEmitter<boolean>();
   esGuardarFormEmpleado = new EventEmitter<boolean>();
   showValor1BusquedaRapida = new EventEmitter<string>();
@@ -74,8 +76,8 @@ export class SiscointService {
     return this.http.post<any[]>(this.myAppUrl+"api/empleado/busquedaEmpleado", empleado);
   }
 
-  getEmpleado(empleados : empleado) : Observable<empleado>{
-    return this.http.post<empleado>(this.myAppUrl+"api/empleado/busquedaEmpleadoId", empleados);
+  getEmpleado(empleados : empleado) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/empleado/busquedaEmpleadoId", empleados);
   }
 
   getDataBusquedaRapida(data : busquedaRapida[]) : Observable<any[]>{
@@ -98,6 +100,10 @@ export class SiscointService {
     return this.http.put<any>(this.myAppUrl+"api/Usuarios/EditarUsuario/"+id, usuario,this.httpOptions);
   }
 
+  updateEmpleado(id: number, empleado : empleado) : Observable<string>{
+    return this.http.put<string>(this.myAppUrl+"api/empleado/EditarEmpleado/"+id, empleado , this.httpOptions);
+  }
+
   addUsuario(usuario: UsuariosModels) : Observable<any>{
     return this.http.post<any>(this.myAppUrl+"api/Usuarios/AgregarUsuario", usuario);
   }
@@ -112,6 +118,14 @@ export class SiscointService {
 
   getEmpresas() : Observable<empresaModel[]>{
     return this.http.get<empresaModel[]>(this.myAppUrl+"api/empleado/getEmpresas");
+  }
+
+  getTipoArticulo() : Observable<tipoArticulo[]>{
+    return this.http.get<tipoArticulo[]>(this.myAppUrl+"api/Articulo/tipoArticulo");
+  }
+
+  validateImei(imei : string) : Observable<string>{
+    return this.http.get<string>(this.myAppUrl+"api/Articulo/validarImei/"+imei);
   }
 
   setCampos(campos : boolean) : void{

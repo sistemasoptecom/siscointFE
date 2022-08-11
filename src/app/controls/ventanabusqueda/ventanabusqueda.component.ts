@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild  } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SiscointService } from 'src/app/siscoint.service';
@@ -6,9 +6,10 @@ import { EmpleadosComponent } from 'src/app/views/empleados/empleados.component'
 import { genericTable } from 'src/app/_inteface/genericTable.model';
 import { UsuariosModels } from 'src/app/_inteface/usuario.model';
 import { empleado } from 'src/app/_inteface/empleado.model';
+import { ThisReceiver } from '@angular/compiler';
 
 //import * as $ from 'jquery'
-
+declare var $ : any;
 
 @Component({
   selector: 'app-ventanabusqueda',
@@ -158,9 +159,16 @@ export class VentanabusquedaComponent implements OnInit {
   }
 
   validarRow(data : any){
+    switch(this.route.url){
+      case '/usuarios':
+        this.siscointService.showsUserValues.emit(data);
+        break;
+      case '/empleados':
+        this.siscointService.showEmpleadosValues.emit(data);
+        break;
+    }
     //sconsole.log("el id row es ",data)
-    this.siscointService.showsUserValues.emit(data);
     this.siscointService.esHabilitarGuardar.emit(true);
-    
+    //$('#myModal').modal('hide');
   }
 }

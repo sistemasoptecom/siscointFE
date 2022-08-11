@@ -23,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EmpleadosComponent } from './views/empleados/empleados.component';
 import { BusquedarapidaComponent } from './controls/busquedarapida/busquedarapida.component';
 import { VentanabusquedarapidaComponent } from './controls/ventanabusquedarapida/ventanabusquedarapida.component';
+import { ArticulosComponent } from './views/articulos/articulos.component';
 
 export function tokenGetter() { 
   return localStorage.getItem("jwt"); 
@@ -41,6 +42,7 @@ export function tokenGetter() {
     EmpleadosComponent,
     BusquedarapidaComponent,
     VentanabusquedarapidaComponent,
+    ArticulosComponent,
     
    
   ],

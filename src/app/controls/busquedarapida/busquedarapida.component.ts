@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SiscointService } from 'src/app/siscoint.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
@@ -11,6 +11,7 @@ import { VentanabusquedarapidaComponent } from '../ventanabusquedarapida/ventana
   styleUrls: ['./busquedarapida.component.css']
 })
 export class BusquedarapidaComponent implements OnInit {
+  @Input() tipoEvento : string = "";
   required_name : string = "";
   valor1 : string = "";
   valor2 : string = "";
@@ -24,15 +25,37 @@ export class BusquedarapidaComponent implements OnInit {
   constructor(private siscointService : SiscointService, private modalService : NgbModal, private router:Router) { }
 
   ngOnInit(): void {
-    this.setValuesBusquedaRapida();
+    //this.setValuesBusquedaRapida();
+    this.validateComponent();
   }
+
+  validateComponent(){
+    if(this.tipoEvento.length > 0){
+      switch(this.tipoEvento){
+        case 'busquedaArticuloDevolutivo':
+          this.setValuesBusquedaRapida();
+          break;
+        
+        case 'busquedaArticuloActivoFijo':
+          this.setValuesBusquedaRapida();
+          break;
+        
+        case 'busquedaCentroCosto':
+          this.setValuesBusquedaRapida();
+          break;
+      }
+    } 
+  }
+
   setValuesBusquedaRapida(){
+    
     this.siscointService.showValor1BusquedaRapida.subscribe(valor => {
       this.valor1 = valor;
     })
     this.siscointService.showValor2BusquedaRapida.subscribe(valor => {
       this.valor2 = valor;
     })
+
   }
   openModal(){
     const modalRef = this.modalService.open(VentanabusquedarapidaComponent, {
@@ -41,11 +64,29 @@ export class BusquedarapidaComponent implements OnInit {
       // keyboard: false,
       // backdrop: 'static'
     });
-    switch(this.router.url){
-      case '/empleados':
-        this.propiedad1 = "Buscar Area"
-        this.propiedad2 = "area_ccosto"
+    if(this.tipoEvento.length > 0){
+      switch(this.tipoEvento){
+        case 'busquedaArticuloDevolutivo':
+          this.propiedad1 = "Buscar Articulo";
+          this.propiedad1 = "ArticuloDevolutivo";
+          break;
+        case 'busquedaArticuloActivoFijo':
+          this.propiedad1 = "Buscar Articulo Activo Fijo";
+          this.propiedad2 = "ArticuloActivoFijo";
+          break;
+        case 'busquedaCentroCosto':
+          this.propiedad1 = "Buscar Centro de costo"
+          this.propiedad2 = "area_ccosto"
+          break;
+      }
+    }else{
+      switch(this.router.url){
+        case '/empleados':
+          this.propiedad1 = "Buscar Area"
+          this.propiedad2 = "area_ccosto"
+      }
     }
+    
     let data = {
       prop1: this.propiedad1,
       prop2: this.propiedad2,

@@ -1,0 +1,117 @@
+<div class="d-flex" id="wrapper">
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <app-navbar></app-navbar>
+        <div class="container-fluid">
+            <div class="window-body windowBody">
+                <form >
+                    <div class="col-xs-16">
+                        <div class="col-xs-16">
+                            <div class="panel panel-primary borderFormUsuario">
+                                <div class="panel-heading panelHeadind">
+                                    <h3 class="panel-title backgroudNavUsu">ARTICULO</h3>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">Tipo<span class="req">*</span></label>
+                                        
+                                        <select class="form-control" id="empEmpleado" [disabled]="disabled" [(ngModel)]="tipoArticulo" [ngModelOptions]="{standalone: true}">
+                                            <option *ngFor="let item of tiposArticulos"  value="{{item.id}}">{{item.descripcion}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col" *ngIf="tipoArticulo == 2">
+                                        <label class="req">Activo Fijo</label>
+                                        <input type="text" class="form-control" name="af" [disabled]="disabled" [(ngModel)]="af" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="col"> 
+                                        <label class="req">Imei/Linea/Serial/Inv<span class="req">*</span></label>
+                                        <input type="text" class="form-control" name="af" [disabled]="disabled" [(ngModel)]="imei" 
+                                        [ngModelOptions]="{standalone: true}" (blur)="validarImei($event)">
+                                    </div>
+                                    <div class="col"> 
+                                        <label class="req">Nuevo Imei<span class="req">*</span></label>
+                                        <input type="text" class="form-control" name="af" [disabled]="disabled" [(ngModel)]="nuevoImei" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">Codigo</label>
+                                        <input type="text" readonly class="form-control" name="af" [(ngModel)]="cod_articulo" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="col">
+                                        <label class="req">Descripcion</label>
+                                        <input type="text" readonly class="form-control" name="af" [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col" *ngIf="tipoArticulo == 1">
+                                        <label class="req">Descripcion<span class="req">*</span></label>
+                                        <app-busquedarapida [tipoEvento]="'busquedaArticuloDevolutivo'"></app-busquedarapida>
+                                    </div>
+                                    <div class="col" *ngIf="tipoArticulo == 2">
+                                        <label class="req">Descripcion<span class="req">*</span></label>
+                                        <app-busquedarapida [tipoEvento]="'busquedaArticuloActivoFijo'"></app-busquedarapida>
+                                    </div>
+                                    <div class="col">
+                                        <label class="req">Centro de costo<span class="req">*</span></label>
+                                        <app-busquedarapida [tipoEvento]="'busquedaCentroCosto'"></app-busquedarapida>
+                                    </div>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col" *ngIf="tipo == 1 || tipo == 2">
+                                        <label class="req">Linea<span class="req">*</span></label>
+                                        <input type="text" class="form-control" name="af" [disabled]="disabled" [(ngModel)]="linea" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="col" *ngIf="tipo == 1 || tipo == 2">
+                                        <label class="req">Linea activa</label>
+                                        <input type="text" class="form-control" name="af" [disabled]="disabled" [(ngModel)]="lineaActiva" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">Factura</label>
+                                        <input type="text" class="form-control" name="af" [disabled]="disabled" [(ngModel)]="factura" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="col">
+                                        <label class="req">Causacion</label>
+                                        <input type="date" class="form-control" name="af" [disabled]="disabled" [(ngModel)]="causacion" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="col">
+                                        <label class="req">Valor</label>
+                                        <input type="text" class="form-control" name="af" [disabled]="disabled" [(ngModel)]="valor" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">Observacion</label>
+                                        <textarea class="form-control" name="af" [disabled]="disabled" [(ngModel)]="observacion" [ngModelOptions]="{standalone: true}"></textarea>
+                                    </div>
+                                    <div class="col" *ngIf="mostrarEstados">
+                                        <label class="req">Estado</label>
+                                        <select class="form-control" id="empEmpleado" [disabled]="disabled" [(ngModel)]="estadoValue" [ngModelOptions]="{standalone: true}">
+                                            <option *ngFor="let item of estados"  value="{{item.id}}">{{item.tipo}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col" *ngIf="mostrarEstados">
+                                        <label class="req">Fecha Estado</label>
+                                        <input type="date" class="form-control" name="af" [disabled]="disabled" [(ngModel)]="fechaEstado" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <div class="col"> 
+                                        <label class="req">EXPORTAR</label>
+                                        <a class="no-print" id="test">
+                                            <img src="../../../assets/backgrounds/Excel_15.png"  style="height:30px;display:block;cursor:pointer" />
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="window-footer">
+                <app-toolbar></app-toolbar>
+            </div>
+        </div>
+    </div>
+</div>

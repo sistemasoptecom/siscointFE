@@ -1,14 +1,15 @@
-
-  <div class="modal-header">
+<div>
+  <div class="modal-header modal-lg">
     <h6 class="modal-title">{{tituloModal}}</h6>
+    <button type="button"  class="close" data-dismiss="modal">&times;</button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body modal-lg">
     <div>
         <div class="modalVentanaBusqueda">
           <input type="text" name="buscarVentana" id="buscarVentana" (keydown.enter)="valorBuscar($event)" >
           <!-- <div [innerHTML]="htmlTabla"></div> -->
         </div>
-        <div class="ContentVentanaBusquedaRapida">
+        <div class="">
           <div class="col-md-12">
             <table class="table table-bordered table-hover table-striped" width="100px" style="overflow-y:scroll">
                 <thead>
@@ -49,6 +50,7 @@
       
       </div>    
   </div>
+</div>
 
 
 

@@ -19,6 +19,9 @@ export class VentanabusquedarapidaComponent implements OnInit {
   columna3 : boolean = false;
   columna4 : boolean = false;
   columna5 : boolean = false;
+  columna6 : boolean = false;
+  columna7 : boolean = false;
+  columna8 : boolean = false;
 
   esTablaUsuario : boolean = false;
   tituloColumnaHidden : string = "";
@@ -27,6 +30,9 @@ export class VentanabusquedarapidaComponent implements OnInit {
   titulocolumna3 : string = "";
   titulocolumna4 : string = "";
   titulocolumna5 : string = "";
+  titulocolumna6 : string = "";
+  titulocolumna7 : string = "";
+  titulocolumna8 : string = "";
   valueBuscar : string = "";
   arrayGeneric : genericTable[] = [];
   busqueda : busquedaRapida[] = [];

@@ -97,15 +97,18 @@ export class ToolbarComponent implements OnInit {
       case '/empleados':
         this.siscointService.esGuardarFormEmpleado.emit(true);
         break;
-
-
     }
+    
   }
 
   actualizarFormulario(){
     switch(this.router.url){
       case '/usuarios':
         this.siscointService.esActualizarFormUser.emit(true);
+        break;
+      case '/empleados':
+        this.siscointService.esActualizarFormEmpleado.emit(true);
+        break;
     }
   }
 
