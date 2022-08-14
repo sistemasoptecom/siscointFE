@@ -1,9 +1,10 @@
 export interface UsuariosModels{
-    id : number;
+    id? : number;
     codigo : string;
     nombre_usuario : string;
     username : string;
     password : string;
+    pssword : string;
     id_tipo_usuario : number;
     estado : number;
     cargo : string;

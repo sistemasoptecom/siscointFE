@@ -1,28 +1,15 @@
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="open(content)">
-    Launch demo modal
-  </button> -->
-
-  <!-- <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">{{tituloModal}}</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-      <p>Hello, World!</p>
-    </div>
-    
- </ng-template> -->
- <div class="modalVentana">
-  <div class="modal-header" >
+<div>
+  <div class="modal-header modal-lg">
     <h6 class="modal-title">{{tituloModal}}</h6>
-    
+    <button type="button"  class="close" data-dismiss="modal">&times;</button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body modal-lg">
     <div>
-      <div class="modalVentanaBusqueda">
-        <input type="text" name="buscarVentana" id="buscarVentana" (keydown.enter)="valorBuscar($event)" >
-        <!-- <div [innerHTML]="htmlTabla"></div> -->
-        <div>
+        <div class="modalVentanaBusqueda">
+          <input type="text" name="buscarVentana" id="buscarVentana" (keydown.enter)="valorBuscar($event)" >
+          <!-- <div [innerHTML]="htmlTabla"></div> -->
+        </div>
+        <div class="">
           <div class="col-md-12">
             <table class="table table-bordered table-hover table-striped" width="100px" style="overflow-y:scroll">
                 <thead>
@@ -33,12 +20,9 @@
                         <th *ngIf="columna3">{{titulocolumna3}}</th>
                         <th *ngIf="columna4">{{titulocolumna4}}</th>
                         <th *ngIf="columna5">{{titulocolumna5}}</th>
-                       
-
                     </tr>
                 </thead>
-                
-                  <tbody>
+                <tbody>
                       <tr *ngFor="let item of arrayGeneric" (click)="validarRow(item.id)">
                             <td *ngIf="columnaHidden" style="text-align: center; display: none;" >
                               <span *ngIf="esTablaUsuario">{{item.id}}</span>
@@ -58,17 +42,15 @@
                             <td *ngIf="columna5" style="text-align: center" >
                               <span *ngIf="esTablaUsuario">{{item.valor5}}</span>
                             </td>
-                          
-                          
                       </tr>
-                  </tbody>
-              
-                
-            </table>
+                </tbody>
+              </table>
           </div>
         </div>
-      </div>
-    </div>
+      
+      </div>    
   </div>
 </div>
+
+
 

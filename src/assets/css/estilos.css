@@ -513,8 +513,26 @@ progress {
 .rowFormUser{
     
     padding: 10px ;
-    
 }
+.controlBusquedaRapida{
+  vertical-align:top;
+  width: 20%;
+}
+.ContentVentanaBusquedaRapida{
+  max-height: 550px;
+  border-color: #000;
+}
+.ContentVentanaBusqueda{
+  height: 650px;
+  max-width: 500px;
+  border-color: #000;
+}
+
+.modalBody{
+  max-height: 650px;
+
+}
+
 .req{
     font-weight: bold;
     color: #001b58;
@@ -5667,6 +5685,7 @@ textarea.form-control-lg {
   border-bottom: 1px solid #dee2e6;
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
+  width: 500px;
 }
 .modal-header .btn-close {
   padding: 0.5rem 0.5rem;
@@ -5679,10 +5698,15 @@ textarea.form-control-lg {
 }
 
 .modal-body {
-  position: relative;
-  flex: 1 1 auto;
-  padding: 1rem;
-  max-height: 400px;
+  height: 450px;
+  width: 450px;
+  overflow-y: auto;
+  /*max-height: 400px;*/
+}
+
+.modalVentana{
+  max-width: 500px;
+  max-height: 600px;
 }
 
 .modal-footer {

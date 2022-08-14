@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
   getCurrentUser(){
     this.siscointService.getCurrentUser().subscribe(data => 
       { const dat = JSON.parse(data);
+        localStorage.setItem('usuario', dat.username);
         this.userDetails = dat.username; 
         //console.log(this.userDetails) 
       })
@@ -30,6 +31,9 @@ export class NavbarComponent implements OnInit {
   
   onLogout(){
     localStorage.removeItem('jwt');
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('dataviews');
+    localStorage.removeItem('_grecaptcha');
     this.router.navigate(['/']);
   }
 

@@ -1,21 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild  } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { SiscointService } from 'src/app/siscoint.service';
+import { EmpleadosComponent } from 'src/app/views/empleados/empleados.component';
 import { genericTable } from 'src/app/_inteface/genericTable.model';
 import { UsuariosModels } from 'src/app/_inteface/usuario.model';
+import { empleado } from 'src/app/_inteface/empleado.model';
+import { ThisReceiver } from '@angular/compiler';
 
 //import * as $ from 'jquery'
-//declare let $ : any
+declare var $ : any;
 
 @Component({
   selector: 'app-ventanabusqueda',
   templateUrl: './ventanabusqueda.component.html',
   styleUrls: ['./ventanabusqueda.component.css'],
-  providers: [NgbModalConfig, NgbModal]
+  
 })
 export class VentanabusquedaComponent implements OnInit {
+  
   tituloModal : string = "";
+  
   public EnabledModal : boolean = false;
   columnaHidden : boolean = false;
   columna1 : boolean = false;
@@ -39,29 +44,27 @@ export class VentanabusquedaComponent implements OnInit {
   usuariosArray : Array<any> = []
   arrayTabla : any[] = []
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private route: Router, private siscointService: SiscointService) {
-    config.backdrop = 'static';
-    config.keyboard = false; }
+  constructor(private route: Router, private siscointService: SiscointService) { }
 
   ngOnInit(): void {
-    //console.log(this.route.url)
+   
+    
     this.setVentanaModal()
     this.siscointService.enabledModal.subscribe(valor => {
       this.EnabledModal = valor;
     })
   }
-  open(content:any){
-    this.modalService.open(content);
-  }
-  closeModal() {
-    
-    //this.activeModal.close('Modal Closed');
-  }
+  
+ 
   valorBuscar(e : any){
     //console.log(e.target.value);
     switch(this.route.url){
       case '/usuarios':
         this.buscarUsuarios(e)
+        break;
+      case '/empleados':
+        this.buscarEmpleados(e)
+        break;
     }
     
   }
@@ -69,36 +72,58 @@ export class VentanabusquedaComponent implements OnInit {
     this.armarVentana(this.route.url)
   }
 
+  /*BUSQUEDA DE USUARIOS */
   buscarUsuarios(e : any){
     this.valueBuscar = e.target.value;
-    const usuariosM : UsuariosModels = {id: 0, username : this.valueBuscar, codigo : this.valueBuscar, nombre_usuario : this.valueBuscar, password:'', id_tipo_usuario:0, estado:0, cargo:'',area:'', modulo:0 }
+    const usuariosM : UsuariosModels = {id: 0, username : this.valueBuscar, codigo : this.valueBuscar, nombre_usuario : this.valueBuscar, password:'', pssword:'', id_tipo_usuario:0, estado:0, cargo:'',area:'', modulo:0 }
     
-    this.siscointService.getUsuarios(usuariosM).subscribe((res : UsuariosModels[]) => {
+    this.siscointService.getUsuarios(usuariosM).subscribe((res : any[]) => {
       this.arrayTabla = res;
-      console.log(this.arrayTabla)
       this.esTablaUsuario = true;
-      //this.setHtmlTablaVentanaVacia(this.route.url, this.usuariosArray)
       this.armarArrayGeneric(this.route.url, this.arrayTabla);
     })
   }
 
-  armarArrayGeneric(tipoModel:string, data : any){
-    switch(tipoModel){
-      case '/usuarios':
-        for (var i = 0; i < data.length; i++) {
-          
-          const arrayGeneric = {id : data[i].id,
-                                valor1 : data[i].username, 
-                                valor2 : data[i].nombre_usuario,
-                                valor3 : data[i].codigo,
-                                valor4: "",
-                                valor5: ""
-            }
-            this.arrayGeneric.push(arrayGeneric)   
-         
-        }
+  /*BUSQUEDA DE EMPLEADOS */
+  buscarEmpleados(e: any){
+    this.valueBuscar = e.target.value;
+    const empleadosM : empleado = {
+            cedula_emp: this.valueBuscar,
+            nombre :  this.valueBuscar,
+            snombre : this.valueBuscar,
+            ppellido : this.valueBuscar,
+            spellido : this.valueBuscar,
+            area     : '',
+            cargo : '',
+            estado : 0,
+            permiso : 0,
+            ccosto : 0,
+            empresa : 0
     }
+    this.siscointService.getEmpleados(empleadosM).subscribe((res : any[]) => {
+      this.arrayTabla = res;
+      this.esTablaUsuario = true;
+      this.armarArrayGeneric(this.route.url, this.arrayTabla);
+    })
+
   }
+
+  armarArrayGeneric(tipoModel:string, data : any){
+    
+      for (var i = 0; i < data.length; i++) {
+        
+        const arrayGeneric = {id : data[i].id,
+                              valor1 : data[i].valor1, 
+                              valor2 : data[i].valor2,
+                              valor3 : data[i].valor3,
+                              valor4 : data[i].valor4,
+                              valor5 : data[i].valor5
+          }
+          this.arrayGeneric.push(arrayGeneric)   
+        
+      }
+  }
+
   armarVentana(valor : any){
     switch(valor){
       case '/usuarios':
@@ -113,12 +138,37 @@ export class VentanabusquedaComponent implements OnInit {
         this.columna3 = true;
         this.columna4 = false;
         this.columna5 = false;
+        break;
+      case '/empleados':
+        this.tituloModal = 'Busqueda de Empleados'
+        this.tituloColumnaHidden = "";
+        this.titulocolumna1 = "cedula";
+        this.titulocolumna2 = "Nombre";
+        this.titulocolumna3 = "s_Nombre";
+        this.titulocolumna4 = "p_Apellido";
+        this.titulocolumna5 = "s_Apellido";
+        this.columnaHidden = true;
+        this.columna1 = true;
+        this.columna2 = true;
+        this.columna3 = true;
+        this.columna4 = true;
+        this.columna5 = true;
+        break;
         //this.setHtmlTablaVentanaVacia(valor, this.usuario);
     }
   }
 
   validarRow(data : any){
+    switch(this.route.url){
+      case '/usuarios':
+        this.siscointService.showsUserValues.emit(data);
+        break;
+      case '/empleados':
+        this.siscointService.showEmpleadosValues.emit(data);
+        break;
+    }
     //sconsole.log("el id row es ",data)
-    this.siscointService.showsUserValues.emit(data);
+    this.siscointService.esHabilitarGuardar.emit(true);
+    //$('#myModal').modal('hide');
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Validators } from '@angular/forms';
 import { SiscointService } from 'src/app/siscoint.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -19,9 +20,17 @@ export class ToolbarComponent implements OnInit {
   confirmar : boolean = false;
   cancelar : boolean = false;
   cerrar : boolean = true;
-  constructor(private siscointService : SiscointService, private modalService : NgbModal) { }
+
+  EsHabilitarEditar : boolean = false;
+  constructor(private siscointService : SiscointService, private modalService : NgbModal, private router:Router) { }
 
   ngOnInit(): void {
+    this.siscointService.esHabilitarGuardar.subscribe(valor => {
+      this.EsHabilitarEditar = valor;
+      if(this.EsHabilitarEditar == true){
+        this.habilitarEditar();
+      }
+    });
   }
   habiliarCampos(valor : boolean){
     this.siscointService.disabled.emit(valor);
@@ -35,14 +44,7 @@ export class ToolbarComponent implements OnInit {
   openModal(){
     this.modalService.open(VentanabusquedaComponent)
     this.siscointService.enabledModal.emit(true);
-    // modalRef.result.then((result) => {
-    //   console.log("result es ",result);
-      
-        
-    //   this.siscointService.enabledModal.emit(true);
-    // }).catch((error) => {
-    //   console.log("error es  ",error);
-    // });
+    
     
   }
 
@@ -68,6 +70,46 @@ export class ToolbarComponent implements OnInit {
     this.confirmar = false;
     this.cancelar = true;
     this.cerrar = false;
+  }
+  habilitarEditar()
+  {
+    this.buscar = false;
+    this.imprimir = false;
+    this.crear = false;
+    this.guardar = false;
+    this.editar = false;
+    this.actulizar = true;
+    this.confirmar = false;
+    this.cancelar = true;
+    this.cerrar = false;
+  }
+  cerrarModulo(){
+    //this.router.url('/home')
+    this.router.navigateByUrl('/home');
+  }
+
+  agregarFormulario(){
+    
+    switch(this.router.url){
+      case '/usuarios':
+        this.siscointService.esGuardarFromUser.emit(true);
+        break;
+      case '/empleados':
+        this.siscointService.esGuardarFormEmpleado.emit(true);
+        break;
+    }
+    
+  }
+
+  actualizarFormulario(){
+    switch(this.router.url){
+      case '/usuarios':
+        this.siscointService.esActualizarFormUser.emit(true);
+        break;
+      case '/empleados':
+        this.siscointService.esActualizarFormEmpleado.emit(true);
+        break;
+    }
   }
 
 }

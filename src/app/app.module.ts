@@ -20,6 +20,10 @@ import { NavbarComponent } from './controls/navbar/navbar.component';
 import { ToolbarComponent } from './controls/toolbar/toolbar.component';
 import { VentanabusquedaComponent } from './controls/ventanabusqueda/ventanabusqueda.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EmpleadosComponent } from './views/empleados/empleados.component';
+import { BusquedarapidaComponent } from './controls/busquedarapida/busquedarapida.component';
+import { VentanabusquedarapidaComponent } from './controls/ventanabusquedarapida/ventanabusquedarapida.component';
+import { ArticulosComponent } from './views/articulos/articulos.component';
 
 export function tokenGetter() { 
   return localStorage.getItem("jwt"); 
@@ -35,6 +39,10 @@ export function tokenGetter() {
     NavbarComponent,
     ToolbarComponent,
     VentanabusquedaComponent,
+    EmpleadosComponent,
+    BusquedarapidaComponent,
+    VentanabusquedarapidaComponent,
+    ArticulosComponent,
     
    
   ],
