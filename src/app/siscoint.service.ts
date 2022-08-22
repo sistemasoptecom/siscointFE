@@ -13,6 +13,8 @@ import { busquedaRapida } from './_inteface/busquedaRapida.model';
 import { empleado } from './_inteface/empleado.model';
 import { centroCosto } from './_inteface/centroCosto.model';
 import { tipoArticulo } from './_inteface/tipoArticulo.model';
+import { objetoModels } from './_inteface/objeto.model';
+import { articulosModel } from './_inteface/articulos.model';
 
 
 
@@ -27,14 +29,21 @@ export class SiscointService {
   enabledModal = new EventEmitter<boolean>();
   showsUserValues = new EventEmitter<number>();
   showEmpleadosValues = new EventEmitter<number>();
+  showObjetoValues = new EventEmitter<number>();
   ShowsCcostosValues = new EventEmitter<number>();
+  ShowsArticuloDevolucion = new EventEmitter<number>();
+  ShowsArticulosFormDev = new EventEmitter<string>();
+  ShowArticuloActivoFijo = new EventEmitter<number>();
   esHabilitarGuardar = new EventEmitter<boolean>();
   esActualizarFormUser = new EventEmitter<boolean>();
   esActualizarFormEmpleado = new EventEmitter<boolean>();
+  esActualizarFormArticulo = new EventEmitter<boolean>();
   esGuardarFromUser = new EventEmitter<boolean>();
   esGuardarFormEmpleado = new EventEmitter<boolean>();
+  esGuardarFormArticulo = new EventEmitter<boolean>();
   showValor1BusquedaRapida = new EventEmitter<string>();
   showValor2BusquedaRapida = new EventEmitter<string>();
+  valorVentanaBusquedaRapida = new EventEmitter<string>();
   constructor(private http: HttpClient) { }
 
   httpOptions = {
@@ -76,6 +85,15 @@ export class SiscointService {
     return this.http.post<any[]>(this.myAppUrl+"api/empleado/busquedaEmpleado", empleado);
   }
 
+  getArticulosObjetos(objeto : objetoModels) : Observable<any[]>{
+    return this.http.post<any[]>(this.myAppUrl+"api/Articulo/busquedaObjeto", objeto);
+  }
+
+  getArticulosObjetosId(objeto : objetoModels) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/Articulo/getObjetoArticuloId", objeto);
+  }
+
+  
   getEmpleado(empleados : empleado) : Observable<any>{
     return this.http.post<any>(this.myAppUrl+"api/empleado/busquedaEmpleadoId", empleados);
   }
@@ -112,6 +130,11 @@ export class SiscointService {
     return this.http.post<any>(this.myAppUrl+"api/empleado/agregarEmpleado", empleado);
   }
 
+  //Articulo//AgregarObjeto
+  addArticulos(idDepreciacion : number ,objeto : objetoModels) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/Articulo/AgregarObjeto/"+idDepreciacion, objeto, this.httpOptions2);
+  }
+
   updatePermisosUsuarios(data : any[]) : Observable<any[]>{
     return this.http.post<any[]>(this.myAppUrl+"api/permisos_usuII/actulizarPermisosUsu",data,this.httpOptions2)
   }
@@ -126,6 +149,18 @@ export class SiscointService {
 
   validateImei(imei : string) : Observable<string>{
     return this.http.get<string>(this.myAppUrl+"api/Articulo/validarImei/"+imei);
+  }
+
+  getArticuloDevolucion(idArticulo : number) : Observable<any[]>{
+    return this.http.get<any[]>(this.myAppUrl+"api/Articulo/validarArticulo/"+idArticulo.toString());
+  }
+
+  getArticuloArtivoFijo(idDepreciacion : number) : Observable<any[]>{
+    return this.http.get<any[]>(this.myAppUrl+"api/Articulo/ValidarArticuloFijo/"+idDepreciacion.toString());
+  }
+
+  getValuesTipoArticuloDevolucion(articulo : articulosModel) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/Articulo/validarArticuloDevolutivo", articulo);
   }
 
   setCampos(campos : boolean) : void{

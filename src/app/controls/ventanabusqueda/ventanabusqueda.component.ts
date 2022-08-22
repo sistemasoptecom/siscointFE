@@ -6,6 +6,7 @@ import { EmpleadosComponent } from 'src/app/views/empleados/empleados.component'
 import { genericTable } from 'src/app/_inteface/genericTable.model';
 import { UsuariosModels } from 'src/app/_inteface/usuario.model';
 import { empleado } from 'src/app/_inteface/empleado.model';
+import { objetoModels } from 'src/app/_inteface/objeto.model';
 import { ThisReceiver } from '@angular/compiler';
 
 //import * as $ from 'jquery'
@@ -65,6 +66,9 @@ export class VentanabusquedaComponent implements OnInit {
       case '/empleados':
         this.buscarEmpleados(e)
         break;
+      case '/articulos':
+        this.buscarArticulos(e)
+        break;
     }
     
   }
@@ -108,6 +112,35 @@ export class VentanabusquedaComponent implements OnInit {
 
   }
 
+  /* BUSQUEDA DE OBJETOS */
+  buscarArticulos(e : any){
+    this.valueBuscar = e.target.value;
+    const objetoAdd : objetoModels = {
+      id : 0, 
+      tipo : 0,
+      af : this.valueBuscar,
+      imei : this.valueBuscar,
+      descripcion : this.valueBuscar,
+      observacion : "",
+      estado : 0,
+      factura : "",
+      linea : "",
+      linea_activa : "",
+      valor : "",
+      nuevo_imei : "",
+      causacion : new Date,
+      centro_costo : "",
+      fecha_estado : new Date,
+      tipo_articulo : 0,
+      cod_articulo : "",
+    }
+    this.siscointService.getArticulosObjetos(objetoAdd).subscribe((res : any[]) => {
+      this.arrayTabla = res;
+      this.esTablaUsuario = true;
+      this.armarArrayGeneric(this.route.url, this.arrayTabla);
+    })
+  }
+
   armarArrayGeneric(tipoModel:string, data : any){
     
       for (var i = 0; i < data.length; i++) {
@@ -117,7 +150,10 @@ export class VentanabusquedaComponent implements OnInit {
                               valor2 : data[i].valor2,
                               valor3 : data[i].valor3,
                               valor4 : data[i].valor4,
-                              valor5 : data[i].valor5
+                              valor5 : data[i].valor5,
+                              valor6 : data[i].valor6,
+                              valor7 : data[i].valor7,
+                              valor8 : data[i].valor8
           }
           this.arrayGeneric.push(arrayGeneric)   
         
@@ -154,6 +190,19 @@ export class VentanabusquedaComponent implements OnInit {
         this.columna4 = true;
         this.columna5 = true;
         break;
+      case '/articulos':
+        this.tituloModal = 'Busqueda de Articulos'
+        this.tituloColumnaHidden = "";
+        this.titulocolumna1 = "Descripcion";
+        this.titulocolumna2 = "AF";
+        this.titulocolumna3 = "Imei";
+        this.columnaHidden = true;
+        this.columna1 = true;
+        this.columna2 = true;
+        this.columna3 = true;
+        this.columna4 = false;
+        this.columna5 = false;
+        break;
         //this.setHtmlTablaVentanaVacia(valor, this.usuario);
     }
   }
@@ -165,6 +214,9 @@ export class VentanabusquedaComponent implements OnInit {
         break;
       case '/empleados':
         this.siscointService.showEmpleadosValues.emit(data);
+        break;
+      case '/articulos':
+        this.siscointService.showObjetoValues.emit(data);
         break;
     }
     //sconsole.log("el id row es ",data)

@@ -24,6 +24,9 @@ import { EmpleadosComponent } from './views/empleados/empleados.component';
 import { BusquedarapidaComponent } from './controls/busquedarapida/busquedarapida.component';
 import { VentanabusquedarapidaComponent } from './controls/ventanabusquedarapida/ventanabusquedarapida.component';
 import { ArticulosComponent } from './views/articulos/articulos.component';
+import { InputsBusquedaComponent } from './controls/inputs-busqueda/inputs-busqueda.component';
+import { BusqArticuloDevolucionComponent } from './controls/busquedasRapidas/busq-articulo-devolucion/busq-articulo-devolucion.component';
+import { BusqArticuloActivoFijoComponent } from './controls/busquedasRapidas/busq-articulo-activo-fijo/busq-articulo-activo-fijo.component';
 
 export function tokenGetter() { 
   return localStorage.getItem("jwt"); 
@@ -43,6 +46,9 @@ export function tokenGetter() {
     BusquedarapidaComponent,
     VentanabusquedarapidaComponent,
     ArticulosComponent,
+    InputsBusquedaComponent,
+    BusqArticuloDevolucionComponent,
+    BusqArticuloActivoFijoComponent,
     
    
   ],
