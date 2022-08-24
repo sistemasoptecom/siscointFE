@@ -15,7 +15,7 @@ import { centroCosto } from './_inteface/centroCosto.model';
 import { tipoArticulo } from './_inteface/tipoArticulo.model';
 import { objetoModels } from './_inteface/objeto.model';
 import { articulosModel } from './_inteface/articulos.model';
-
+import { jefesModel } from './_inteface/jefes.models';
 
 
 @Injectable({
@@ -29,11 +29,14 @@ export class SiscointService {
   enabledModal = new EventEmitter<boolean>();
   showsUserValues = new EventEmitter<number>();
   showEmpleadosValues = new EventEmitter<number>();
+  showEmpleadosValuesBusRap = new EventEmitter<number>();
   showObjetoValues = new EventEmitter<number>();
   ShowsCcostosValues = new EventEmitter<number>();
   ShowsArticuloDevolucion = new EventEmitter<number>();
   ShowsArticulosFormDev = new EventEmitter<string>();
   ShowArticuloActivoFijo = new EventEmitter<number>();
+  ShowDescripcionArticuloActivoFijo = new EventEmitter<number>();
+  ShowDescripcionArticuloDevolutivo = new EventEmitter<number>();
   esHabilitarGuardar = new EventEmitter<boolean>();
   esActualizarFormUser = new EventEmitter<boolean>();
   esActualizarFormEmpleado = new EventEmitter<boolean>();
@@ -143,12 +146,20 @@ export class SiscointService {
     return this.http.get<empresaModel[]>(this.myAppUrl+"api/empleado/getEmpresas");
   }
 
+  getJefes() : Observable<jefesModel[]>{
+    return this.http.get<jefesModel[]>(this.myAppUrl+"api/Entradas/ObtenerJefes");
+  }
+
   getTipoArticulo() : Observable<tipoArticulo[]>{
     return this.http.get<tipoArticulo[]>(this.myAppUrl+"api/Articulo/tipoArticulo");
   }
 
   validateImei(imei : string) : Observable<string>{
     return this.http.get<string>(this.myAppUrl+"api/Articulo/validarImei/"+imei);
+  }
+
+  getTipoObjeto(id : number) : Observable<any[]>{
+    return this.http.get<any[]>(this.myAppUrl+"api/Entradas/ObtnerObjeto/"+id)
   }
 
   getArticuloDevolucion(idArticulo : number) : Observable<any[]>{

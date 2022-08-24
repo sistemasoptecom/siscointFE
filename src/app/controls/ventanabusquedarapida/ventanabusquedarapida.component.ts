@@ -61,7 +61,12 @@ export class VentanabusquedarapidaComponent implements OnInit {
       case 'ArticuloActivoFijo':
         this.armarVentanaArticuloActivoFijo();
         break;
-
+      case 'ObjetoFijo':
+        this.armarVentanaActivoFijoDisponible();
+        break;
+      case 'BuscarEmpleado':
+        this.armarVentanaEmpleados();
+        break;
     }
   }
   closeModal(sendData:any) {
@@ -95,6 +100,16 @@ export class VentanabusquedarapidaComponent implements OnInit {
     this.columna2 = true;
   }
 
+  armarVentanaActivoFijoDisponible(){
+    this.titulocolumna1 = "AF";
+    this.titulocolumna2 = "IMEI";
+    this.titulocolumna3 = "DESCRIPCION";
+    this.columnaHidden = true;
+    this.columna1 = true;
+    this.columna2 = true;
+    this.columna3 = true;
+  }
+
   armarVentanaArticuloActivoFijo(){
     this.titulocolumna1 = "id_ped";
     this.titulocolumna2 = "Codigo";
@@ -113,6 +128,23 @@ export class VentanabusquedarapidaComponent implements OnInit {
     this.columna6 = true;
     this.columna7 = true;
     this.columna8 = true;
+  }
+
+  armarVentanaEmpleados(){
+    this.titulocolumna1 = "Cedula";
+    this.titulocolumna2 = "Nombre";
+    this.titulocolumna3 = "S_Nombre";
+    this.titulocolumna4 = "Apellido";
+    this.titulocolumna5 = "S_Apellido";
+    this.columnaHidden = true;
+    this.columna1 = true;
+    this.columna2 = true;
+    this.columna3 = true;
+    this.columna4 = true;
+    this.columna5 = true;
+    this.columna6 = false;
+    this.columna7 = false;
+    this.columna8 = false;
   }
 
   armarArrayGeneric(data : any){
@@ -151,6 +183,12 @@ export class VentanabusquedarapidaComponent implements OnInit {
       case 'ArticuloDevolutivo':
         this.siscointService.valorVentanaBusquedaRapida.emit('busquedaArticuloDevolutivo');
         this.siscointService.ShowsArticuloDevolucion.emit(parseInt(id));
+        break;
+      case 'BuscarEmpleado':
+        this.siscointService.showEmpleadosValuesBusRap.emit(parseInt(id));
+        break;
+      case 'ObjetoFijo':
+        this.siscointService.ShowDescripcionArticuloActivoFijo.emit(parseInt(id));
         break;
     }
     this.closeModal('dismiss');
