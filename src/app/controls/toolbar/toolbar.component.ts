@@ -107,6 +107,12 @@ export class ToolbarComponent implements OnInit {
         this.siscointService.esGuardarFormArticulo.emit(true);
         //this.articulo.validarAddArticulos();
         break;
+      case '/gestionar/activos':
+        this.siscointService.EsGuardarActivoFijo.emit(true);
+        break;
+      case '/gestionar/devolutivos':
+        this.siscointService.EsGuardarDevolutivo.emit(true);
+        break;
     }
     
   }

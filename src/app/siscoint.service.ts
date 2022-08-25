@@ -16,6 +16,9 @@ import { tipoArticulo } from './_inteface/tipoArticulo.model';
 import { objetoModels } from './_inteface/objeto.model';
 import { articulosModel } from './_inteface/articulos.model';
 import { jefesModel } from './_inteface/jefes.models';
+import { tipoEntregaModel } from './_inteface/tipoEntrega.model';
+import { entradasModel } from './_inteface/entradas.model';
+import { detalleEntregaModel } from './_inteface/detalleEntrega.model';
 
 
 @Injectable({
@@ -44,6 +47,8 @@ export class SiscointService {
   esGuardarFromUser = new EventEmitter<boolean>();
   esGuardarFormEmpleado = new EventEmitter<boolean>();
   esGuardarFormArticulo = new EventEmitter<boolean>();
+  EsGuardarActivoFijo = new EventEmitter<boolean>();
+  EsGuardarDevolutivo = new EventEmitter<boolean>();
   showValor1BusquedaRapida = new EventEmitter<string>();
   showValor2BusquedaRapida = new EventEmitter<string>();
   valorVentanaBusquedaRapida = new EventEmitter<string>();
@@ -131,6 +136,10 @@ export class SiscointService {
 
   addEmpleados(empleado : empleado) : Observable<any>{
     return this.http.post<any>(this.myAppUrl+"api/empleado/agregarEmpleado", empleado);
+  }
+
+  addEntregaArticuloFijo(tipoEntrega : tipoEntregaModel, entrega : entradasModel, detalleEntrega: detalleEntregaModel[]) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/Entradas/AgregarEntrada",{tipoEntrega, entrega, detalleEntrega});
   }
 
   //Articulo//AgregarObjeto

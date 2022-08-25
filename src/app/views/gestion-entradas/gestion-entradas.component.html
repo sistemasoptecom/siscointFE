@@ -31,27 +31,32 @@
                                 <div class="row rowFormUser">
                                     <div class="col">
                                         <label class="radio-inline">
-                                            <input type="radio" name="entrada" id="" />ENTREGA
+                                            <input type="radio" name="entrada" id=""  value="1" 
+                                            [disabled]="disabled" [(ngModel)]="entrega" [ngModelOptions]="{standalone: true}"/>ENTREGA
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label class="radio-inline">
-                                            <input type="radio" name="entrada" id="" />DEVOLUCION
+                                            <input type="radio" name="entrada" id="" value="2" 
+                                            [disabled]="disabled" [(ngModel)]="devolucion" [ngModelOptions]="{standalone: true}"/>DEVOLUCION
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label class="radio-inline">
-                                            <input type="radio" name="entrada" id="" />TRANSALADO
+                                            <input type="radio" name="entrada" id="" value="3" 
+                                            [disabled]="disabled" [(ngModel)]="translado" [ngModelOptions]="{standalone: true}"/>TRANSALADO
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label class="radio-inline">
-                                            <input type="radio" name="entrada" id="" />REPARACION
+                                            <input type="radio" name="entrada" id="" value="4" 
+                                            [disabled]="disabled" [(ngModel)]="reparacion" [ngModelOptions]="{standalone: true}"/>REPARACION
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label class="radio-inline">
-                                            <input type="radio" name="entrada" id="" />PRESTAMO
+                                            <input type="radio" name="entrada" id="" value="5" 
+                                            [disabled]="disabled" [(ngModel)]="prestamo" [ngModelOptions]="{standalone: true}"/>PRESTAMO
                                         </label>
                                     </div>
                                 </div>
@@ -116,7 +121,7 @@
                                                         <td style="text-align: center;width:15px;"><input type="text" class="form-control" [(ngModel)]="cantidaObjeto" [ngModelOptions]="{standalone: true}" /></td>
                                                         <td style="text-align: center"><input type="text" class="form-control"  [(ngModel)]="observacionesObjetos" [ngModelOptions]="{standalone: true}" /></td>
                                                         <td style="text-align:center" >
-                                                            <button type="button" class="btn btn-primary btn-circle"  id="add" (click)="addDescripcion()">
+                                                            <button type="button" class="btn btn-primary btn-circle"  id="add" (click)="addDescripcionAF()">
                                                                 <i class="glyphicon glyphicon-plus"></i>
                                                             </button>
                                                         </td>
@@ -132,10 +137,11 @@
                                                             <button type="button" class="btn btn-primary btn-circle" id="add"><i class="glyphicon glyphicon-pencil"></i></button>
                                                         </td>
                                                         <td style="text-align: center;" >
+                                                            <button (click)="remover(item)">
                                                             <span class="btn btn-danger btn-xs" >
-                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                <i class="fa fa-trash" aria-hidden="true" ></i>
                                                                 Remover
-                                                            </span>
+                                                            </span></button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -208,7 +214,7 @@
                                 </div>
                                 <div class="row rowFormUser">
                                     <div class="panel-body">
-                                        <textarea class="form-control" ng-required="true" name="OBSERVACIONES" ></textarea>
+                                        <textarea class="form-control" name="OBSERVACIONES" ></textarea>
                                     </div>
                                 </div>
                                 

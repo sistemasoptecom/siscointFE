@@ -8,6 +8,9 @@ import { empleado } from 'src/app/_inteface/empleado.model';
 import { BusqEmpleadoComponent } from 'src/app/controls/busquedasRapidas/busq-empleado/busq-empleado.component';
 import { jefesModel } from 'src/app/_inteface/jefes.models';
 import { detalleEntregaModel } from 'src/app/_inteface/detalleEntrega.model';
+import { tipoEntregaModel } from 'src/app/_inteface/tipoEntrega.model';
+import { NavbarComponent } from 'src/app/controls/navbar/navbar.component';
+import { entradasModel } from 'src/app/_inteface/entradas.model';
 
 @Component({
   selector: 'app-gestion-entradas',
@@ -16,6 +19,8 @@ import { detalleEntregaModel } from 'src/app/_inteface/detalleEntrega.model';
 })
 export class GestionEntradasComponent implements OnInit {
   public disabled : boolean = true;
+  EsGuardarActivoFijo : boolean = false;
+  EsGuardarDevolutivo : boolean = false;
   tipoGestion : string = "";
   tituloGestion  : string = "";
   cCostoAsignado : string = "";
@@ -38,11 +43,21 @@ export class GestionEntradasComponent implements OnInit {
   estadoObjeto : string = "";
   cantidaObjeto : string = "1";
   observacionesObjetos : string = "";
+  observacionEntrega : string = "";
+
+  entrega : string = "";
+  devolucion : string = "";
+  translado : string = "";
+  reparacion : string = "";
+  prestamo : string = "";
 
   idObjetoActivo : number = 0;
 
   @ViewChild(BusqEmpleadoComponent)
   private empleado! : BusqEmpleadoComponent;
+
+  @ViewChild(NavbarComponent)
+  private navbar! : NavbarComponent;
   constructor(private router : Router,private modalService : NgbModal, private siscointService : SiscointService) { }
 
   ngOnInit(): void {
@@ -53,6 +68,53 @@ export class GestionEntradasComponent implements OnInit {
     this.validarIdEmpleado();
     this.validateJefes();
     this.validateDescripcionActivoFijo();
+    this.validarGuardarActivoFijo();
+  }
+
+  validarGuardarActivoFijo(){
+    this.siscointService.EsGuardarActivoFijo.subscribe(valor => {
+      this.EsGuardarActivoFijo = valor;
+      if(this.EsGuardarActivoFijo){
+        this.EsCrearEntradaActivoFijo();
+      }
+    })
+  }
+
+  validarGuardarDevolutivo(){
+    this.siscointService.EsGuardarDevolutivo.subscribe(valor => {
+      this.EsGuardarDevolutivo = valor;
+      
+    })
+  }
+
+  EsCrearEntradaActivoFijo(){
+    const tipoEntrega : tipoEntregaModel = {
+      entrega : this.entrega,
+      devolucion : this.devolucion,
+      translado : this.translado,
+      reparacion : this.reparacion,
+      prestamo : this.reparacion
+    }
+    let hora = new Date().getHours().toString();
+    let minutos = new Date().getMinutes().toString();
+    const entradas : entradasModel = {
+      ced_empl : this.cedulaEmpleado,
+      fecha : new Date(),
+      hora : hora+":"+minutos,
+      id_empresa : 1,
+      cod_user : parseInt(this.navbar.getCodigoUser()),
+      observacion : this.observacionEntrega,
+      autoriza : this.idJefe,
+      estado : 1,
+      tipo_acta : 2
+    }
+
+    //let data : Array<object> = [];
+    
+    //console.log(this.navbar.getCodigoUser());
+    this.siscointService.addEntregaArticuloFijo(tipoEntrega, entradas, this.detalleTablaActFijo).subscribe((res : any) => {
+      console.log(res);
+    }) 
   }
 
   validateJefes(){
@@ -83,6 +145,14 @@ export class GestionEntradasComponent implements OnInit {
     this.serialObjeto = res[0].imei;
   }
 
+  cleanValuesDetallesActivoFijos(){
+    this.descripcionObjeto = "";
+    this.marcaObjeto = "";
+    this.serialObjeto = "";
+    this.estadoObjeto = "";
+    this.descripcionObjeto = "";
+  }
+
   validarIdEmpleado(){
     this.siscointService.showEmpleadosValuesBusRap.subscribe(valor => {
       this.idEmpleado = valor;
@@ -92,7 +162,7 @@ export class GestionEntradasComponent implements OnInit {
     });
   }
 
-  addDescripcion(){
+  addDescripcionAF(){
     //validar campos
     const entregaDetalle : detalleEntregaModel = {
       elemento : this.descripcionObjeto,
@@ -108,8 +178,15 @@ export class GestionEntradasComponent implements OnInit {
       v : 0, 
       f : 0
     }
-    this.detalleTablaActFijo.push(entregaDetalle);
-    console.log(this.detalleTablaActFijo)
+    let indexAc : number = -1;
+    indexAc = this.detalleTablaActFijo.findIndex(x => x.imei_inv === this.serialObjeto);
+    console.log("indice es : ", indexAc);
+    if(indexAc > -1){
+      alert("El objeto "+this.serialObjeto+" ya esta adicionado");
+    }else{
+      this.detalleTablaActFijo.push(entregaDetalle);
+      this.cleanValuesDetallesActivoFijos();
+    }
   }
 
   getValuesFormEmpleado(id: number){
@@ -139,6 +216,14 @@ export class GestionEntradasComponent implements OnInit {
     this.cedulaEmpleado = res[0].cedula_emp;
     this.nombresEmpleado = res[0].nombre + " " + res[0].snombre + " " + res[0].ppellido + " " + res[0].spellido;
     this.empleado.setValues(this.cedulaEmpleado, this.nombresEmpleado);
+  }
+
+  remover(item : any){
+    //console.log(item);
+
+    const index : number = this.detalleTablaActFijo.findIndex(x => x.imei_inv === item.imei_inv)
+    //console.log("Index : ", index);
+    this.detalleTablaActFijo.splice(index, 1);
   }
 
   validarTipoGestion(){

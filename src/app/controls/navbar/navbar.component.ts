@@ -9,6 +9,7 @@ import { SiscointService } from 'src/app/siscoint.service';
 })
 export class NavbarComponent implements OnInit {
   userDetails : string = "";
+  codigoUser : string = "";
   usuario : string = "";
   Ocultar : boolean = false;
   btnVisualizar : boolean = true;
@@ -23,10 +24,14 @@ export class NavbarComponent implements OnInit {
     this.siscointService.getCurrentUser().subscribe(data => 
       { const dat = JSON.parse(data);
         localStorage.setItem('usuario', dat.username);
-        this.userDetails = dat.username; 
+        this.userDetails = dat.username;
+        this.codigoUser = dat.codigo;
         //console.log(this.userDetails) 
       })
-    
+  }
+
+  getCodigoUser(){
+    return this.codigoUser;
   }
   
   onLogout(){

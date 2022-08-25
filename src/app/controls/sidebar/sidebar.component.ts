@@ -27,6 +27,10 @@ export class SidebarComponent implements OnInit {
       })
     //this.usuario = this.userDetails.substring(0, this.userDetails.indexOf(':')); 
   }
+
+  getCodigoUser(codigo : string){
+    return codigo;
+  }
   
   onLogout(){
     localStorage.removeItem('jwt');
