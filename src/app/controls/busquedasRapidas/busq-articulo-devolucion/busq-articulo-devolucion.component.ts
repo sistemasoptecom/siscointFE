@@ -70,7 +70,7 @@ export class BusqArticuloDevolucionComponent implements OnInit {
     let data = {
       prop1: this.propiedad1,
       prop2: this.propiedad2,
-      //prop3: 'This Can be anything'
+      prop3: this.propiedad3,
     }
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then((result) => {

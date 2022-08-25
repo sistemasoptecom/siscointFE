@@ -51,6 +51,7 @@ export class BusqArticuloActivoFijoComponent implements OnInit {
     let data = {
       prop1: this.propiedad1,
       prop2: this.propiedad2,
+      prop3: this.propiedad3,
       //prop3: 'This Can be anything'
     }
     modalRef.componentInstance.fromParent = data;

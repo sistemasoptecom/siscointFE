@@ -50,7 +50,7 @@ export class GestionEntradasComponent implements OnInit {
   translado : string = "";
   reparacion : string = "";
   prestamo : string = "";
-
+  parametroDetalle : string = "";
   idObjetoActivo : number = 0;
 
   @ViewChild(BusqEmpleadoComponent)
@@ -251,15 +251,21 @@ export class GestionEntradasComponent implements OnInit {
 
     switch(this.router.url){
       case '/gestionar/activos':
+        if(this.entrega === "1"){
+          this.parametroDetalle = "estado = 1";
+        }else if(this.devolucion === "2"){
+          this.parametroDetalle = "estado = 0";
+        }
         this.propiedad1 = "BUSCAR ACTIVOS FIJOS DISPONIBLES";
         this.propiedad2 = "ObjetoFijo";
+        this.propiedad3 = this.parametroDetalle;
         break;
     }
 
     let data = {
       prop1: this.propiedad1,
       prop2: this.propiedad2,
-      //prop3: 'This Can be anything'
+      prop3: this.propiedad3,
     }
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then((result) => {

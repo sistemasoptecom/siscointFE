@@ -74,7 +74,7 @@ export class VentanabusquedarapidaComponent implements OnInit {
   }
   valorBuscar(e:any){
     this.valueBuscar = e.target.value;
-    const busquedarapida : busquedaRapida = { valor : this.valueBuscar, entidad : this.fromParent.prop2 }
+    const busquedarapida : busquedaRapida = { valor : this.valueBuscar, entidad : this.fromParent.prop2, parametro : this.fromParent.prop3 }
     this.busqueda.push(busquedarapida);
     //console.log("data buscar : ", this.busqueda);
     this.siscointService.getDataBusquedaRapida(this.busqueda).subscribe((res : any[]) =>{
