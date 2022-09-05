@@ -29,6 +29,10 @@ import { BusqArticuloDevolucionComponent } from './controls/busquedasRapidas/bus
 import { BusqArticuloActivoFijoComponent } from './controls/busquedasRapidas/busq-articulo-activo-fijo/busq-articulo-activo-fijo.component';
 import { GestionEntradasComponent } from './views/gestion-entradas/gestion-entradas.component';
 import { BusqEmpleadoComponent } from './controls/busquedasRapidas/busq-empleado/busq-empleado.component';
+import { ReportesEntregasComponent } from './views/reportes-entregas/reportes-entregas.component';
+
+import { GenerarPedidosComponent } from './views/generar-pedidos/generar-pedidos.component';
+import { BusqProvedorComponent } from './controls/busquedasRapidas/busq-provedor/busq-provedor.component';
 
 export function tokenGetter() { 
   return localStorage.getItem("jwt"); 
@@ -53,6 +57,9 @@ export function tokenGetter() {
     BusqArticuloActivoFijoComponent,
     GestionEntradasComponent,
     BusqEmpleadoComponent,
+    ReportesEntregasComponent,
+    GenerarPedidosComponent,
+    BusqProvedorComponent,
     
    
   ],

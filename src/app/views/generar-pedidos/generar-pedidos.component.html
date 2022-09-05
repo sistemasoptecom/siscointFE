@@ -1,0 +1,129 @@
+<div class="d-flex" id="wrapper">
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <app-navbar></app-navbar>
+        <div class="container-fluid">
+            <div class="window-body windowBody">
+                <form >
+                    <div class="col-xs-16">
+                        <div class="col-xs-16">
+                            <div class="panel panel-primary borderFormUsuario">
+                                <div class="panel-heading panelHeadind">
+                                    <h3 class="panel-title backgroudNavUsu">CREACION DE PEDIDO</h3>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label>Fecha</label>
+                                        <input type="date" readonly class="form-control" />
+                                    </div>
+                                    <div class="col">
+                                        <label>Usuario</label>
+                                        <input class="form-control" type="text" readonly />
+                                    </div>
+                                    <div class="col">
+                                       
+                                        <label>Asignar A:<span class="req">*</span></label>
+                                        <select class="form-control" [disabled]="disabled" [(ngModel)]="idJefe" 
+                                        [value] = "idJefe"[ngModelOptions]="{standalone: true}">
+                                        <!-- <option *ngFor="let item of tipoUsuarios"  value="{{item.id}}">{{item.nombre}}</option> -->
+                                        <option *ngFor="let item of jefes"  value="item.id">{{item.nombre}}</option>
+                                        </select>
+                                       
+                                    </div>
+                                    <div class="col">
+                                        
+                                        <label>Nro. Pedido</label>
+                                        <span style="color:red;font-size:30px;font-family:monospace">{{nro_pedido}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">Proveedor<span class="req">*</span></label>
+                                        <app-busq-provedor></app-busq-provedor>
+                                    </div>
+
+                                    <div class="col">
+                                        <label class="req">Centro de costo<span class="req">*</span></label>
+                                        <app-busquedarapida></app-busquedarapida>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <label>Justificacion<span class="req">*</span></label>
+                                    <textarea ng-required="true" class="form-control" name="JUSTIFICACION" ></textarea>
+                                </div>
+
+                                <div class="panel-heading panelHeadind">
+                                    <h3 class="panel-title backgroudNavUsu">DETALLE DEL PEDIDO</h3>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="panel-body">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:100px">CODIGO</th>
+                                                    <th>DESCRIPCION</th>
+                                                    <th>CANTIDAD</th>
+                                                    <th style="width:100px">UND</th>
+                                                    <th>VALOR</th>
+                                                    <th>IVA</th>
+                                                    <th>SUBTOTAL</th>
+                                                    <th>TOTAL</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td class="cursor-pointer"><input readonly class="form-control cursor-pointer" (click)="getTipoArticulo()" id="articulo"  /></td>
+                                                    <td><input readonly class="form-control"  /></td>
+                                                    <td><input type="number" class="form-control"  /></td>
+                                                    <td><input type="text" readonly class="form-control"  /></td>
+                                                    <td><input type="number" class="form-control"  /></td>
+                                                    <td><input readonly type="number" class="form-control"  /></td>
+                                                    <td><input readonly type="number" class="form-control"  /></td>
+                                                    <td><input readonly type="number" class="form-control"  /></td>
+                                                    <td style="text-align:center" >
+                                                        <button type="button" class="btn btn-primary btn-circle" id="add">
+                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td style="text-align:center" >
+                                                        <button type="button" class="btn btn-primary btn-circle" id="add">
+                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td style="text-align: center;" >
+                                                        <button type="button" class="btn btn-primary btn-circle"  id="add"><i class="glyphicon glyphicon-pencil"></i></button>
+                                                    </td>
+                                                    <td style="text-align: center;" >
+                                                        <span class="btn btn-danger btn-xs" >
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            Remover
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="window-footer">
+                <app-toolbar></app-toolbar>
+            </div>
+        </div>
+    </div>
+</div>

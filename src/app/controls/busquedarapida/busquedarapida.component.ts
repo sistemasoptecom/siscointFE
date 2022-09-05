@@ -127,6 +127,11 @@ export class BusquedarapidaComponent implements OnInit {
         case '/empleados':
           this.propiedad1 = "Buscar Area"
           this.propiedad2 = "area_ccosto"
+          break;
+        case '/pedidos':
+          this.propiedad1 = "Buscar Area"
+          this.propiedad2 = "area_ccosto"
+          break;
       }
     }
     

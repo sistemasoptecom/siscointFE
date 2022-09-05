@@ -532,6 +532,9 @@ progress {
   max-height: 650px;
 
 }
+.cursor-pointer{
+  cursor: pointer;
+}
 
 .req{
     font-weight: bold;

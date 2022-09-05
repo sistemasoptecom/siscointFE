@@ -19,6 +19,8 @@ import { jefesModel } from './_inteface/jefes.models';
 import { tipoEntregaModel } from './_inteface/tipoEntrega.model';
 import { entradasModel } from './_inteface/entradas.model';
 import { detalleEntregaModel } from './_inteface/detalleEntrega.model';
+import { tipoReporteModel } from './_inteface/tipoReporte.model';
+import { reporteEntregasModel } from './_inteface/reporteEntrega.model';
 
 
 @Injectable({
@@ -38,8 +40,10 @@ export class SiscointService {
   ShowsArticuloDevolucion = new EventEmitter<number>();
   ShowsArticulosFormDev = new EventEmitter<string>();
   ShowArticuloActivoFijo = new EventEmitter<number>();
+  ShowProveedores = new EventEmitter<number>();
   ShowDescripcionArticuloActivoFijo = new EventEmitter<number>();
   ShowDescripcionArticuloDevolutivo = new EventEmitter<number>();
+  showPedidoArticulosCompras = new EventEmitter<number>();
   esHabilitarGuardar = new EventEmitter<boolean>();
   esActualizarFormUser = new EventEmitter<boolean>();
   esActualizarFormEmpleado = new EventEmitter<boolean>();
@@ -142,6 +146,10 @@ export class SiscointService {
     return this.http.post<any>(this.myAppUrl+"api/Entradas/AgregarEntrada",{tipoEntrega, entrega, detalleEntrega});
   }
 
+  addEntradaDevolutivo(tipoEntrega : tipoEntregaModel, entrega : entradasModel, detalleEntrega: detalleEntregaModel[]) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/Entradas/AgregarEntrada",{tipoEntrega, entrega, detalleEntrega});
+  }
+
   //Articulo//AgregarObjeto
   addArticulos(idDepreciacion : number ,objeto : objetoModels) : Observable<any>{
     return this.http.post<any>(this.myAppUrl+"api/Articulo/AgregarObjeto/"+idDepreciacion, objeto, this.httpOptions2);
@@ -153,6 +161,15 @@ export class SiscointService {
 
   getEmpresas() : Observable<empresaModel[]>{
     return this.http.get<empresaModel[]>(this.myAppUrl+"api/empleado/getEmpresas");
+  }
+
+  getCentroCostos() : Observable<centroCosto[]>{
+    return this.http.get<centroCosto[]>(this.myAppUrl+"api/CentroCosto/listarCentroCostos");
+  }
+
+  getListTipoReporte(idTipoReporte : number) : Observable<tipoReporteModel[]>{
+    console.log("id numero servicio : ", idTipoReporte)
+    return this.http.get<tipoReporteModel[]>(this.myAppUrl+"api/Entradas/listarTipoReporte/"+ idTipoReporte);
   }
 
   getJefes() : Observable<jefesModel[]>{
@@ -167,8 +184,24 @@ export class SiscointService {
     return this.http.get<string>(this.myAppUrl+"api/Articulo/validarImei/"+imei);
   }
 
+  getTipoReporte(idTipoFormulario : number, idOpcion : number ) : Observable<any[]>{
+    return this.http.post<any[]>(this.myAppUrl+"api/Entradas/listarEntregas",{idTipoFormulario, idOpcion})
+  }
+
   getTipoObjeto(id : number) : Observable<any[]>{
     return this.http.get<any[]>(this.myAppUrl+"api/Entradas/ObtnerObjeto/"+id)
+  }
+
+  getProvedorContrato(id : number) : Observable<any>{
+    return this.http.get<any>(this.myAppUrl+"api/Pedidos/obtenerContratoProvedor/"+id);
+  }
+
+  getCompraArticulo(id : number) : Observable<any>{
+    return this.http.get<any>(this.myAppUrl+"api/Pedidos/obtenerArticuloComprasId/"+id);
+  }
+
+  getArticuloFijoPedido(id : number) : Observable<any>{
+    return this.http.get<any>(this.myAppUrl+"api/Pedidos/obtenerArticuloFijoId/"+id);
   }
 
   getArticuloDevolucion(idArticulo : number) : Observable<any[]>{

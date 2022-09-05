@@ -64,8 +64,23 @@ export class VentanabusquedarapidaComponent implements OnInit {
       case 'ObjetoFijo':
         this.armarVentanaActivoFijoDisponible();
         break;
+      case 'ObjetoDevolutivo':
+        this.armarVentanaActivoFijoDisponible();
+        break;
       case 'BuscarEmpleado':
         this.armarVentanaEmpleados();
+        break;
+      case 'BusquedaProvedor':
+        this.armarVentanaProvedor();
+        break;
+      case 'busquedaArticulo':
+        this.armarVentanaArticulos();
+        break;
+      case 'busquedaArticuloArticuloFijo':
+        this.armarVentanaArticulos();
+        break;
+      case 'busquedaArticuloArticuloDiff':
+        this.armarVentanaArticulos();
         break;
     }
   }
@@ -98,6 +113,18 @@ export class VentanabusquedarapidaComponent implements OnInit {
     this.columnaHidden = true;
     this.columna1 = true;
     this.columna2 = true;
+  }
+
+  armarVentanaArticulos(){
+    this.titulocolumna1 = "Codigo";
+    this.titulocolumna2 = "Descripcion";
+    this.titulocolumna3 = "Und";
+    this.titulocolumna4 = "Cuenta";
+    this.columnaHidden = true;
+    this.columna1 = true;
+    this.columna2 = true;
+    this.columna3 = true;
+    this.columna4 = true;
   }
 
   armarVentanaActivoFijoDisponible(){
@@ -147,6 +174,16 @@ export class VentanabusquedarapidaComponent implements OnInit {
     this.columna8 = false;
   }
 
+  armarVentanaProvedor(){
+    this.titulocolumna1 = "NIT";
+    this.titulocolumna2 = "RZ";
+    this.titulocolumna3 = "CONT";
+    this.columnaHidden = true;
+    this.columna1 = true;
+    this.columna2 = true;
+    this.columna3 = true;
+  }
+
   armarArrayGeneric(data : any){
     for (var i = 0; i < data.length; i++){
       const arrayGenericA : genericTable = {
@@ -168,8 +205,18 @@ export class VentanabusquedarapidaComponent implements OnInit {
     console.log("ventana actual : ",this.fromParent.prop2);
     switch(this.fromParent.prop2){
       case 'area_ccosto':
-        this.siscointService.valorVentanaBusquedaRapida.emit('busquedaCentroCosto');
-        this.siscointService.ShowsCcostosValues.emit(parseInt(id));
+        switch(this.router.url){
+          case '/empleados':
+            this.siscointService.valorVentanaBusquedaRapida.emit('busquedaCentroCosto');
+            this.siscointService.ShowsCcostosValues.emit(parseInt(id));
+            break;
+          
+          case '/pedidos':
+            this.siscointService.valorVentanaBusquedaRapida.emit('busquedaCentroCosto');
+            this.siscointService.ShowsCcostosValues.emit(parseInt(id));
+            break;
+        }
+        
         break;
       case 'ArticuloActivoFijo':
         //this.siscointService.valorVentanaBusquedaRapida.emit('busquedaArticuloActivoFijo');
@@ -189,6 +236,25 @@ export class VentanabusquedarapidaComponent implements OnInit {
         break;
       case 'ObjetoFijo':
         this.siscointService.ShowDescripcionArticuloActivoFijo.emit(parseInt(id));
+        break;
+      case 'ObjetoDevolutivo':
+        this.siscointService.ShowDescripcionArticuloDevolutivo.emit(parseInt(id));
+        break;
+      case 'BusquedaProvedor':
+        switch(this.router.url){
+          case '/pedidos':
+            this.siscointService.ShowProveedores.emit(parseInt(id));
+            break;
+          case '/pedidosAF':
+            this.siscointService.ShowProveedores.emit(parseInt(id));
+            break;
+          case '/pedidosDiferidos':
+            this.siscointService.ShowProveedores.emit(parseInt(id));
+            break;
+        }
+        break;
+      case 'busquedaArticulo':
+        this.siscointService.showPedidoArticulosCompras.emit(parseInt(id));
         break;
     }
     this.closeModal('dismiss');
