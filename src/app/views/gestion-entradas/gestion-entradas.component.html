@@ -1,0 +1,264 @@
+<div class="d-flex" id="wrapper">
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <app-navbar></app-navbar>
+        <div class="container-fluid">
+            <div class="window-body windowBody">
+                <form >
+                    <div class="col-xs-16">
+                        <div class="col-xs-16">
+                            <div class="panel panel-primary borderFormUsuario">
+                                <div class="panel-heading panelHeadind">
+                                    <h3 class="panel-title backgroudNavUsu">{{tituloGestion}}</h3>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">Fecha</label>
+                                        
+                                    </div>
+                                    <div class="col">
+                                        <input type="date" class="form-control" readonly [ngModel] ="fecha | date:'yyyy-MM-dd'" (ngModelChange)="fecha = $event" [value]="fecha| date:'yyyy-MM-dd'">
+                                        <!-- <input type="date" class="form-control ml-1" readonly name="af"  [(ngModel)]="fecha" [ngModelOptions]="{standalone: true}"> -->
+                                    </div>
+                                    <div class="col">
+                                        <label  class="req">Centro de costo asignado:</label>
+                                        <span>{{cCostoAsignado}}</span>
+                                    </div>
+                                    <div class="col">
+                                        <label  class="req">Centro de costo proveniente:</label>
+                                        <span>{{cCostoProveniente}}</span>
+                                    </div>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="entrada" id=""  value="1" 
+                                            [disabled]="disabled" [(ngModel)]="entrega" [ngModelOptions]="{standalone: true}"
+                                            (change)="tipoEntregaForm($event)"/>ENTREGA
+                                        </label>
+                                    </div>
+                                    <div class="col">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="entrada" id="" value="2" 
+                                            [disabled]="disabled" [(ngModel)]="devolucion" [ngModelOptions]="{standalone: true}"
+                                            (change)="tipoEntregaForm($event)"/>DEVOLUCION
+                                        </label>
+                                    </div>
+                                    <div class="col">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="entrada" id="" value="3" 
+                                            [disabled]="disabled" [(ngModel)]="translado" [ngModelOptions]="{standalone: true}"
+                                            (change)="tipoEntregaForm($event)"/>TRANSALADO
+                                        </label>
+                                    </div>
+                                    <div class="col">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="entrada" id="" value="4" 
+                                            [disabled]="disabled" [(ngModel)]="reparacion" [ngModelOptions]="{standalone: true}"
+                                            (change)="tipoEntregaForm($event)"/>REPARACION
+                                        </label>
+                                    </div>
+                                    <div class="col">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="entrada" id="" value="5" 
+                                            [disabled]="disabled" [(ngModel)]="prestamo" [ngModelOptions]="{standalone: true}"
+                                            (change)="tipoEntregaForm($event)"/>PRESTAMO
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="panel-heading panelHeadind">
+                                    <h3 class="panel-title backgroudNavUsu">DATOS DEL EMPLEADO</h3>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">CEDULA | NOMBRE: <span class="req">*</span></label>
+                                    </div>
+                                    <div class="col">
+                                        <app-busq-empleado></app-busq-empleado>
+                                    </div>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">CARGO: <span class="req">*</span></label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="cargo" [disabled]="disabled" [(ngModel)]="cargo" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">JEFE INMEDIATO: <span class="req">*</span></label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-control" id="empEmpleado" [disabled]="disabled" [(ngModel)]="idJefe" 
+                                        [value] = "idJefe"[ngModelOptions]="{standalone: true}">
+                                            <!-- <option *ngFor="let item of tipoUsuarios"  value="{{item.id}}">{{item.nombre}}</option> -->
+                                            <option *ngFor="let item of jefes"  value="item.id">{{item.nombre}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="panel-heading panelHeadind">
+                                    <h3 class="panel-title backgroudNavUsu">DESCRIPCION</h3>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div *ngIf="tipoFomulario == 1">
+                                        <div class="panel-body">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>PRODUCTO/ELEMENTO</th>
+                                                        <th>MARCA</th>
+                                                        <th>SERIAL/PLACA</th>
+                                                        <th>ESTADO</th>
+                                                        <th>CANTIDAD</th>
+                                                        <th>OBSERVACIONES</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr style="height: 40px;" >
+                                                        <td style="text-align: center"><input type="text" readonly class="form-control" id="object" [(ngModel)]="descripcionObjeto" [ngModelOptions]="{standalone: true}" (keyup.f2)="validateModal()"/></td>
+                                                        <td style="text-align: center"><input type="text" readonly class="form-control" [(ngModel)]="marcaObjeto" [ngModelOptions]="{standalone: true}" /></td>
+                                                        <td style="text-align: center"><input type="text" readonly id="placa" class="form-control"  [(ngModel)]="serialObjeto" [ngModelOptions]="{standalone: true}"  /></td>
+                                                        <td style="width:15px;">
+                                                            <select class="form-control" [(ngModel)]="estadoObjeto" [ngModelOptions]="{standalone: true}">
+                                                                <option value="B">B</option>
+                                                                <option value="M">M</option>
+                                                            </select>
+                                                        </td>
+                                                        <td style="text-align: center;width:15px;"><input type="text" class="form-control" [(ngModel)]="cantidaObjeto" [ngModelOptions]="{standalone: true}" /></td>
+                                                        <td style="text-align: center"><input type="text" class="form-control"  [(ngModel)]="observacionesObjetos" [ngModelOptions]="{standalone: true}" /></td>
+                                                        <td style="text-align:center" >
+                                                            <button type="button" class="btn btn-primary btn-circle"  id="add" (click)="addDescripcionAF()">
+                                                                <i class="glyphicon glyphicon-plus"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let item of detalleTablaActFijo">
+                                                        <td>{{item.elemento}}</td>
+                                                        <td>{{item.marca}}</td>
+                                                        <td>{{item.imei_inv}}</td>
+                                                        <td>{{item.estado}}</td>
+                                                        <td>{{item.cantidad}}</td>
+                                                        <td>{{item.observacion}}</td>
+                                                        <td style="text-align: center;" >
+                                                            <button type="button" class="btn btn-primary btn-circle" id="add"><i class="glyphicon glyphicon-pencil"></i></button>
+                                                        </td>
+                                                        <td style="text-align: center;" >
+                                                            <button (click)="remover(item)">
+                                                            <span class="btn btn-danger btn-xs" >
+                                                                <i class="fa fa-trash" aria-hidden="true" ></i>
+                                                                Remover
+                                                            </span></button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                        </div>
+                                    </div>
+                                    <div *ngIf="tipoFomulario == 2">
+                                        <div class="panel-body">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th id="bord">PRODUCTO/ELEMENTO</th>
+                                                        <th id="bord">MARCA</th>
+                                                        <th id="bord">IMEI/INV</th>
+                                                        <th id="bord">ESTADO</th>
+                                                        <th id="bord">CANTIDAD</th>
+                                                        <th ng-show="false" id="bord">OBSERVACIONES</th>
+                                                        <th id="bord" colspan="5">
+                                                            <table>
+                                                                <thead><span style="margin-left:40px">ACCESORIOS</span> </thead>
+                                                                <tbody>
+                                                                    <tr><td class="space-td">C</td><td class="space-td">L</td><td class="space-td">A</td><td class="space-td">V</td><td>F</td></tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </th>
+                                                        <th width="110px" id="bord">Valor</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr style="height: 40px;" >
+                                                        <td style="text-align: center"><input type="text" readonly class="form-control" id="object" [(ngModel)]="descripcionObjeto" [ngModelOptions]="{standalone: true}" (keyup.f2)="validateModal()"/></td>
+                                                        <td style="text-align: center"><input type="text" class="form-control" readonly [(ngModel)]="marcaObjeto" [ngModelOptions]="{standalone: true}"/></td>
+                                                        <td style="text-align: center"><input readonly type="text" id="placa" class="form-control"  [(ngModel)]="serialObjeto" [ngModelOptions]="{standalone: true}"/></td>
+                                                        <td style="width:15px;">
+                                                            <select class="form-control" [(ngModel)]="estadoObjetoDev" [ngModelOptions]="{standalone: true}">
+                                                                <option value="B">B</option>
+                                                                <option value="M">M</option>
+                                                            </select>
+                                                        </td>
+                                                        <td style="text-align: center;width:15px;"><input type="text" class="form-control"  [(ngModel)]="cantidaObjeto" [ngModelOptions]="{standalone: true}" /></td>
+                                                        <td style="text-align: center"><input type="text" class="form-control"   /></td>
+                                                        <td class="space-check"><input type="checkbox" name="obs" [checked]="accesorioC"
+                                                            (change)="accesorioC = !accesorioC" /></td>
+                                                        <td class="space-check"><input type="checkbox" name="obs" [checked]="accesorioL"
+                                                            (change)="accesorioL = !accesorioL" /></td>
+                                                        <td class="space-check"><input type="checkbox" name="obs" [checked]="accesorioA"
+                                                            (change)="accesorioA = !accesorioA"/></td>
+                                                        <td class="space-check"><input type="checkbox" name="obs" [checked]="accesorioV"
+                                                            (change)="accesorioV = !accesorioV"/></td>
+                                                        <td class="space-check"><input type="checkbox" name="obs" [checked]="accesorioF"
+                                                            (change)="accesorioF = !accesorioF" /></td>
+                                                        <td style="text-align: center"><input type="text" class="form-control" readonly  [(ngModel)]="valorObjeto" [ngModelOptions]="{standalone: true}"/></td>
+                                                        <td style="text-align:center" >
+                                                            <button type="button" class="btn btn-primary btn-circle"  id="add" (click)="addDescripcionDev()">
+                                                                <i class="glyphicon glyphicon-plus"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let item of detalleTablaDevolutivo">
+                                                        <td>{{item.elemento}}</td>
+                                                        <td>{{item.marca}}</td>
+                                                        <td>{{item.imei_inv}}</td>
+                                                        <td>{{item.estado}}</td>
+                                                        <td>{{item.cantidad}}</td>
+                                                        <td>{{item.observacion}}</td>
+                                                        <td><input type="checkbox" [checked]="accesorioC" (change)="accesorioC = !accesorioC" /></td>
+                                                        <td><input type="checkbox" [checked]="accesorioL" (change)="accesorioL = !accesorioL" /></td>
+                                                        <td><input type="checkbox" [checked]="accesorioA" (change)="accesorioA = !accesorioA"/></td>
+                                                        <td><input type="checkbox" [checked]="accesorioV" (change)="accesorioV = !accesorioV" /></td>
+                                                        <td><input type="checkbox" [checked]="accesorioF" (change)="accesorioF = !accesorioF" /></td>
+                                                        <td></td>
+                                                        <td style="text-align: center;" >
+                                                            <button type="button" class="btn btn-primary btn-circle" ><i class="glyphicon glyphicon-pencil"></i></button>
+                                                        </td>
+                                                        <td style="text-align: center;" >
+                                                            <button (click)="removerDev(item)"></button>
+                                                            <span class="btn btn-danger btn-xs" >
+                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                Remover
+                                                            </span>
+                                                        </td>    
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div>
+                                                <span style="font-size:13px">C= Cargador - L= Lapiz - A= Audifonos - V= Vidrio templado - F=Forro</span>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+                                <div class="panel-heading panelHeadind">
+                                    <h3 class="panel-title backgroudNavUsu">OBSERVACIONES<span class="req">*</span></h3>
+                                </div>
+                                <div class="row rowFormUser">
+                                    <div class="panel-body">
+                                        <textarea class="form-control" [(ngModel)]="justificacionEntrega" [ngModelOptions]="{standalone: true}"name="OBSERVACIONES" ></textarea>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="window-footer">
+                <app-toolbar></app-toolbar>
+            </div>
+        </div>
+    </div>
+</div>

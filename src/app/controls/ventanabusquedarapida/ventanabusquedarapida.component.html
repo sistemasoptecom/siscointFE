@@ -21,6 +21,9 @@
                             <th *ngIf="columna3">{{titulocolumna3}}</th>
                             <th *ngIf="columna4">{{titulocolumna4}}</th>
                             <th *ngIf="columna5">{{titulocolumna5}}</th>
+                            <th *ngIf="columna6">{{titulocolumna6}}</th>
+                            <th *ngIf="columna7">{{titulocolumna7}}</th>
+                            <th *ngIf="columna8">{{titulocolumna8}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,6 +45,15 @@
                               </td>
                               <td *ngIf="columna5" style="text-align: center" >
                                 <span>{{item.valor5}}</span>
+                              </td>
+                              <td *ngIf="columna6" style="text-align: center" >
+                                <span>{{item.valor6}}</span>
+                              </td>
+                              <td *ngIf="columna7" style="text-align: center" >
+                                <span>{{item.valor7}}</span>
+                              </td>
+                              <td *ngIf="columna8" style="text-align: center" >
+                                <span>{{item.valor8}}</span>
                               </td>
                         </tr>
                     </tbody>

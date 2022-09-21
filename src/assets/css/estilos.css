@@ -532,10 +532,18 @@ progress {
   max-height: 650px;
 
 }
+.cursor-pointer{
+  cursor: pointer;
+}
 
 .req{
     font-weight: bold;
     color: #001b58;
+}
+.req3{
+    font-weight: bold;
+    color: #001b58;
+    padding-left: 20px;
 }
 .windowBody {
     max-height: 550px;
@@ -587,6 +595,14 @@ progress {
 }
 .modalVentana{
   max-height: 500px;
+}
+
+.space-td {
+  width:40px;
+}
+
+.space-check {
+  width: 30px;
 }
 
 .modal-view .body .barra .btn-buscar,

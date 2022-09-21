@@ -46,15 +46,17 @@
                                 <div class="row rowFormUser">
                                     <div class="col" *ngIf="tipoArticulo == 1">
                                         <label class="req">Descripcion<span class="req">*</span></label>
-                                        <app-busquedarapida [tipoEvento]="'busquedaArticuloDevolutivo'"></app-busquedarapida>
+                                        <!-- <app-busquedarapida [tipoEvento]="'busquedaArticuloDevolutivo'" #busqueda1></app-busquedarapida> -->
+                                        <app-busq-articulo-devolucion></app-busq-articulo-devolucion>
                                     </div>
                                     <div class="col" *ngIf="tipoArticulo == 2">
                                         <label class="req">Descripcion<span class="req">*</span></label>
-                                        <app-busquedarapida [tipoEvento]="'busquedaArticuloActivoFijo'"></app-busquedarapida>
+                                        <!-- <app-busquedarapida [tipoEvento]="'busquedaArticuloActivoFijo'" #busqueda2></app-busquedarapida> -->
+                                        <app-busq-articulo-activo-fijo></app-busq-articulo-activo-fijo>
                                     </div>
                                     <div class="col">
                                         <label class="req">Centro de costo<span class="req">*</span></label>
-                                        <app-busquedarapida [tipoEvento]="'busquedaCentroCosto'"></app-busquedarapida>
+                                        <app-busquedarapida [tipoEvento]="'busquedaCentroCosto'" #busqueda3></app-busquedarapida>
                                     </div>
                                 </div>
                                 <div class="row rowFormUser">
