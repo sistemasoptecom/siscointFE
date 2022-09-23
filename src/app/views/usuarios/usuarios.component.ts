@@ -55,7 +55,6 @@ export class UsuariosComponent implements OnInit {
     });
     this.siscointService.showsUserValues.subscribe(valor => {
       this.idusuario = valor;
-      //console.log("El id del usuario es : ", this.idusuario)
       if(this.idusuario > 0){
         this.cargarDataUsuario(this.idusuario);
       }
@@ -71,14 +70,14 @@ export class UsuariosComponent implements OnInit {
       if(this.EsAgregar == true){
         this.EsAgregarFormUser();
       }else{
-        console.log("nada no entra actualizar")
+        
       }
     })
   }
 
   getMenuViews(){
     this.siscointService.getViews().subscribe((res : ViewsModels[]) => {
-      //console.log(res);
+      
       this.dataviews = res;
       localStorage.setItem('dataviews', JSON.stringify(this.dataviews));
     });
@@ -92,7 +91,7 @@ export class UsuariosComponent implements OnInit {
 
 
   cargarDataUsuario(idUsuario : number){
-    //alert("hola id usuario "+ idUsuario);
+    
     const usuariosM : UsuariosModels = {id: idUsuario, username :'', codigo : '', nombre_usuario : '', password:'', pssword:'', id_tipo_usuario:0, estado:0, cargo:'',area:'', modulo:0 }
     this.siscointService.getUsuariosID(usuariosM).subscribe((res : UsuariosModels[]) => {
       this.cargarHeaders(res)
@@ -227,7 +226,7 @@ export class UsuariosComponent implements OnInit {
           })
         })
     }else{
-      console.log("nada no agrega")
+      
     }
   }
 

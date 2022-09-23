@@ -51,12 +51,10 @@ export class ReportesEntregasComponent implements OnInit {
   }
 
   filtrarReporte(e : any){
-    //console.log("Filtro de Reporte : ",e.target.value)
+    
     this.tipoOpcion = e.target.value
     this.siscointService.getTipoReporte(this.tipoFormulario, this.tipoOpcion).subscribe((res : any[]) => {
-      //console.log(res);
       this.reporteEntregasForm = res;
-      //console.log(this.reporteEntregasForm);
       localStorage.setItem('reporteEntregasForm', JSON.stringify(this.reporteEntregasForm));
     })
   }
@@ -64,7 +62,6 @@ export class ReportesEntregasComponent implements OnInit {
   getListTipoReporte(idTipoFormulario : number){
     console.log("Id Tipo Formulario : ", idTipoFormulario)
     this.siscointService.getListTipoReporte(idTipoFormulario).subscribe((res : tipoReporteModel[]) => {
-      console.log(res);
       if(idTipoFormulario == 1){
         this.tipoActivo = res;
       }else if(idTipoFormulario == 2){
@@ -86,10 +83,6 @@ export class ReportesEntregasComponent implements OnInit {
     console.log(JSON.parse(JSON.stringify(localStorage.getItem('reporteEntregasForm'))))
     var ReporteEntregaTemp  : any[] = [];
     ReporteEntregaTemp = JSON.parse(JSON.stringify(localStorage.getItem('reporteEntregasForm')))
-    //console.log(ReporteEntregaTemp)
-    //this.reporteEntregasForm = Object.values(ReporteEntregaTemp).filter( e => e.estadoNumber === dataFilter );
-    console.log(Object.values(ReporteEntregaTemp).filter( function(e) {return e.estadoNumber === 1}  ))
-    console.log(this.reporteEntregasForm)
   }
 
 }

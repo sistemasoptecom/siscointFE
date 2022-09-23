@@ -67,7 +67,7 @@ export class BusquedaCentroCostoComponent implements OnInit {
     }
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then((result) => {
-      console.log(result);
+      
     }, (reason) => {
     });
   }

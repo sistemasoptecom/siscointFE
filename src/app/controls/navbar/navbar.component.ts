@@ -29,8 +29,7 @@ export class NavbarComponent implements OnInit {
         this.userDetails = dat.username;
         this.codigoUser = dat.codigo;
         this.nombreUsuaio = dat.nombre_usuario;
-        //console.log("Nombre Usuario : ", this.nombreUsuaio)
-        //console.log(this.userDetails) 
+       
       })
   }
 

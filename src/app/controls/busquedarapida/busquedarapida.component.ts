@@ -88,9 +88,7 @@ export class BusquedarapidaComponent implements OnInit {
   getCentroCostos(ccosto:number){
     const area_cCosto : centroCosto = {id : 0, ccosto : ccosto, area: '', area_funcional: ''}
     this.siscointService.getAreaCentroCosto(area_cCosto).subscribe((res : any[]) => {
-      console.log(res[0]);
-      
-      this.setValueComponent(res[0].ccosto, res[0].area);
+     this.setValueComponent(res[0].ccosto, res[0].area);
     })
   }
 
@@ -142,7 +140,7 @@ export class BusquedarapidaComponent implements OnInit {
     }
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then((result) => {
-      console.log(result);
+      
     }, (reason) => {
     });
     this.siscointService.enabledModal.emit(true);

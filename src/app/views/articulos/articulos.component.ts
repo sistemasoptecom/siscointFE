@@ -142,7 +142,7 @@ export class ArticulosComponent implements OnInit {
       cod_articulo : "",
     }
     this.siscointService.getArticulosObjetosId(objetoAdd).subscribe((res : any) => {
-      console.log(res.descripcion);
+      
       this.tipoArticulo = res.tipo_articulo
       this.setFormArticulos(res);
     })
@@ -154,13 +154,11 @@ export class ArticulosComponent implements OnInit {
     this.nuevoImei = res.nuevo_imei;
     this.cod_articulo = res.cod_articulo;
     this.descripcion = res.descripcion;
-    //this.busquedaRapida.setValues(res[0].ccosto, res[0].area, "busquedaCentroCosto")
+    
     this.busquedaRapida.validCampoCentroCosto(res.centro_costo)
     
     if(this.tipoArticulo == 1){
       this.siscointService.ShowsArticulosFormDev.emit(res.cod_articulo);
-      //console.log(busquedaDevolucion2);
-      
     }else{
 
     }
@@ -171,11 +169,10 @@ export class ArticulosComponent implements OnInit {
     })
   }
   validarImei(e : any){
-    //alert("Este metodo se validara el imei : "+ this.imei)
+    
     this.siscointService.validateImei(this.imei).subscribe((res:string) => {
       var obj = JSON.stringify(res);
       var ress = JSON.parse(obj);
-      //console.log(ress.Result)
       if(ress.Result == true){
         alert(ress.Mensaje);
       }
@@ -202,7 +199,6 @@ export class ArticulosComponent implements OnInit {
 
   getArticuloDevolucion(idArticulo : number){
     this.siscointService.getArticuloDevolucion(idArticulo).subscribe((res : any[]) => {
-      console.log(res);
       this.setValuesArticulosDevolucion(res);
     })
   }
@@ -219,7 +215,6 @@ export class ArticulosComponent implements OnInit {
   getArticulosActivoFijo(id: number){
     
     this.siscointService.getArticuloArtivoFijo(id).subscribe((res : any[]) => {
-      //console.log(res[0]);
       this.cod_articulo = res[0].codigo;
       this.descripcion = res[0].descripcion;
       this.valor = res[0].valor;

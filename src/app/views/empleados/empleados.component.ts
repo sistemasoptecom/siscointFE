@@ -177,7 +177,7 @@ export class EmpleadosComponent implements OnInit {
       empresa : +this.empEmpleado}
       this.siscointService.updateEmpleado(this.idEmpleado, empleado).subscribe((res : string) => {
         var obj = JSON.parse(res);
-        //console.log("la respuesta es : ", obj.Mensaje);
+        
         alert(obj.Mensaje);
       })
   }
@@ -197,7 +197,7 @@ export class EmpleadosComponent implements OnInit {
     this.empleado = empleado;
     this.siscointService.addEmpleados(this.empleado).subscribe(valor => {
       this.empleado = undefined;
-      console.log(valor);
+      
       if(valor == 1){
         this.limpiarCampos();
         alert("Empleado Creado de forma satisfactoria!")

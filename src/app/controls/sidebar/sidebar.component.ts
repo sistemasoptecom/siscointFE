@@ -23,9 +23,7 @@ export class SidebarComponent implements OnInit {
     this.siscointService.getCurrentUser().subscribe(data => 
       { const dat = JSON.parse(data);
         this.userDetails = dat.username; 
-        //console.log(this.userDetails) 
       })
-    //this.usuario = this.userDetails.substring(0, this.userDetails.indexOf(':')); 
   }
 
   getCodigoUser(codigo : string){

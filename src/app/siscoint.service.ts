@@ -183,7 +183,7 @@ export class SiscointService {
   }
 
   getListTipoReporte(idTipoReporte : number) : Observable<tipoReporteModel[]>{
-    console.log("id numero servicio : ", idTipoReporte)
+    
     return this.http.get<tipoReporteModel[]>(this.myAppUrl+"api/Entradas/listarTipoReporte/"+ idTipoReporte);
   }
 

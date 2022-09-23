@@ -89,12 +89,7 @@ export class GestionEntradasComponent implements OnInit {
     this.validarGuardarActivoFijo();
     this.validateDescripcionDevolitivo();
   }
-  // validateCampos(){
-  //   if((this.entrega === "" || this.devolucion === "" || this.translado === ""  || this.reparacion === "" || this.prestamo === "")
-  //   && this.fecha ){
-
-  //   }
-  // }
+  
   
   validateGuardarActivoDev(){
     this.siscointService.EsGuardarDevolutivo.subscribe(valor => {
@@ -112,8 +107,7 @@ export class GestionEntradasComponent implements OnInit {
         this.EsGuardarActivoFijo = valor;
         if(this.EsGuardarActivoFijo){
           this.EsCrearEntradaActivoFijo();
-          //alert(this.fecha)
-          //alert("No Hay Campos Vacios ")
+          
         }
       })
     
@@ -209,9 +203,6 @@ export class GestionEntradasComponent implements OnInit {
           tipo_acta : 1
         }
     
-        //let data : Array<object> = [];
-        
-        //console.log(this.navbar.getCodigoUser());
         this.siscointService.addEntregaArticuloFijo(tipoEntrega, entradas, this.detalleTablaActFijo).subscribe((res : any) => {
           console.log(res);
         })
@@ -255,16 +246,13 @@ export class GestionEntradasComponent implements OnInit {
 
   getdataDescripcionDevolutivo(id : number){
     this.siscointService.getTipoObjeto(id).subscribe((res : any[]) => {
-      //console.log(res);
-      //(this.setValuesDescripcionActivoFijo(res);
       this.setValuesDescripcionDevolutivo(res);
     })
   }
 
   getDataDescripcionActivoFijo(id : number){
     this.siscointService.getTipoObjeto(id).subscribe((res : any[]) => {
-      //console.log(res);
-      this.setValuesDescripcionActivoFijo(res);
+     this.setValuesDescripcionActivoFijo(res);
     })
   }
 
@@ -381,7 +369,6 @@ export class GestionEntradasComponent implements OnInit {
                       ccosto : 0,
                       empresa : 0}
     this.siscointService.getEmpleado(Empleado).subscribe((res : any) => {
-      //console.log(res);
       this.setValuesEmpleados(res);
     })
   }
@@ -395,8 +382,6 @@ export class GestionEntradasComponent implements OnInit {
   }
 
   remover(item : any){
-    //console.log(item);
-
     const index : number = this.detalleTablaActFijo.findIndex(x => x.imei_inv === item.imei_inv)
     
     this.detalleTablaActFijo.splice(index, 1);
@@ -471,7 +456,7 @@ export class GestionEntradasComponent implements OnInit {
     }else{
       alert("Debe Escoger un tipo de acta")
     }
-    //alert("Presionada con el F2")
+    
     
   }
 

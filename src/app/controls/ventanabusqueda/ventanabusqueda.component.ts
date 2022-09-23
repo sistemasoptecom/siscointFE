@@ -203,7 +203,7 @@ export class VentanabusquedaComponent implements OnInit {
         this.columna4 = false;
         this.columna5 = false;
         break;
-        //this.setHtmlTablaVentanaVacia(valor, this.usuario);
+        
     }
   }
 
@@ -219,8 +219,8 @@ export class VentanabusquedaComponent implements OnInit {
         this.siscointService.showObjetoValues.emit(data);
         break;
     }
-    //sconsole.log("el id row es ",data)
+   
     this.siscointService.esHabilitarGuardar.emit(true);
-    //$('#myModal').modal('hide');
+    
   }
 }

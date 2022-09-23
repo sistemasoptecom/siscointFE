@@ -66,7 +66,7 @@ export class BusqProvedorComponent implements OnInit {
     }
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then((result) => {
-      console.log(result);
+      
     }, (reason) => {
     });
   }

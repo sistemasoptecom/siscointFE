@@ -40,8 +40,6 @@ export class BusqEmpleadoComponent implements OnInit {
     const modalRef = this.modalService.open(VentanabusquedarapidaComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
-      // keyboard: false,
-      // backdrop: 'static'
     });
     switch(this.router.url){
       case '/gestionar/activos':
@@ -61,7 +59,6 @@ export class BusqEmpleadoComponent implements OnInit {
     }
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then((result) => {
-      console.log(result);
     }, (reason) => {
     });
   }

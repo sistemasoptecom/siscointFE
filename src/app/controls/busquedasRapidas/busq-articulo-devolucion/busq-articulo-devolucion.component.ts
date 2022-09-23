@@ -39,7 +39,7 @@ export class BusqArticuloDevolucionComponent implements OnInit {
   validateSetArticuloDev(){
     this.siscointService.ShowsArticulosFormDev.subscribe(valor => {
       if(valor != ""){
-        console.log("Entra a validar ? ", valor)
+        
         this.validCampoArticuloDev(valor);
       }
     });
@@ -57,8 +57,7 @@ export class BusqArticuloDevolucionComponent implements OnInit {
     const modalRef = this.modalService.open(VentanabusquedarapidaComponent, {
       scrollable: true,
       windowClass: 'myCustomModalClass',
-      // keyboard: false,
-      // backdrop: 'static'
+     
     });
     switch(this.router.url){
       case '/articulos':
@@ -74,7 +73,6 @@ export class BusqArticuloDevolucionComponent implements OnInit {
     }
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then((result) => {
-      console.log(result);
     }, (reason) => {
     });
   }

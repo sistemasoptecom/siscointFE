@@ -45,7 +45,7 @@ export class VentanabusquedarapidaComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal, private siscointService : SiscointService, private router : Router) { }
 
   ngOnInit(): void {
-    console.log("from parent : ",this.fromParent);
+    
     this.tituloVentanaRapida = this.fromParent.prop1
     this.armarVentana()
   }
@@ -94,9 +94,7 @@ export class VentanabusquedarapidaComponent implements OnInit {
     this.valueBuscar = e.target.value;
     const busquedarapida : busquedaRapida = { valor : this.valueBuscar, entidad : this.fromParent.prop2, parametro : this.fromParent.prop3 }
     this.busqueda.push(busquedarapida);
-    //console.log("data buscar : ", this.busqueda);
     this.siscointService.getDataBusquedaRapida(this.busqueda).subscribe((res : any[]) =>{
-      //console.log("data devuelto : ",res);
       this.armarArrayGeneric(res);
     });
 
@@ -205,7 +203,7 @@ export class VentanabusquedarapidaComponent implements OnInit {
     }
   }
   validarRow(id: string){
-    console.log("ventana actual : ",this.fromParent.prop2);
+    
     switch(this.fromParent.prop2){
       case 'area_ccosto':
         switch(this.router.url){

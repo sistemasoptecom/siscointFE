@@ -52,11 +52,11 @@ export class BusqArticuloActivoFijoComponent implements OnInit {
       prop1: this.propiedad1,
       prop2: this.propiedad2,
       prop3: this.propiedad3,
-      //prop3: 'This Can be anything'
+      
     }
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then((result) => {
-      console.log(result);
+      
     }, (reason) => {
     });
   }

@@ -78,10 +78,9 @@ export class GenerarPedidosComponent implements OnInit {
     this.validateJefes();
     this.validateGetDirectivos();
     this.validatePedidoCompraArticulos();
-    //this.nombreUsuario = this.navbar.getNombreUsuario();
-    //this.nombreUsuario = localStorage.getItem('nombreCompleto')
+    
     this.nombreUsuario = JSON.parse(JSON.stringify(localStorage.getItem('nombreCompleto'))) || ""
-    console.log("Nombre Usuario : ", this.nombreUsuario)
+   
     this.validarAddTipoPedido();
   }
 
@@ -98,7 +97,7 @@ export class GenerarPedidosComponent implements OnInit {
 
   validateJefes(){
     this.siscointService.getJefes().subscribe((res : jefesModel[]) => {
-      //console.log(res);
+      
       this.jefes = res;
     })
   }
@@ -111,7 +110,7 @@ export class GenerarPedidosComponent implements OnInit {
 
   getCompraArticulos(id : number){
     this.siscointService.getCompraArticulo(id).subscribe((res : any) => {
-      console.log(res);
+      
       this.codigoArtGrid = res.codigo;
       this.descripArtGrid = res.descripcion;
       this.undArtGrid = res.und;
@@ -122,7 +121,7 @@ export class GenerarPedidosComponent implements OnInit {
 
   addDetallePedido(){
     //let subTotal : number = this.valorArtGrid * this.cantidadArtGrid;
-    //console.log(subTotal);
+    
     let sumArticulos : number = 0;
     if(this.cantidadArtGrid > 0 || this.valorArtGrid > 0){
       const detallePedido : detallePedidoModel = {
@@ -185,7 +184,7 @@ export class GenerarPedidosComponent implements OnInit {
 
   getContratoProvedor(id : number){
     this.siscointService.getProvedorContrato(id).subscribe((res : any) => {
-      console.log(res);
+      
       this.setValuesContratoProveedor(res)
     })
   }
@@ -209,8 +208,7 @@ export class GenerarPedidosComponent implements OnInit {
     this.cCostos = res[0].ccosto;
     this.area = res[0].area;
     this.cCosto.setValues(this.cCostos, this.area);
-    // this.siscointService.showValor1BusquedaRapida.emit(res[0].ccosto);
-    // this.siscointService.showValor2BusquedaRapida.emit(res[0].area);
+   
   }
  
 
@@ -241,11 +239,11 @@ export class GenerarPedidosComponent implements OnInit {
       prop1: this.propiedad1,
       prop2: this.propiedad2,
       prop3: this.propiedad3,
-      //prop3: 'This Can be anything'
+     
     }
     modalRef.componentInstance.fromParent = data;
     modalRef.result.then((result) => {
-      console.log(result);
+      
     }, (reason) => {
     });
     
@@ -282,7 +280,7 @@ export class GenerarPedidosComponent implements OnInit {
             this.addPedido(tipoPedido);
           }
         })
-        // tipoPedido = "DIFERIDO";
+        
         break;
     }
   }
@@ -300,7 +298,7 @@ export class GenerarPedidosComponent implements OnInit {
         asignado_a : this.usuariojefe
       }
       this.siscointService.addPedidos(tipoPedido, pedido, this.detalleTablaPedidoGrid).subscribe((res : any) => {
-        console.log(res);
+       
       })
     }else{
       alert("Debe seleccionar un articulo")
