@@ -21,6 +21,8 @@ import { entradasModel } from './_inteface/entradas.model';
 import { detalleEntregaModel } from './_inteface/detalleEntrega.model';
 import { tipoReporteModel } from './_inteface/tipoReporte.model';
 import { reporteEntregasModel } from './_inteface/reporteEntrega.model';
+import { pedidosModel } from './_inteface/pedido.models';
+import { detallePedidoModel } from './_inteface/detallePedido.model';
 
 
 @Injectable({
@@ -41,6 +43,7 @@ export class SiscointService {
   ShowsArticulosFormDev = new EventEmitter<string>();
   ShowArticuloActivoFijo = new EventEmitter<number>();
   ShowProveedores = new EventEmitter<number>();
+  ShowCentroCostos = new EventEmitter<number>();
   ShowDescripcionArticuloActivoFijo = new EventEmitter<number>();
   ShowDescripcionArticuloDevolutivo = new EventEmitter<number>();
   showPedidoArticulosCompras = new EventEmitter<number>();
@@ -53,6 +56,9 @@ export class SiscointService {
   esGuardarFormArticulo = new EventEmitter<boolean>();
   EsGuardarActivoFijo = new EventEmitter<boolean>();
   EsGuardarDevolutivo = new EventEmitter<boolean>();
+  EsGuardarPedidoNormal = new EventEmitter<boolean>();
+  EsGuardarPedidoAF = new EventEmitter<boolean>();
+  EsGuardarPedidoDiff = new EventEmitter<boolean>();
   showValor1BusquedaRapida = new EventEmitter<string>();
   showValor2BusquedaRapida = new EventEmitter<string>();
   valorVentanaBusquedaRapida = new EventEmitter<string>();
@@ -104,6 +110,7 @@ export class SiscointService {
   getArticulosObjetosId(objeto : objetoModels) : Observable<any>{
     return this.http.post<any>(this.myAppUrl+"api/Articulo/getObjetoArticuloId", objeto);
   }
+  
 
   
   getEmpleado(empleados : empleado) : Observable<any>{
@@ -120,6 +127,10 @@ export class SiscointService {
 
   getViews() : Observable <ViewsModels[]> {
     return this.http.get<ViewsModels[]>(this.myAppUrl+'api/views/views');
+  }
+
+  getDirectivos() : Observable<any[]> {
+    return this.http.get<any[]>(this.myAppUrl+"api/Pedidos/getDirectivos");
   }
 
   getTipoUsuario() : Observable<tipoUsuario[]>{
@@ -148,6 +159,10 @@ export class SiscointService {
 
   addEntradaDevolutivo(tipoEntrega : tipoEntregaModel, entrega : entradasModel, detalleEntrega: detalleEntregaModel[]) : Observable<any>{
     return this.http.post<any>(this.myAppUrl+"api/Entradas/AgregarEntrada",{tipoEntrega, entrega, detalleEntrega});
+  }
+
+  addPedidos(tipoPedido : string, pedido : pedidosModel, detallePedido : detallePedidoModel[]) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/Pedidos/AgregarPedido",{tipoPedido, pedido, detallePedido});
   }
 
   //Articulo//AgregarObjeto
@@ -219,6 +234,7 @@ export class SiscointService {
   setCampos(campos : boolean) : void{
     this.disabledcampos = campos;
   }
+  
 
   public get getCampos(){
     return this.disabledcampos;

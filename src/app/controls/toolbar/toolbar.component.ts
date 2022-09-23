@@ -113,6 +113,15 @@ export class ToolbarComponent implements OnInit {
       case '/gestionar/devolutivos':
         this.siscointService.EsGuardarDevolutivo.emit(true);
         break;
+      case '/pedidos':
+        this.siscointService.EsGuardarPedidoNormal.emit(true);
+        break;
+      case '/pedidosAF':
+        this.siscointService.EsGuardarPedidoAF.emit(true);
+        break;
+      case '/pedidosDiferidos':
+        this.siscointService.EsGuardarPedidoDiff.emit(true);
+        break;
     }
     
   }

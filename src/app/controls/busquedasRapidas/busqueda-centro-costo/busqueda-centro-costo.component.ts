@@ -5,11 +5,11 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-busq-provedor',
-  templateUrl: './busq-provedor.component.html',
-  styleUrls: ['./busq-provedor.component.css']
+  selector: 'app-busqueda-centro-costo',
+  templateUrl: './busqueda-centro-costo.component.html',
+  styleUrls: ['./busqueda-centro-costo.component.css']
 })
-export class BusqProvedorComponent implements OnInit {
+export class BusquedaCentroCostoComponent implements OnInit {
   valor1 : string = "";
   valor2 : string = "";
   disabled: boolean = true;
@@ -17,11 +17,11 @@ export class BusqProvedorComponent implements OnInit {
   propiedad1 : string = "";
   propiedad2 : string = "";
   propiedad3 : string = "";
-
   constructor(private siscointService : SiscointService, private modalService : NgbModal, private router:Router) { }
 
   ngOnInit(): void {
   }
+
   setValues(value1 : string, value2 : string){
     switch(this.router.url){
       case '/pedidos':
@@ -35,6 +35,7 @@ export class BusqProvedorComponent implements OnInit {
     this.valor2 = value2;
   }
 
+
   openModal(){
     const modalRef = this.modalService.open(VentanabusquedarapidaComponent, {
       scrollable: true,
@@ -45,16 +46,16 @@ export class BusqProvedorComponent implements OnInit {
 
     switch(this.router.url){
       case '/pedidos':
-        this.propiedad1 = "BUSCAR PROVEEDOR";
-        this.propiedad2 = "BusquedaProvedor";
+        this.propiedad1 = "BUSCAR AREA COSTO";
+        this.propiedad2 = "buscarCentroCosto";
         break;
       case '/pedidosAF':
-        this.propiedad1 = "BUSCAR PROVEEDOR";
-        this.propiedad2 = "BusquedaProvedor";
+        this.propiedad1 = "BUSCAR AREA COSTO";
+        this.propiedad2 = "buscarCentroCosto";
         break;
       case '/pedidosDiferidos':
-        this.propiedad1 = "BUSCAR PROVEEDOR";
-        this.propiedad2 = "BusquedaProvedor";
+        this.propiedad1 = "BUSCAR AREA COSTO";
+        this.propiedad2 = "buscarCentroCosto";
         break;
     }
 

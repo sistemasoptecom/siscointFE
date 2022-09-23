@@ -14,19 +14,22 @@
                                 <div class="row rowFormUser">
                                     <div class="col">
                                         <label>Fecha</label>
-                                        <input type="date" readonly class="form-control" />
+                                        <input type="date" readonly class="form-control" 
+                                        readonly [ngModel] ="fecha | date:'yyyy-MM-dd'" 
+                                        (ngModelChange)="fecha = $event" [value]="fecha| date:'yyyy-MM-dd'"/>
                                     </div>
                                     <div class="col">
                                         <label>Usuario</label>
-                                        <input class="form-control" type="text" readonly />
+                                        <input class="form-control" type="text" readonly 
+                                        [(ngModel)]="nombreUsuario" [ngModelOptions]="{standalone: true}"/>
                                     </div>
                                     <div class="col">
                                        
                                         <label>Asignar A:<span class="req">*</span></label>
-                                        <select class="form-control" [disabled]="disabled" [(ngModel)]="idJefe" 
-                                        [value] = "idJefe"[ngModelOptions]="{standalone: true}">
+                                        <select class="form-control" [disabled]="disabled" [(ngModel)]="usuariojefe" 
+                                        [value] = "usuariojefe"[ngModelOptions]="{standalone: true}">
                                         <!-- <option *ngFor="let item of tipoUsuarios"  value="{{item.id}}">{{item.nombre}}</option> -->
-                                        <option *ngFor="let item of jefes"  value="item.id">{{item.nombre}}</option>
+                                        <option *ngFor="let item of directivos"  value="item.usuario">{{item.nombre_usuario}}</option>
                                         </select>
                                        
                                     </div>
@@ -45,12 +48,12 @@
 
                                     <div class="col">
                                         <label class="req">Centro de costo<span class="req">*</span></label>
-                                        <app-busquedarapida></app-busquedarapida>
+                                        <app-busqueda-centro-costo></app-busqueda-centro-costo>
                                     </div>
                                 </div>
                                 <div class="col-xs-4">
                                     <label>Justificacion<span class="req">*</span></label>
-                                    <textarea ng-required="true" class="form-control" name="JUSTIFICACION" ></textarea>
+                                    <textarea ng-required="true" class="form-control" [(ngModel)]="justificacion" [ngModelOptions]="{standalone: true}"  ></textarea>
                                 </div>
 
                                 <div class="panel-heading panelHeadind">
@@ -74,34 +77,37 @@
 
                                             <tbody>
                                                 <tr>
-                                                    <td class="cursor-pointer"><input readonly class="form-control cursor-pointer" (click)="getTipoArticulo()" id="articulo"  /></td>
-                                                    <td><input readonly class="form-control"  /></td>
-                                                    <td><input type="number" class="form-control"  /></td>
-                                                    <td><input type="text" readonly class="form-control"  /></td>
-                                                    <td><input type="number" class="form-control"  /></td>
-                                                    <td><input readonly type="number" class="form-control"  /></td>
-                                                    <td><input readonly type="number" class="form-control"  /></td>
-                                                    <td><input readonly type="number" class="form-control"  /></td>
-                                                    <td style="text-align:center" >
-                                                        <button type="button" class="btn btn-primary btn-circle" id="add">
+                                                    <td class="cursor-pointer">
+                                                        <input readonly class="form-control cursor-pointer" (click)="getTipoArticulo()" id="articulo" 
+                                                        [(ngModel)]="codigoArtGrid" [ngModelOptions]="{standalone: true}" />
+                                                    </td>
+                                                    <td><input readonly class="form-control" [(ngModel)]="descripArtGrid" [ngModelOptions]="{standalone: true}"  /></td>
+                                                    <td><input type="number" class="form-control" [(ngModel)]="cantidadArtGrid" [ngModelOptions]="{standalone: true}"  /></td>
+                                                    <td><input type="text" readonly class="form-control" [(ngModel)]="undArtGrid" [ngModelOptions]="{standalone: true}" /></td>
+                                                    <td><input type="number" class="form-control" [(ngModel)]="valorArtGrid" [ngModelOptions]="{standalone: true}" /></td>
+                                                    <td><input readonly type="number" class="form-control" [(ngModel)]="ivaArtGrid" [ngModelOptions]="{standalone: true}" /></td>
+                                                    <td><input readonly type="number" class="form-control" [(ngModel)]="subTotalArtGrid" [ngModelOptions]="{standalone: true}" /></td>
+                                                    <td><input readonly type="number" class="form-control" [(ngModel)]="totalArtGrid" [ngModelOptions]="{standalone: true}" /></td>
+                                                    <td style="text-align:center" *ngIf="EsAgregarGrid">
+                                                        <button type="button" class="btn btn-primary btn-circle" id="add" (click)="addDetallePedido()">
                                                             <i class="glyphicon glyphicon-plus"></i>
                                                         </button>
                                                     </td>
-                                                    <td style="text-align:center" >
+                                                    <td style="text-align:center" *ngIf="EsEditarGrid" >
                                                         <button type="button" class="btn btn-primary btn-circle" id="add">
                                                             <i class="glyphicon glyphicon-ok"></i>
                                                         </button>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                <tr *ngFor="let item of detalleTablaPedidoGrid">
+                                                    <td>{{item.codigo_art}}</td>
+                                                    <td>{{item.descripcion}}</td>
+                                                    <td>{{item.cantidad}}</td>
+                                                    <td>{{item.und}}</td>
+                                                    <td>{{item.valor}}</td>
+                                                    <td>{{item.iva}}</td>
+                                                    <td>{{item.subtotal}}</td>
+                                                    <td>{{item.total}}</td>
                                                     <td style="text-align: center;" >
                                                         <button type="button" class="btn btn-primary btn-circle"  id="add"><i class="glyphicon glyphicon-pencil"></i></button>
                                                     </td>
@@ -114,6 +120,10 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <div class="col-xs-3" style="float:right">
+                                            <div class="col-xs-5" style="color:red;font-size:20px;font-family:monospace"><b>VALOR TOTAL:</b></div>
+                                            <div class="col-xs-2"><span style="color:red;font-size:20px;font-family:monospace">{{ "$"+valorTotal }}</span></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

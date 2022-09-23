@@ -82,6 +82,9 @@ export class VentanabusquedarapidaComponent implements OnInit {
       case 'busquedaArticuloArticuloDiff':
         this.armarVentanaArticulos();
         break;
+      case 'buscarCentroCosto':
+        this.armarVentanaAreaCcosto();
+        break;
     }
   }
   closeModal(sendData:any) {
@@ -255,6 +258,19 @@ export class VentanabusquedarapidaComponent implements OnInit {
         break;
       case 'busquedaArticulo':
         this.siscointService.showPedidoArticulosCompras.emit(parseInt(id));
+        break;
+      case 'buscarCentroCosto':
+        switch(this.router.url){
+          case '/pedidos':
+            this.siscointService.ShowCentroCostos.emit(parseInt(id));
+            break;
+          case '/pedidosAF':
+            this.siscointService.ShowCentroCostos.emit(parseInt(id));
+            break;
+          case '/pedidosDiferidos':
+            this.siscointService.ShowCentroCostos.emit(parseInt(id));
+            break;
+        }
         break;
     }
     this.closeModal('dismiss');

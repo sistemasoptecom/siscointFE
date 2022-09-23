@@ -33,6 +33,7 @@ import { ReportesEntregasComponent } from './views/reportes-entregas/reportes-en
 
 import { GenerarPedidosComponent } from './views/generar-pedidos/generar-pedidos.component';
 import { BusqProvedorComponent } from './controls/busquedasRapidas/busq-provedor/busq-provedor.component';
+import { BusquedaCentroCostoComponent } from './controls/busquedasRapidas/busqueda-centro-costo/busqueda-centro-costo.component';
 
 export function tokenGetter() { 
   return localStorage.getItem("jwt"); 
@@ -60,6 +61,7 @@ export function tokenGetter() {
     ReportesEntregasComponent,
     GenerarPedidosComponent,
     BusqProvedorComponent,
+    BusquedaCentroCostoComponent,
     
    
   ],
