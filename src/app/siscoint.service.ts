@@ -79,6 +79,10 @@ export class SiscointService {
     return this.http.post(this.myAppUrl+this.myApiLoginUrl, credentials, this.httpOptions);
   }
 
+  ResetPassword(crenciales : LoginModel) : Observable<any>{
+    return this.http.post(this.myAppUrl+"api/login/resetPassword/", crenciales, this.httpOptions2);
+  }
+
   getCurrentUser() : Observable <any>{
     return this.http.get(this.myAppUrl+'api/Usuarios/Usuarios/', this.httpOptions);
   }

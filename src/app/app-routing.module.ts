@@ -9,10 +9,12 @@ import { ArticulosComponent } from './views/articulos/articulos.component';
 import { GestionEntradasComponent } from './views/gestion-entradas/gestion-entradas.component';
 import { ReportesEntregasComponent } from './views/reportes-entregas/reportes-entregas.component';
 import { GenerarPedidosComponent } from './views/generar-pedidos/generar-pedidos.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 const routes: Routes = [
   {path:'', component: LoginComponent},
   {path:'login', component : LoginComponent},
+  {path:'cambiarContrasena', component : ResetPasswordComponent},
   {path:'home', component : HomeComponent},
   {path:'usuarios', component: UsuariosComponent},
   {path:'empleados', component: EmpleadosComponent},
