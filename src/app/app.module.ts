@@ -36,6 +36,17 @@ import { BusqProvedorComponent } from './controls/busquedasRapidas/busq-provedor
 import { BusquedaCentroCostoComponent } from './controls/busquedasRapidas/busqueda-centro-costo/busqueda-centro-costo.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { CreateUsuarioComponent } from './pages/create-usuario/create-usuario.component';
+import { BancoAgrarioComponent } from './views/banco-agrario/banco-agrario.component';
+import { LiqConfigComponent } from './views/liq_comisiones/liq-config/liq-config.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import {MatTabsModule} from '@angular/material/tabs';
+import { ImporteCartaMetaComponent } from './views/liq_comisiones/importe-carta-meta/importe-carta-meta.component';
+import { VentanaDetalleLiquidadorComponent } from './controls/ventana-detalle-liquidador/ventana-detalle-liquidador.component';
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
+
+
+//import { ImporteCartaMetaComponent } from './liq_comisiones/liq-config/importe-carta-meta/importe-carta-meta.component';
+//import {TabsModule} from 'ngx-tabset';
 
 export function tokenGetter() { 
   return localStorage.getItem("jwt"); 
@@ -66,6 +77,11 @@ export function tokenGetter() {
     BusquedaCentroCostoComponent,
     ResetPasswordComponent,
     CreateUsuarioComponent,
+    BancoAgrarioComponent,
+    LiqConfigComponent,
+    ImporteCartaMetaComponent,
+    VentanaDetalleLiquidadorComponent,
+
     
    
   ],
@@ -81,6 +97,10 @@ export function tokenGetter() {
       progressBar: true
     }),
     NgbModule,
+    NgxPaginationModule,
+    MatTabsModule,
+    MdbModalModule
+    
     // JwtModule.forRoot({
     //   config: {
     //     tokenGetter: tokenGetter,
@@ -89,6 +109,8 @@ export function tokenGetter() {
     //   }
     // })
   ],
+ 
+ 
   providers: [SiscointService, 
               AuthGuard, 
               {provide : RECAPTCHA_SETTINGS, useValue : {siteKey : environment.recaptcha.siteKey} as RecaptchaSettings},

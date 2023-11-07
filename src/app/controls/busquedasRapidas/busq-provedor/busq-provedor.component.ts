@@ -4,11 +4,12 @@ import { SiscointService } from 'src/app/siscoint.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
-@Component({
+ @Component({
   selector: 'app-busq-provedor',
   templateUrl: './busq-provedor.component.html',
   styleUrls: ['./busq-provedor.component.css']
 })
+
 export class BusqProvedorComponent implements OnInit {
   valor1 : string = "";
   valor2 : string = "";

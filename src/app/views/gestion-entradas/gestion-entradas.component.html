@@ -104,6 +104,7 @@
                                     <div *ngIf="tipoFomulario == 1">
                                         <div class="panel-body">
                                             <table class="table table-bordered table-hover">
+                                                <caption>DESCRIPCION</caption>
                                                 <thead>
                                                     <tr>
                                                         <th>PRODUCTO/ELEMENTO</th>
@@ -129,7 +130,7 @@
                                                         <td style="text-align: center"><input type="text" class="form-control"  [(ngModel)]="observacionesObjetos" [ngModelOptions]="{standalone: true}" /></td>
                                                         <td style="text-align:center" >
                                                             <button type="button" class="btn btn-primary btn-circle"  id="add" (click)="addDescripcionAF()">
-                                                                <i class="glyphicon glyphicon-plus"></i>
+                                                                <em class="glyphicon glyphicon-plus"></em>
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -141,7 +142,7 @@
                                                         <td>{{item.cantidad}}</td>
                                                         <td>{{item.observacion}}</td>
                                                         <td style="text-align: center;" >
-                                                            <button type="button" class="btn btn-primary btn-circle" id="add"><i class="glyphicon glyphicon-pencil"></i></button>
+                                                            <button type="button" class="btn btn-primary btn-circle" id="add"><em class="glyphicon glyphicon-pencil"></em></button>
                                                         </td>
                                                         <td style="text-align: center;" >
                                                             <button (click)="remover(item)">
@@ -159,6 +160,7 @@
                                     <div *ngIf="tipoFomulario == 2">
                                         <div class="panel-body">
                                             <table class="table table-bordered table-hover">
+                                                <caption>TITULO</caption>
                                                 <thead>
                                                     <tr>
                                                         <th id="bord">PRODUCTO/ELEMENTO</th>
@@ -169,7 +171,8 @@
                                                         <th ng-show="false" id="bord">OBSERVACIONES</th>
                                                         <th id="bord" colspan="5">
                                                             <table>
-                                                                <thead><span style="margin-left:40px">ACCESORIOS</span> </thead>
+                                                                <caption>TITULO</caption>
+                                                                <thead><th>ACCESORIOS</th> </thead>
                                                                 <tbody>
                                                                     <tr><td class="space-td">C</td><td class="space-td">L</td><td class="space-td">A</td><td class="space-td">V</td><td>F</td></tr>
                                                                 </tbody>
@@ -204,7 +207,7 @@
                                                         <td style="text-align: center"><input type="text" class="form-control" readonly  [(ngModel)]="valorObjeto" [ngModelOptions]="{standalone: true}"/></td>
                                                         <td style="text-align:center" >
                                                             <button type="button" class="btn btn-primary btn-circle"  id="add" (click)="addDescripcionDev()">
-                                                                <i class="glyphicon glyphicon-plus"></i>
+                                                                <em class="glyphicon glyphicon-plus"></em>
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -222,7 +225,7 @@
                                                         <td><input type="checkbox" [checked]="accesorioF" (change)="accesorioF = !accesorioF" /></td>
                                                         <td></td>
                                                         <td style="text-align: center;" >
-                                                            <button type="button" class="btn btn-primary btn-circle" ><i class="glyphicon glyphicon-pencil"></i></button>
+                                                            <button type="button" class="btn btn-primary btn-circle" ><em class="glyphicon glyphicon-pencil"></em></button>
                                                         </td>
                                                         <td style="text-align: center;" >
                                                             <button (click)="removerDev(item)"></button>

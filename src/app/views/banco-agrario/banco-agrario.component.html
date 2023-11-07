@@ -1,0 +1,78 @@
+
+<!-- <div>Hola componente</div> -->
+<div class="d-flex" id="wrapper">
+    <div style="height: 650px;width: auto;overflow-y: scroll; width: 350px; margin-top:70px;">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div id="page-content-wrapper" style="float: right ; margin-left: -320px;">
+        <app-navbar></app-navbar>
+        <div class="container-fluid">
+            <div class="window-body windowBody" style="margin-left: 320px;">
+                <div class="col-xs-16">
+                    <div class="col-xs-16">
+                        <div class="panel panel-primary borderFormUsuario">
+                            <div class="panel-heading panelHeadind">
+                                <h3 class="panel-title backgroudNavUsu">GENERAR PLANILLA BANCO AGRARIO</h3>
+                            </div>
+
+                            <form>
+                                <div class="row rowFormUser">
+                                    <div class="col">
+                                        <label class="req">Usuario<span class="req">*</span></label>
+                                        
+                                    </div>
+                                    <div class="col">
+                                        <input type="file" id="file_excel" name="file_excel" class="form-control"  [(ngModel)]="archivoExcel" (change)="onFileSelected($event)">
+                                    </div>
+                                    <div class="col">
+                                        <input type="button" value="Subir" class="form-control" (click)="subirExcel()" >
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="col-xs-16">
+                                <div class="col-xs-16">
+                                    <div class="panel panel-primary borderFormUsuario">
+                                        <div class="panel-body" >
+                                            <div class="col-md-12">
+                                                <table class="table table-bordered table-hover table-striped" width="100px" style="overflow-y:scroll">
+                                                    
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ITEM</th>
+                                                            <th>FECHA</th>
+                                                            <th>USUARIO</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of arrayExcelListado">
+                                                            <td style="text-align: center;" >
+                                                                <span >{{item.id}}</span>
+                                                            </td>
+                                                            <td style="text-align: center;" >
+                                                                <span >{{item.fecha}}</span>
+                                                            </td>
+                                                            <td style="text-align: center;" >
+                                                                <span >{{item.usuario}}</span>
+                                                            </td>
+                                                            <td style="text-align: center;">
+                                                                <button (click)="validarRow(item.consecutivo)">Descargar Txt</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

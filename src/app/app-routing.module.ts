@@ -10,6 +10,9 @@ import { GestionEntradasComponent } from './views/gestion-entradas/gestion-entra
 import { ReportesEntregasComponent } from './views/reportes-entregas/reportes-entregas.component';
 import { GenerarPedidosComponent } from './views/generar-pedidos/generar-pedidos.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { BancoAgrarioComponent } from './views/banco-agrario/banco-agrario.component';
+import { LiqConfigComponent } from './views/liq_comisiones/liq-config/liq-config.component';
+import { ImporteCartaMetaComponent } from './views/liq_comisiones/importe-carta-meta/importe-carta-meta.component';
 
 const routes: Routes = [
   {path:'', component: LoginComponent},
@@ -25,7 +28,11 @@ const routes: Routes = [
   {path:'reportes/devolutivos', component : ReportesEntregasComponent},
   {path:'pedidos', component: GenerarPedidosComponent},
   {path:'pedidosAF', component : GenerarPedidosComponent},
-  {path:'pedidosDiferidos', component : GenerarPedidosComponent}
+  {path:'pedidosDiferidos', component : GenerarPedidosComponent},
+  {path:'excelbancoagrario', component : BancoAgrarioComponent},
+  {path:'liquidadorConfig', component : LiqConfigComponent},
+  {path:'importeCartaMeta', component : ImporteCartaMetaComponent}
+
 ];
 
 @NgModule({

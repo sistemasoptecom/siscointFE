@@ -62,6 +62,7 @@
                                 <div class="row rowFormUser">
                                     <div class="panel-body">
                                         <table class="table table-bordered table-hover">
+                                            <caption>DETALLE PEDIDO</caption>
                                             <thead>
                                                 <tr>
                                                     <th style="width:100px">CODIGO</th>
@@ -90,12 +91,12 @@
                                                     <td><input readonly type="number" class="form-control" [(ngModel)]="totalArtGrid" [ngModelOptions]="{standalone: true}" /></td>
                                                     <td style="text-align:center" *ngIf="EsAgregarGrid">
                                                         <button type="button" class="btn btn-primary btn-circle" id="add" (click)="addDetallePedido()">
-                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                            <em class="glyphicon glyphicon-plus"></em>
                                                         </button>
                                                     </td>
                                                     <td style="text-align:center" *ngIf="EsEditarGrid" >
                                                         <button type="button" class="btn btn-primary btn-circle" id="add">
-                                                            <i class="glyphicon glyphicon-ok"></i>
+                                                            <em class="glyphicon glyphicon-ok"></em>
                                                         </button>
                                                     </td>
                                                 </tr>
@@ -109,7 +110,7 @@
                                                     <td>{{item.subtotal}}</td>
                                                     <td>{{item.total}}</td>
                                                     <td style="text-align: center;" >
-                                                        <button type="button" class="btn btn-primary btn-circle"  id="add"><i class="glyphicon glyphicon-pencil"></i></button>
+                                                        <button type="button" class="btn btn-primary btn-circle"  id="add"><em class="glyphicon glyphicon-pencil"></em></button>
                                                     </td>
                                                     <td style="text-align: center;" >
                                                         <span class="btn btn-danger btn-xs" >
@@ -121,7 +122,7 @@
                                             </tbody>
                                         </table>
                                         <div class="col-xs-3" style="float:right">
-                                            <div class="col-xs-5" style="color:red;font-size:20px;font-family:monospace"><b>VALOR TOTAL:</b></div>
+                                            <div class="col-xs-5" style="color:red;font-size:20px;font-family:monospace"><strong>VALOR TOTAL:</strong></div>
                                             <div class="col-xs-2"><span style="color:red;font-size:20px;font-family:monospace">{{ "$"+valorTotal }}</span></div>
                                         </div>
                                     </div>
