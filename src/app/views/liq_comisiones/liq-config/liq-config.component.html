@@ -2,7 +2,7 @@
     <app-navbar></app-navbar>
 </div>
 <div class="d-flex" id="wrapper">
-    <div style="height: auto;width: 150px; width: auto;">
+    <div style="height: auto;width: auto;overflow-y: scroll; width: 150px; width: auto;">
         <app-sidebar></app-sidebar>
     </div>
     <div id="page-content-wrapper" style="float: right ; width: auto; height: auto;">
@@ -49,15 +49,46 @@
                                                     <option *ngFor="let item of arrLiqTipoEsquema"  value="{{item.codigo_valor}}">{{item.nombre_tipo_esquema}}</option>
                                                     </select>
                                                 </div>
-                                                <div>
-                                                    <h1>LIQUIDADOR {{tituloLiquidador}}</h1>
+                                                <div *ngIf="muestraLiqPapPyme">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <h1 style="font-size: 10px; font-weight: bold;">LIQUIDADOR {{tituloLiquidador}}</h1>
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <button class="form-control btn btn-primary"
+                                                                style="font-size: 10px; font-weight: bold;" (click)="configurarVentanaLiq(tituloLiquidador,1,'MEGAS')">CONFIGURAR MEGAS</button>
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <button class="form-control btn btn-primary" 
+                                                                style="font-size: 10px; font-weight: bold;" (click)="configurarVentanaLiq(tituloLiquidador,2,'NIVEL')">CONFIGURAR NIVEL</button>
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <button class="form-control btn btn-primary" 
+                                                                style="font-size: 10px; font-weight: bold;" (click)="configurarVentanaLiq(tituloLiquidador,3,'EMPHOME')">CONFIGURAR EMPHOME</button>
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <label class="form-control" style="font-size: 10px; font-weight: bold;">IMPORTAR ESQUEMA</label>
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <input type="file" class="form-control" (change)="onFileSelectedImport($event)">
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <button class="form-control btn btn-primary" style="font-size: 10px; font-weight: bold;"
+                                                                (click)="subirExcelImporte()">ENVIAR</button>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
                                                     <table class="table table-bordered table-hover table-striped" width="100px"  style="overflow-y:scroll;">
                                                         <thead>
                                                             <tr>
                                                                 <th>NIVEL ESCALA</th>
-                                                                <th>VALOR MEGA</th>
+                                                                <th *ngIf="muestraColumnaMegas">VALOR MEGA</th>
+                                                                <th *ngIf="muestraColumnaMovil">TIPO RENTA</th>
                                                                 <th>VALOR</th>
                                                                 <th>CUMPLIMIENTO</th>
+                                                                <th>TIPO ESQUEMA</th>
                                                                 <th></th>
                                                             </tr>
                                                         </thead>
@@ -66,8 +97,11 @@
                                                                 <td style="text-align: center;" >
                                                                     <span >{{item.nivel_escala}}</span>
                                                                 </td>
-                                                                <td style="text-align: center;" >
+                                                                <td *ngIf="muestraColumnaMegas" style="text-align: center;" >
                                                                     <span >{{item.valor_mega}}</span>
+                                                                </td>
+                                                                <td *ngIf="muestraColumnaMovil" style="text-align: center;" >
+                                                                    <span >{{item.tipo_renta}}</span>
                                                                 </td>
                                                                 <td style="text-align: center;" >
                                                                     <span >{{item.valor}}</span>
@@ -78,6 +112,9 @@
                                                                 </td>
                                                                 <td style="text-align: center;" >
                                                                     <span >{{item.cumplimiento}}</span>
+                                                                </td>
+                                                                <td style="text-align: center;" >
+                                                                    <span >{{item.descripcion}}</span>
                                                                 </td>
                                                                 <td>
                                                                     <button  *ngIf="item.id !== editRowId && this.isButtonVisibleEdit"  (click)="validarRow(item.id)">
@@ -97,6 +134,8 @@
                                                     <pagination-controls (pageChange)="p = $event" previousLabel="Inicio"
                                                     nextLabel="Final" class="float-right"></pagination-controls>
                                                 </div>
+                                                
+                                                
                                                 
                                             </div> 
                                         </div>

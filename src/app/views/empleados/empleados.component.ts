@@ -34,7 +34,8 @@ export class EmpleadosComponent implements OnInit {
   EsCamposValidados : boolean = false;
   EsFormularioValido : boolean = false;
   EsSetFormularioEmpleado : number = 0;
-  
+  fileEmpleado : any;
+  arrJsonExcelEmpleado : any = [];
   // EmpleadoForm = new FormGroup({
   //   cedula: new FormControl(''),
   //   pNombre: new FormControl(''),
@@ -59,7 +60,34 @@ export class EmpleadosComponent implements OnInit {
     this.validateUpdateEmpleado();
   }
 
-  
+  onFileSelectd(e:any)
+  {
+    console.log("el targe es : "+e.target.files[0])
+    this.fileEmpleado = e.target.files[0];
+  }
+
+  subirExcelEmpleados()
+  {
+    console.log("archivo es : "+this.fileEmpleado.type)
+    alert("Envia..")
+    if(this.fileEmpleado.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    {
+      this.siscointService.ConvertirExcelToJson(this.fileEmpleado).then(valor =>{
+        this.arrJsonExcelEmpleado = valor;
+        this.enviarExcelEmpleado(this.arrJsonExcelEmpleado);
+      })
+    }else{
+      alert("ARCHIVO INVALIDO")
+    }
+  }
+
+  enviarExcelEmpleado(base : any[])
+  {
+    this.siscointService.setImporteMasivoEmpleado(base).subscribe(valor => {
+      alert(valor)
+    })
+  }
+
   validateExistEmpleado(){
     this.siscointService.showEmpleadosValues.subscribe(valor => {
       this.EsSetFormularioEmpleado = valor;

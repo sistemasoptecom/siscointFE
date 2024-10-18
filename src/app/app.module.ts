@@ -43,6 +43,23 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { ImporteCartaMetaComponent } from './views/liq_comisiones/importe-carta-meta/importe-carta-meta.component';
 import { VentanaDetalleLiquidadorComponent } from './controls/ventana-detalle-liquidador/ventana-detalle-liquidador.component';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
+import { VentanaConfigLiqComponent } from './controls/ventana-config-liq/ventana-config-liq.component';
+import { VentanaLiqDetalleSupervisorComponent } from './controls/ventana-liq-detalle-supervisor/ventana-liq-detalle-supervisor.component';
+import { VentanaTokenComponent } from './controls/ventana-token/ventana-token.component';
+import { ReportesComponent } from './views/reportes/reportes.component';
+import { ConsultasComisionesComponent } from './views/liq_comisiones/consultas-comisiones/consultas-comisiones.component';
+import { VentanaDetalleEsquemaComponent } from './controls/ventana-detalle-esquema/ventana-detalle-esquema.component';
+import { HistoricoPeriodosComponent } from './views/liq_comisiones/historico-periodos/historico-periodos.component';
+import { ImportePlanitllaComponent } from './views/importe-planitlla/importe-planitlla.component';
+import { VentanaRecalculaSuperComponent } from './controls/ventana-recalcula-super/ventana-recalcula-super.component';
+import { ConfigPeriodosComponent } from './views/liq_tecnicas/config-periodos/config-periodos.component';
+import { LiqConfigTecnicoComponent } from './views/liq_tecnicas/liq-config-tecnico/liq-config-tecnico.component';
+import { VentanaAddTecSemanaComponent } from './controls/ventana-add-tec-semana/ventana-add-tec-semana.component';
+import { VentanaConfigLiqTecComponent } from './controls/ventana-config-liq-tec/ventana-config-liq-tec.component';
+import { ConfPuntajeComponent } from './views/liq_tecnicas/conf-puntaje/conf-puntaje.component';
+import { VentanaDetalleImporteTecnicosComponent } from './controls/ventana-detalle-importe-tecnicos/ventana-detalle-importe-tecnicos.component';
+
+
 
 
 //import { ImporteCartaMetaComponent } from './liq_comisiones/liq-config/importe-carta-meta/importe-carta-meta.component';
@@ -81,9 +98,22 @@ export function tokenGetter() {
     LiqConfigComponent,
     ImporteCartaMetaComponent,
     VentanaDetalleLiquidadorComponent,
-
+    VentanaConfigLiqComponent,
+    VentanaLiqDetalleSupervisorComponent,
+    VentanaTokenComponent,
+    ReportesComponent,
+    ConsultasComisionesComponent,
+    VentanaDetalleEsquemaComponent,
+    HistoricoPeriodosComponent,
+    ImportePlanitllaComponent,
+    VentanaRecalculaSuperComponent,
+    ConfigPeriodosComponent,
+    LiqConfigTecnicoComponent,
+    VentanaAddTecSemanaComponent,
+    VentanaConfigLiqTecComponent,
+    ConfPuntajeComponent,
+    VentanaDetalleImporteTecnicosComponent,
     
-   
   ],
   imports: [
     BrowserModule,

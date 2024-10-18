@@ -53,29 +53,39 @@
                                     <div class="panel panel-primary">
                                         <div class="panel-body" >
                                             <form>
-                                                <div class="row rowFormUser">
+                                                <div class="row rowFormUser col-16">
+                                                    <div class="col-1">
+                                                        <label class="req">Tipo<span class="req">*</span></label>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <input name="options" ng-control="options" type="radio" [value]="1"  [(ngModel)]="tipoImporte_meta" [disabled]="validateFormSub" > Asesor <br>
+                                                        <input name="options" ng-control="options" type="radio" [value]="2"  [(ngModel)]="tipoImporte_meta" [disabled]="validateFormSub" > Supervisor <br>
+                                                        <input name="options" ng-control="options" type="radio" [value]="3"  [(ngModel)]="tipoImporte_meta" [disabled]="validateFormSub" > Analista <br>
+                                                    </div>
                                                     <div class="col-1">
                                                         <label class="req">Liquidador<span class="req">*</span></label>
                                                         
                                                     </div>
-                                                    <div class="col-3">
+                                                    <div class="col-2">
                                                         <select class="form-control" [(ngModel)]="codigoLiqTipoEaquema"
                                                         [value] = "codigoLiqTipoEaquema"[ngModelOptions]="{standalone: true}" 
-                                                        
+                                                        [disabled]="validateFormSub"
                                                         >
-                                                        <option *ngFor="let item of arrLiqTipoEsquema"  value="{{item.codigo_valor}}">{{item.nombre_tipo_esquema}}</option>
+                                                        <option *ngFor="let item of arrLiqTipoEsquema"  value="{{item.codigo_valor}}" >{{item.nombre_tipo_esquema}}</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-2">
+                                                    <div class="col-1">
                                                         <label class="req">Importar Carta Meta<span class="req">*</span></label>
                                                     </div>
-                                                    <div class="col">
-                                                        <input type="file" id="file_excel" name="file_excel" class="form-control"  [(ngModel)]="archivoExcel" (change)="onFileSelected($event)">
+                                                    <div class="col-4">
+                                                        <input type="file" id="file_excel" name="file_excel" class="form-control"  [(ngModel)]="archivoExcel" (change)="onFileSelected($event)" [disabled]="validateFormSub">
                                                     </div>
                                                     <div class="col-1">
-                                                        <input type="button" value="Subir" class="form-control" (click)="subirExcel()" >
+                                                        <input type="button" value="Subir" class="form-control" (click)="subirExcel()" [disabled]="validateFormSub">
                                                     </div>
-                                                    
+                                                    <div *ngIf="validateFormSub">
+                                                        <span style="color: red; font-weight: bold; align-items: center;">Enviado Espere...</span>
+                                                    </div>
                                                 </div>
                                             </form>
 
@@ -98,18 +108,18 @@
                                                                 ESTADO
                                                             </th>
                                                             <th></th>
-                                                           
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let item of arrLiqPeriodos">
                                                             <td>
                                                                 <button class="btn btn-primary" *ngIf="expanded"
-                                                                    (click)="ocultar(false, item)">
+                                                                    (click)="ocultar(false, item)" [disabled]="validateFormSub2">
                                                                 -
                                                                 </button>
                                                                 <button  class="btn btn-info" *ngIf="!expanded" id="{{item.id}}"
-                                                                (click)="mostrar(true, item)">
+                                                                (click)="mostrar(true, item)" [disabled]="validateFormSub2">
                                                                 +
                                                                 </button>
                                                             </td>
@@ -127,23 +137,41 @@
                                                                         <td>TIPO ARCHIVO:</td>
                                                                         <td><select class="form-control" [(ngModel)]="codigoLiqImporte"
                                                                             [value] = "codigoLiqImporte"[ngModelOptions]="{standalone: true}"
-                                                                            (change)="selectedTipoImporte($event)" 
+                                                                            (change)="selectedTipoImporte($event)" [disabled]="validateFormSub2"
                                                                             >
                                                                             <option *ngFor="let item_i of arrLiqImportes"  value="{{item_i.codigo_importe}}">{{item_i.descripcion}}</option>
                                                                             </select></td>
-                                                                        <td> <input type="file" id="file_excel" name="file_excel" class="form-control"  [(ngModel)]="archivoExcelPeriodo" (change)="onFileSelected_periodo($event)"></td>
-                                                                        <td><input type="button" value="Subir" class="form-control" (click)="suburExcelPeriodo(item.periodo)" ></td>
+                                                                        <td> <input type="file" id="file_excel" name="file_excel" class="form-control"  [(ngModel)]="archivoExcelPeriodo" (change)="onFileSelected_periodo($event)" [disabled]="validateFormSub2"></td>
+                                                                        <td><input type="button" value="Subir" class="form-control" (click)="suburExcelPeriodo(item.periodo); $event.stopPropagation()" [disabled]="validateFormSub2"></td>
                                                                     </tr>
                                                                 </table>
+                                                                <div *ngIf="validateFormSub2">
+                                                                    <span style="color: red; font-weight: bold; align-items: center;">Enviado Espere...</span>
+                                                                    <div *ngIf="mostrarPorcentaje">
+                                                                        <span style="color: red; font-weight: bold; align-items: center;">procesando {{porcentaje}}</span>
+                                                                    </div>
+                                                                </div>
                                                             </td>
+                                                            <td *ngIf="item.estado == 1">
+                                                                <button (click)="openValidatePubPeriodo(item)">PUBLICAR</button>
+                                                            </td>
+                                                            <td *ngIf="item.estado == 1">
+                                                                <button (click)="openValidateCerrarPeriodo(item)">CERRAR</button>
+                                                            </td>
+                                                           
                                                         </tr>
                                                         <tr *ngIf="expanded">
-                                                            <td colspan="4">
+                                                            <td colspan="6">
                                                                 <table class="table table-bordered table-hover table-striped" id="myTable2">
                                                                     <thead>
                                                                        <tr>
                                                                         <td>DETALLES</td>
                                                                         <td>ESQUEMA</td>
+                                                                        <td>SUPERVISORES</td>
+                                                                        <td>ASESORES</td>
+                                                                        <td>DETALLES</td>
+                                                                        <td>REPROCESAR</td>
+                                                                        <td>RECALCULAR SUP.</td>
                                                                        </tr>
                                                                     </thead>
                                                                     <tbody *ngFor="let item2 of arrLiqTipoEsquema_aux; let i = index">
@@ -161,17 +189,35 @@
                                                                                 </td>
                                                                                 <td>
                                                                                     {{item2.nombre_tipo_esquema}} - {{item2.periodo}}
-                                                                                </td>       
+                                                                                </td>  
+                                                                                <td><button (click)="descargarExcelSupervisores(item2)">EXCEL</button></td>
+                                                                                <td><button>EXCEL</button></td>    
+                                                                                <td><button (click)="openModalDetalleLiquidador(item2)">DETALLES</button></td>   
+                                                                                <td>
+                                                                                    <button style="font-size: 8px;" (click)="reprocesarEsquema(item2.nombre_tipo_esquema,item2.periodo,1)">ALTAS</button>
+                                                                                    <button style="font-size: 8px;" (click)="reprocesarEsquema(item2.nombre_tipo_esquema,item2.periodo,0)">PENALIZACION</button>
+                                                                                    <button style="font-size: 8px;">MIGRACION</button>
+
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button (click)="openModalRecalcularSupervisor(item2)">RECALCULAR</button>
+                                                                                </td>
                                                                         </tr>
                                                                         <tr [hidden]="!hideme[i]">
-                                                                            <td colspan="4">
+                                                                            <td colspan="7">
                                                                                 <table class="table table-bordered table-hover table-striped" id="myTable2">
                                                                                     <thead>
                                                                                         <tr>
                                                                                          <td>DETALLES</td>
+                                                                                         <td>CEDULA</td>
                                                                                          <td>SUPERVISOR</td>
                                                                                          <td>ZONA</td>
                                                                                          <td>PERIDO</td>
+                                                                                         <td>DETALLES</td>
+                                                                                         <td>LIQUIDADOR</td>
+                                                                                         <td>REPROCESAR</td>
+                                                                                        
+                                                                                         
                                                                                         </tr>
                                                                                      </thead>
                                                                                      <tbody *ngFor="let item3 of arrSuperEsquemaPerido; let j = index">
@@ -188,6 +234,9 @@
     
                                                                                             </td>
                                                                                             <td>
+                                                                                                {{item3.cedula_supervisor}}
+                                                                                            </td>
+                                                                                            <td>
                                                                                                 {{item3.nombre_supervisor}}
                                                                                             </td>
                                                                                             <td>
@@ -196,27 +245,49 @@
                                                                                             <td>
                                                                                                 {{item3.periodo}}
                                                                                             </td>
+                                                                                            <td>
+                                                                                                <button style="font-size: 5;" (click) = "openModalDetalleComisionSupervisor(item3)">DETALLES</button>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <button style="font-size: 5;" (click) = "descargarExcelSupervisorPeriodo(item3)">EXCEL</button>
+                                                                                            </td>
+                                                                                            <td *ngIf="mostrarOpcionesValPeriodo">
+                                                                                                <button style="font-size: 8px;" class="btn btn-primary" (click)="reprocesarAltasMegas(item3)">ALTAS MEGAS</button>
+                                                                                                <button style="font-size: 8px;" class="btn btn-primary" (click)="reprocesarPenalizacionesMega(item3)">PENALIZACION MEGAS</button>
+                                                                                                
+                                                                                                <button style="font-size: 8px;" class="btn btn-primary" (click)="reprocesarAltasMovil(item3)">ALTAS MOVIL</button>
+                                                                                                <button style="font-size: 8px;" class="btn btn-primary" (click)="reprocesarPenalizacionMovil(item3)">PENALIZACION MOVIL</button>
+                                                                                            </td>
+                                                                                           
                                                                                         </tr>
                                                                                         <tr [hidden]="!himedeSub1[j]">
-                                                                                            <td colspan="5">
+                                                                                            <td colspan="8">
                                                                                                 <table class="table table-bordered table-hover table-striped" id="myTable3">
                                                                                                     <thead>
                                                                                                         <tr>
-                                                                                                         
+                                                                                                         <td>CEDULA</td>
                                                                                                          <td>NOMBRE</td>
-                                                                                                         <td>META</td>
+                                                                                                         <td>META ALTA</td>
+                                                                                                         <td>META MOVIL</td>
                                                                                                          <td>CUMPLIEMIENTO</td>
                                                                                                          <td>TOTAL COMISION</td>
                                                                                                          <td>DETALLES</td>
+                                                                                                        <td></td>
                                                                                                         </tr>
                                                                                                      </thead>
                                                                                                      <tbody>
                                                                                                         <tr *ngFor="let item4 of arrAsesorSuperEsquemaPerido">
                                                                                                             <td>
+                                                                                                                {{item4.cedula_asesor}}
+                                                                                                            </td>
+                                                                                                            <td>
                                                                                                                 {{item4.asesor}}
                                                                                                             </td>
                                                                                                             <td>
                                                                                                                 {{item4.meta_asesor}}
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                {{item4.meta_asesor_2}}
                                                                                                             </td>
                                                                                                             <td>
                                                                                                                 {{item4.cumplimiento_asesor}}
@@ -226,6 +297,9 @@
                                                                                                             </td>
                                                                                                             <td>
                                                                                                                 <button style="font-size: 5;" (click)="openModalDetalleComisionAsesor(item4)" >DETALLES</button>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <input type="checkbox"  [checked]="item4.esAsesorValido" (change)="CambiarAsesorValido($event, item4.id)"/>
                                                                                                             </td>
                                                                                                         </tr>
                                                                                                      </tbody>

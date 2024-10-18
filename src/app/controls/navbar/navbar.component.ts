@@ -60,6 +60,7 @@ export class NavbarComponent implements OnInit {
     this.btnOcultar = false;
     this.btnVisualizar = true;
     this.Ocultar = false;
+    
   }
 
 }

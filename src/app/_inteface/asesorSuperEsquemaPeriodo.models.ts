@@ -3,6 +3,8 @@ export interface asesorSuperEsquemaPeriodo{
     cedula_asesor : string,
     asesor : string,
     meta_asesor : number,
+    meta_asesor_2 : number,
+    meta_asesor_3 : number,
     cumplimiento_asesor : number,
     tabla_cumplimiento : string,
     nivel : number,
@@ -11,5 +13,6 @@ export interface asesorSuperEsquemaPeriodo{
     numero_cant_megas_2 : number,
     numero_cant_megas_3 : number,
     numero_cant_megas_4 : number,
-    zona : string
+    zona : string,
+    esAsesorValido : boolean
 }   

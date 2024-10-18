@@ -5,4 +5,6 @@ export interface  listar_liq_tbl_pap{
     valor_mega : number
     valor : number
     cumplimiento : string
+    tipo_renta : string
+    descripcion : string
 }

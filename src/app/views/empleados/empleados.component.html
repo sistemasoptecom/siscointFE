@@ -11,9 +11,20 @@
                         <div class="col-xs-16">
                             <div class="panel panel-primary borderFormUsuario">
                                 <div class="panel-heading panelHeadind">
+                                    <h3 class="panel-title backgroudNavUsu">Importe Masivo</h3>
+                                </div>
+                                <div>
+                                    <div class="col-xs-8">
+                                        <label class="req">IMPORTE BASE : </label>
+                                        <input class="req" type="file" (change)="onFileSelectd($event)">
+                                        <button class="req btn btn-primary" (click)="subirExcelEmpleados()">ENVIAR</button>
+                                    </div>
+                                </div>
+                                <div class="panel-heading panelHeadind">
                                     <h3 class="panel-title backgroudNavUsu">Datos Personales</h3>
                                 </div>
                                 <div class="row rowFormUser">
+                                   
                                     <div class="col">
                                         <label class="req">Cedula<span class="req">*</span></label>
                                         <input type="text" id="cedula" name="cedula" class="form-control"

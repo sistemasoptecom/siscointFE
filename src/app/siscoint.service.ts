@@ -25,15 +25,30 @@ import { pedidosModel } from './_inteface/pedido.models';
 import { detallePedidoModel } from './_inteface/detallePedido.model';
 import * as XLSX from 'xlsx';
 import { liq_comision_asesor } from './_inteface/liq_comision_asesor.model';
+import * as forge from 'node-forge';
+import { RSAhelper } from './helpers/rsa.helper';
+import { tec_liq_periodo_comision } from './_inteface/tec_liq_periodo_comision.model';
+import { tec_liq_config_semana_comision } from './_inteface/tec_liq_config_semana_comision.model';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SiscointService {
+  
   private myAppUrl = 'https://localhost:44362/';
+  //private myAppUrl = 'https://sistemasoptecom.net/appserver/';
+  //private myAppUrl = 'https://pruebasiscoint.sistemasoptecom.net/appserver/';
+  //private myAppUrl = 'https://pruebasiscoint.sistemasoptecom.net/appserverV2/';
+  //private myAppUrl = 'https://ajlf2010.bsite.net/';
+  //private myAppUrl = 'https://ajlf2020.bsite.net/';
   private myApiLoginUrl = 'api/login/';
   arrayBuffer:any;
   arrayJson : any =[];
+  //publicKey = forge.pki.publicKeyFromPem(publicKeyPem);
+  credenciales2: LoginModel = {Username:'', Password:''};
   //file : any;
   disabledcampos : boolean = true;
   disabled = new EventEmitter<boolean>();
@@ -68,25 +83,30 @@ export class SiscointService {
   valorVentanaBusquedaRapida = new EventEmitter<string>();
   showLiqComisionValues = new EventEmitter<string>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private rsaHelper : RSAhelper) { }
 
+  
   httpOptions = {
     Headers : new HttpHeaders({
       'Content-Type':  'application/json',
-      "Access-Control-Allow-Origin": "https://localhost:44362/",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization",
+      "Access-Control-Max-Age": "3000"
+      
     }),responseType: 'text' as 'json'
   };
 
   httpOptionsFile = {
     Headers : new HttpHeaders({
       'Content-Type':  'text/plain; charset=utf-8',
-      "Access-Control-Allow-Origin": "https://localhost:44362/",
+      "Access-Control-Allow-Origin": "*",
     }), responseType : 'blob' as 'json'
   }
   
 
   httpOptions2 = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
+    headers: new HttpHeaders({'Content-Type': 'application/json', 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'})
   };
 
   ConvertirExcelToJson(file: any) : Promise <any[]>{
@@ -111,7 +131,11 @@ export class SiscointService {
   }
 
   Authenticated(credentials : any) : Observable <any>{
-    return this.http.post(this.myAppUrl+this.myApiLoginUrl, credentials, this.httpOptions);
+     this.credenciales2 = {
+       Username : this.rsaHelper.encryptWithPublicKey(credentials.Username),
+       Password : this.rsaHelper.encryptWithPublicKey(credentials.Password)
+     }
+    return this.http.post(this.myAppUrl+this.myApiLoginUrl, this.credenciales2, this.httpOptions);
   }
 
   ResetPassword(crenciales : LoginModel) : Observable<any>{
@@ -298,20 +322,27 @@ export class SiscointService {
     return this.http.get<any[]>(this.myAppUrl+"api/liqPap/listarTblLiqPap")
   }
 
-  actualizarTblPap(id : number, valor : number ) : Observable<any>{
-    return this.http.post<any>(this.myAppUrl+"api/liqPap/ActualizarTblPap",{id, valor})
+  actualizarTblPap(id : number, valor : number, esquema : string ) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/liqPap/ActualizarTblPap",{id, valor, esquema})
   }
 
   enviarArchivoCartaMeta(meta : any[], usuario : string, nombreUser : string, codigo_tipo_esquema : number) : Observable<any>{
-    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/procesarExcelCartaMetas",{meta,usuario,nombreUser,codigo_tipo_esquema});
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/procesarExcelCartaMetasAsesor",{meta,usuario,nombreUser,codigo_tipo_esquema});
   }
 
-  getLiqTipoEsquema() : Observable<any[]>{
-    return this.http.get<any[]>(this.myAppUrl+"api/ImporteMetas/ListarTipoEquema");
+  enviarArchivoCartaMetaSuper(meta : any[], usuario : string, nombreUser : string, codigo_tipo_esquema : number) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/procesarExcelCartaMetasSuper",{meta,usuario,nombreUser,codigo_tipo_esquema})
+  }
+
+  getLiqTipoEsquema(parametro : number) : Observable<any[]>{
+    return this.http.post<any[]>(this.myAppUrl+"api/ImporteMetas/ListarTipoEquema",{parametro});
   }
 
   getLiqPeriodos() : Observable<any[]>{
     return this.http.get<any[]>(this.myAppUrl+"api/ImporteMetas/listarPeriodos");
+  }
+  getLiqPeriodosAll() : Observable<any[]>{
+    return this.http.get<any[]>(this.myAppUrl+"api/ImporteMetas/ListarPeriodosAll")
   }
 
   getObtenerEscalaXPerido(periodo : string) : Observable<any[]>{
@@ -329,20 +360,31 @@ export class SiscointService {
   getListarTipoImporte() : Observable<any[]>{
     return this.http.get<any[]>(this.myAppUrl+"api/ImporteMetas/ListarTipoImporte");
   }
-  enviarArchivoBaseCierre(usuario : string, nombreUser : string, periodo : string, baseCierre : any[], tipo_esquema : number) : Observable<string>{
-    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelBaseCierre",{baseCierre,usuario,nombreUser,periodo, tipo_esquema})
+  enviarArchivoBaseCierrePap(usuario : string, nombreUser : string, periodo : string, baseCierre : any[], tipo_esquema : number) : Observable<string>{
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelBaseCierrePap",{baseCierre,usuario,nombreUser,periodo, tipo_esquema},this.httpOptions)
   }
+
+  enviarArchivoBaseCierrePymes(usuario : string, nombreUser : string, periodo : string, baseCierre : any[], tipo_esquema : number) : Observable<string>{
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelBaseCierrePyme",{baseCierre,usuario,nombreUser,periodo, tipo_esquema})
+  }
+
   enviarArchivoAltasMoviles(usuario : string, nombreUser : string, periodo : string, altasMovil : any[]) : Observable<string>{
     return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelAltasMovil",{altasMovil,usuario,nombreUser,periodo})
   }
   enviarArchivoPenalizacionesPap(usuario : string, nombreUser : string, periodo : string, baseCierre : any[], tipo_esquema : number) : Observable<string>{
-    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelPenalizacionesMegas",{baseCierre,usuario,nombreUser,periodo, tipo_esquema})
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelPenalizacionesMegasPap",{baseCierre,usuario,nombreUser,periodo, tipo_esquema})
   } 
   enviarArchivoNuncaPagosMegas(usuario : string, nombreUser : string, periodo : string, nuncaPagos : any[]) :Observable<string>{
     return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelNuncaPagosMegas",{nuncaPagos,usuario,nombreUser,periodo})
   }
-  enviarArchivoAltasMigracionMegas(usuario : string, nombreUser : string, periodo : string, altaMigracion : any[]) : Observable<string>{
-    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelAltasMigracion",{altaMigracion,usuario,nombreUser,periodo})
+  enviarArchivoAltasMigracionMegasPap(usuario : string, nombreUser : string, periodo : string, altaMigracion : any[],tipo_esquema : number) : Observable<string>{
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelAltasMigracion",{altaMigracion,usuario,nombreUser,periodo,tipo_esquema})
+  }
+  enviarArchivoAltasMigracionMegasPyme(usuario : string, nombreUser : string, periodo : string, altaMigracion : any[],tipo_esquema : number) : Observable<string>{
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelAltasMigracion",{altaMigracion,usuario,nombreUser,periodo,tipo_esquema})
+  }
+  enviarArchivoAltasMigracionMegasCall(usuario : string, nombreUser : string, periodo : string, altaMigracion : any[],tipo_esquema : number) : Observable<string>{
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelAltasMigracion",{altaMigracion,usuario,nombreUser,periodo,tipo_esquema})
   }
   updateLiqComisionAsesor(id: number, liq_comision_asesor_e : liq_comision_asesor) : Observable<string>{
     return this.http.put<string>(this.myAppUrl+"api/ImporteMetas/actualizarLiqComisionAsesor/"+id, liq_comision_asesor_e , this.httpOptions);
@@ -357,17 +399,281 @@ export class SiscointService {
     return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelPenalizacionMovil",{penalizacionMovil,usuario,nombreUser,periodo})
   }
 
+  enviarArchivoNuncaPagosMovil(usuario : string, nombreUser : string, periodo : string, nuncaPagosMovil : any[]){
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarNuncaPagosMovil",{usuario,nombreUser,periodo,nuncaPagosMovil})
+  }
+  enviarArchivoOtrosConceptos(usuario : string, nombreUser : string, periodo : string, otrosConceptos : any[]){
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelOtrosConceptos",{usuario,nombreUser,periodo,otrosConceptos})
+  }
+
   getListarTipoLiquidador(parametro : string) : Observable<any[]> {
     return this.http.post<any[]>(this.myAppUrl+"api/liqPap/listarTblLiqPap",{parametro})
   }
 
   enviarArchivoPenalizacionesPyme(usuario : string, nombreUser : string, periodo : string, baseCierre : any[], tipo_esquema : number) : Observable<string>{
-    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelPenalizacionesMegas",{baseCierre,usuario,nombreUser,periodo, tipo_esquema})
-  } 
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelPenalizacionesMegasPyme",{baseCierre,usuario,nombreUser,periodo, tipo_esquema})
+  }
+  
+  getListarTipoLiquidadorCall() : Observable<any[]>{
+    return this.http.get<any[]>(this.myAppUrl+"api/liqPap/listarTblCall")
+  }
+
+  getListarTipoLiquidadoMovil():Observable<any[]>{
+    return this.http.get<any[]>(this.myAppUrl+"api/liqPap/listarTblMovil")
+  }
+
+  getListarValoresMega(esquema : number) : Observable<any[]>{
+    return this.http.post<any[]>(this.myAppUrl+"api/liqPap/listarValoresMega",{esquema})
+  }
+
+  actualizarMegas(id : number , valor : number) : Observable<string>{
+    return this.http.post<string>(this.myAppUrl+"api/liqPap/actualizarLiqValoresMega",{id, valor})
+  }
+
+  enviarArchivoBaseCierreCall(usuario : string, nombreUser : string, periodo : string, baseCierre : any[], tipo_esquema : number) : Observable<string>{
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelBaseCierreCall",{baseCierre,usuario,nombreUser,periodo, tipo_esquema})
+  }
+
+  enviarArchivoPenalizacionesCall(usuario : string, nombreUser : string, periodo : string, baseCierre : any[], tipo_esquema : number) : Observable<string>{
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarPenalizacionesCall",{baseCierre,usuario,nombreUser,periodo, tipo_esquema})
+  }
+
+  getObtenerLiquidadorComisionSupervisor(cedula_supervisor : string, periodo : string ) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/detalleLiquidadorComisionSupervisor",{cedula_supervisor, periodo});
+  }
+
+  getObtenerLiquididadorSupervisorExcel(cedula_supervisor : string, periodo : string ) : Observable<any[]>{
+    return this.http.post<any[]>(this.myAppUrl+"api/ImporteMetas/ListarLiquidadorSupervisorAsesor",{cedula_supervisor, periodo})
+  }
+
+  getObtenerPorcentaje(proceso : string) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/validoEstadoProceso",{proceso})
+  }
+  getAnularProceso(proceso : string) :Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/cancelarProceso",{proceso})
+  }
+
+  reprocesarAltasMega(tipo_esquema : number, TipoProceso : number, cedula_supervisor : string, periodo : string) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/reprocesarBaseCierreCartaMetaPap",{tipo_esquema, TipoProceso, cedula_supervisor, periodo})
+  }
+
+  reprocesarAltasMegaPymes(codigo_tipo_esquema : number, TipoProceso : number, cedula_supervisor : string, periodo : string) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/reprocesarBaseCierreCartaMetaPymes",{codigo_tipo_esquema, TipoProceso, cedula_supervisor, periodo})
+  }
+
+  reprocesarAltasMegaCall(tipo_esquema : number, TipoProceso : number, cedula_supervisor : string, periodo : string) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/reprocesarExcelBaseCierreCall",{tipo_esquema, TipoProceso, cedula_supervisor, periodo})
+  }
+
+  reprocesarAltasMovil(tipo_esquema : number, TipoProceso : number, cedula_supervisor : string, periodo : string) : Observable<any>
+  {
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/reprocesarExcelAltasMovil",{tipo_esquema, TipoProceso, cedula_supervisor, periodo})
+  }
+  reprocesarPenalizacionMovil(tipo_esquema : number, TipoProceso : number, cedula_supervisor : string, periodo : string) : Observable<any>
+  {
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/reprocesarExcelAltasMovil",{tipo_esquema, TipoProceso, cedula_supervisor, periodo})
+  }
+
+  getListarEscalaAltas(codigo_tipo_esquema:number) : Observable<any[]>{
+    return this.http.post<any[]>(this.myAppUrl+"api/liqPap/listarEscalaAltas",{codigo_tipo_esquema});
+  }
+  actualizarNivel(id : number, valor : number) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/liqPap/actualizarEscalaAltas",{id, valor})
+  }
+
+  getListarEmpHome(codigo_tipo_esquema : number) : Observable<any[]>{
+    return this.http.post<any[]>(this.myAppUrl+"api/liqPap/listarEmpHome",{codigo_tipo_esquema})
+  }
+  actualizarEmpHome(id : number, valor : number) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/liqPap/actualizarEmpHome",{id, valor})
+  }
+  enviarCorreo(usuario : string, proceso : string, correo : string) : Observable<string>{
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/EnviarTokenAutorizacion",{usuario, proceso, correo})
+  }
+  validarTokenAutizacion(usuario : string, token : number, prop1: string, prop2 : string, prop3 : string) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/ValidarTokenAutorizacion",{usuario,token,prop1,prop2,prop3})
+  }
+
+  validarEstadoPerido(periodo : string) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/validarEstadoPeriodo",{periodo})
+  }
+
+  ListarComisionSupervisorV2(periodo : string, codigo_tipo_esquema : number) : Observable<any[]>{
+    return this.http.post<any[]>(this.myAppUrl+"api/ImporteMetas/ListarComisionSupervisorV2",{periodo,codigo_tipo_esquema})
+  }
+
+  ListarLiqConsultas() : Observable<any[]>{
+    return this.http.get<any[]>(this.myAppUrl+"api/liqConsultas/listarLiqConsultas")
+  }
+
+  descargarArchivoConsulta(codigoTipoComisionConsulta : number, periodoConsulta : string): Observable<any[]>{
+    return this.http.post<any[]>(this.myAppUrl+"api/liqConsultas/descargoArchivoConsula",{codigoTipoComisionConsulta,periodoConsulta})
+  }
+
+  consultaCantidadProcesos(codigoTipoEsquema : number, periodo : string) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/liqConsultas/consultoCantidadLiq",{codigoTipoEsquema,periodo})
+  }
+
+  descargarCantidadProcesos(tipo_rpt : string , periodo : string , codigoTipoEsquema : number) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/liqConsultas/descargarRptEsquemas",{tipo_rpt,periodo,codigoTipoEsquema})
+  }
+
+  enviarAcrchivoNoProcesadosMegas(usuario : string, nombreUser : string, periodo : string, baseCierre : any[]) : Observable<string>{
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/procesarExcelNoPrecesadosMegas",{usuario,nombreUser,periodo,baseCierre})
+  }
+
+  getUsuariosToken():Observable<any[]>{
+    return this.http.get<any[]>(this.myAppUrl+"api/Token/listarUsuariosToken");
+  }
+
+  reprocesarEsquema(TipoEsquema : number, TipoProceso : number, periodo : string) : Observable<string>{
+    return this.http.post<string>(this.myAppUrl+"api/ImporteMetas/ReprocesarEsquema",{TipoEsquema,TipoProceso,periodo})
+  }
+
+  enviarArchivoCartaMetaRecuperador(data : any[], usuario : string, nombreUser : string, codigo_tipo_esquema : number) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/procesarExcelCartaMetaRecuperador",{data,usuario,nombreUser,codigo_tipo_esquema})
+  }
+
+  enviarArchivoExcelEmpleados(data : any[], usuario : string,  nombreUser : string ) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/ImportEmpleado/enviaTmpDataEmpleado",{data, usuario, nombreUser})
+  }
+
+  getSupervisores(codigo_tipo_esquema : number, periodo : string) : Observable<any[]>{
+    return this.http.post<any[]>(this.myAppUrl+"api/ImporteMetas/getSupervisores",{codigo_tipo_esquema, periodo})
+  }
+
+  recalcularComisionSuper(periodo: string, 
+                          usuario : string,
+                          cedula_supervisor : string, 
+                          codigo_tipo_esquema : number,
+                          numero_meta_ftth : number,
+                          numero_ejecucion_ftth : number,
+                          numero_meta_movil : number,
+                          numero_ejecucion_movil : number) : Observable<any>{
+     return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/recalcularComisionSupervisor",{
+                                                                                                periodo,
+                                                                                                usuario,
+                                                                                                cedula_supervisor,
+                                                                                                codigo_tipo_esquema,
+                                                                                                numero_meta_ftth,
+                                                                                                numero_ejecucion_ftth,
+                                                                                                numero_meta_movil,
+                                                                                                numero_ejecucion_movil
+                                                                                              })                        
+  }
+
+  getAnio():Observable<string>
+  {
+    return this.http.get<string>(this.myAppUrl+"api/liqTecConf/getAAAA")
+  }
+
+  getTopePuntos():Observable<string>
+  {
+    return this.http.get<string>(this.myAppUrl+"api/liqTecConf/getTopePuntos")
+  }
+
+  enviarPuntajeComisionTecnica(periodo_comision : tec_liq_periodo_comision, periodo_detalle : tec_liq_config_semana_comision[], usuario : string) : Observable<any>{
+    return this.http.post<any>(this.myAppUrl+"api/liqTecConf/addPuntajeComisionTecnica",{periodo_comision,periodo_detalle,usuario});
+  }
+
+  getlistarPeriodosComisionTec():Observable<any>
+  {
+    return this.http.get<any>(this.myAppUrl+"api/liqTecConf/listarPeriodosComision")
+  }
+
+  getListarCiudades(usuario : string):Observable<any[]>
+  {
+    return this.http.post<any[]>(this.myAppUrl+"api/liqTecConf/getListCiudades",{usuario})
+  }
+
+  listarPeriodoCiudad(periodo : string, usuario : string):Observable<any[]>
+  {
+    return this.http.post<any[]>(this.myAppUrl+"api/liqTecConf/listarPeriodoCiudad",{periodo,usuario})
+  }
+
+  enviarConfigPuntos(formConfig :any) : Observable<any>
+  {
+    return this.http.post<any>(this.myAppUrl+"api/liqTecConf/enviarConfBonos",{formConfig})
+  }
+
+  getListarConfBonoCiudad(cod_ciudad : string) : Observable<any[]>
+  {
+    return this.http.post<any[]>(this.myAppUrl+"api/liqTecConf/getListarConfBonoCiudad",{cod_ciudad})
+  }
+
+  editConfBono(id: number, rango_puntaje: string, valor : number, usuario : string) : Observable<any>
+  {
+    return this.http.post<any>(this.myAppUrl+"api/liqTecConf/editConfBono",{id,rango_puntaje,valor,usuario})
+  }
+
+  enviarImporteLiquidador(data : any[], usuario : string) : Observable<string>
+  {
+    return this.http.post<string>(this.myAppUrl+"api/liqPap/importarEsquena",{data,usuario})
+  }
+
+  setEnviarConfPenalizacion(data : any) : Observable<string>
+  {
+    return this.http.post<string>(this.myAppUrl+"api/liqTecConf/enviarConfPenalizacion",{data})
+  }
+
+  setEditConfPenalizacion(id: number, data : any) : Observable<string>
+  {
+    return this.http.post<string>(this.myAppUrl+"api/liqTecConf/editConfPenalizacion",{id, data})
+  }
+
+  getListarConfPenalizaCiudad(cod_ciudad : string) : Observable<any[]>
+  {
+    return this.http.post<any[]>(this.myAppUrl+"api/liqTecConf/getListarConfPenalizaCiudad",{cod_ciudad})
+  }
+
+  setEnviarImporteDiaTecnico(base : any[], 
+                            periodo : string, 
+                            cod_ciudad : string, 
+                            semana_comision : number, 
+                            dia_comision : Date, 
+                            usuario: string) : Observable<string>
+  {
+    return this.http.post<string>(this.myAppUrl+"api/liqTecConf/setImporteDiaTecnico",{base,periodo,cod_ciudad,semana_comision,dia_comision,usuario})
+  }
+
+  getListarDetalleImporteTecnicos(periodo : string, 
+                                  cod_ciudad : string, 
+                                  cod_semana : number, 
+                                  dia_semana : Date ) : Observable<any[]>
+  {
+    return this.http.post<any[]>(this.myAppUrl+"api/liqTecConf/getListarDetalleImporteTecnicos",{periodo,cod_ciudad,cod_semana,dia_semana})
+  }
+  
+  setEnviarItemsValores(data:any[],usuario:string) : Observable<any[]>
+  {
+    return this.http.post<any[]>(this.myAppUrl+"api/liqTecConf/setEnviarItemsValores",{data,usuario});
+  }
+
+  getListarItemsCiudad(cod_ciudad : string) : Observable<any[]>
+  {
+    return this.http.post<any[]>(this.myAppUrl+"api/liqTecConf/getListarItemsCiudad",{cod_ciudad})
+  }
+
+  enviarNoProcesadosMovil(procesar : any[],usuario : string, nombreUser : string) : Observable<any>
+  {
+    return this.http.post<any>(this.myAppUrl+"api/ImporteMetas/procesarExcelNoPrecesadosMovil",{procesar,usuario,nombreUser})
+  }
+
+  setUsuarioCiudad(usuario : string ) : Observable<any[]>
+  {
+    return this.http.post<any[]>(this.myAppUrl+"api/liqTecConf/tecUsuarioCiudad",{usuario})
+  }
+
+  setImporteMasivoEmpleado(base : any[]) : Observable<any>
+  {
+    return this.http.post<any>(this.myAppUrl+"api/empleado/agregarEmpleadosMasivos",{base})
+  }
 
   public get getCampos(){
     return this.disabledcampos;
   }
+
+
 
   
 }

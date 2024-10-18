@@ -1,0 +1,79 @@
+<div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content modal-xl">
+            <div class="modal-header modal-xl">
+                  
+                <div *ngIf="esVentanaPuntaje">
+                    <h4 class="modal-title">BONIFICACIONES</h4>
+                </div>
+                <div *ngIf="esVentanaPenaliza">
+                    <h4 class="modal-title">AGREGAR PENALIZACIONES</h4>
+                </div> 
+                <div *ngIf="esVentanaValores">
+                    <h4 class="modal-title">AGREGAR VALORES</h4>
+                </div> 
+                <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+            </div>
+
+            <div class="modal-body">
+                <div *ngIf="esVentanaPuntaje">
+                    <table>
+                        <tr>
+                            <td><label class="form-control">CIUDAD</label></td>
+                            <td>
+                                <select class="form-control" [(ngModel)]="cod_ciudad" [value]="cod_ciudad" [ngModelOptions]="{standalone: true}"  >
+                                    <option>...</option>
+                                    <option *ngFor="let item of arrListCiudad" value="{{item.cod_ciudad}}">{{item.nombre}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>PUNTOS</label></td>
+                            <td><input type="text" class="form-control" [(ngModel)]="puntos" [ngModelOptions]="{standalone: true}"></td>
+                            <td><label>BONO</label></td>
+                            <td><input type="number" class="form-control" [(ngModel)]="valor" [ngModelOptions]="{standalone: true}"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="form-control btn btn-primary" (click)="enviarConfiguracionBono()">ENVIAR</button>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                <div *ngIf="esVentanaPenaliza">
+                    <table>
+                        <td><label class="form-control">CIUDAD</label></td>
+                            <td>
+                                <select class="form-control" [(ngModel)]="cod_ciudad" [value]="cod_ciudad" [ngModelOptions]="{standalone: true}"  >
+                                    <option>...</option>
+                                    <option *ngFor="let item of arrListCiudad" value="{{item.cod_ciudad}}">{{item.nombre}}</option>
+                                </select>
+                            </td>
+                        <tr>
+                            <td><label>RANGO DE INFANCIA</label></td>
+                            <td><input type="text" [(ngModel)]="porcentaje_infancia" [ngModelOptions]="{standalone: true}" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td><label>% AFECTACION</label></td>
+                            <td><input type="text" [(ngModel)]="porcentaje_afectacion" [ngModelOptions]="{standalone: true}" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td><button class="form-control btn btn-primary" (click)="enviarConfiguaracionPenalizacion()">ENVIAR</button></td>
+                        </tr>
+                    </table>
+                </div>
+                <div *ngIf="esVentanaValores">
+                    <table>
+                        <tr>
+                            <td><label class="form-control">IMPORTAR VALORES</label></td>
+                            <td><input type="file" class="form-control" (change)="onSelectedItems($event)"></td>
+                            <td><button class="form-control btn btn-info" (click)="subirExcelItems()">ENVIAR</button></td>
+                        </tr>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

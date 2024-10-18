@@ -558,6 +558,10 @@ progress {
   max-height: auto;
   border-color: #000;
 }
+.windowBodyLiqConsultas{
+  max-height: auto;
+  border-color: #000;
+}
 .tblLiPap{
   max-height: 350px;
 }

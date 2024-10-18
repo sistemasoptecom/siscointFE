@@ -1,0 +1,100 @@
+<div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content modal-xl">
+            <div class="modal-header modal-xl">
+                <div>
+                    <h4 class="modal-title">AGREGAR PUNTAJE SEMANAL</h4>
+                </div>
+                <div>
+                    <h4 class="modal-title">AGREGAR PENALIZACIONES</h4>
+                </div> 
+                
+                <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+            </div>
+            <div  class="modal-body">
+                <table>
+                    <tr>
+                        <td><label>AAAA :</label></td>
+                        <td><input type="number" class="form-control" [(ngModel)]="anio" [ngModelOptions]="{standalone: true}" [disabled]="true"></td>
+                        <td><label>MM :</label></td>
+                        <td>
+                            <select class="form-control" (change)="getSeletedMes($event)">
+                                <option *ngFor="let item of meses" >{{item}}</option>
+                            </select>
+                        </td>
+                        <td><label>CIUDAD :</label></td>
+                        <td>
+                            <select class="form-control" [(ngModel)]="cod_ciudad" [value]="cod_ciudad" [ngModelOptions]="{standalone: true}" >
+                                <option></option>
+                                <option *ngFor="let itemC of arrListCiudad" value="{{itemC.cod_ciudad}}">{{itemC.nombre}}</option>
+                            </select>
+                        </td>
+                       
+                    </tr>
+                    <tr>
+                        <td><label>Dias semana</label></td>
+                        <td><input type="date" class="form-control" [(ngModel)] ="fecha1" [ngModelOptions]="{standalone: true}" (ngModelChange)="seleccionarDia($event)"></td>
+                        <!--<td><label>Fecha Fin</label></td>
+                        <td><input type="date" class="form-control" [(ngModel)] ="fecha2" [ngModelOptions]="{standalone: true}"></td> -->
+                        
+                        <td><label>Puntaje</label></td>
+                        <td><input type="number" class="form-control" [(ngModel)]="puntos"></td>
+                        <td style="text-align:center" >
+
+                            <button type="button" class="btn btn-primary btn-circle" id="add" (click)="addItemArray()">
+                                Adicionar
+                            </button>
+                        </td>
+                        <td>
+                            <span><b>PUNTAJE : </b><b style="color: red;">{{sumaPuntosTbl}}</b></span>
+                        </td>
+                        
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td><label>Dias</label></td>
+                        <!-- <td> {{dias}}</td> -->
+                        <td><input type="text" class="form-control" [(ngModel)]="dias" [ngModelOptions]="{standalone: true}" style="width: 720px;"></td>
+                    </tr>
+                </table>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>SEMANA</th>
+                            <th>AÑO (AAAA)</th>
+                            <th>MES (MM)</th>
+                            <th>PERIODO</th>
+                            <th>PUNTOS</th>
+                            <th>DIAS</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let item of arrPeriodoSemanal">
+                        <td>{{item.numero_semana}}</td>
+                        <td>{{item.aaaa_comision}}</td>
+                        <td>{{item.mm_comision}}</td>
+                        <td>{{item.periodo}}</td>
+                        <td>{{item.puntaje_semana}}</td>
+                        <td>{{item.dias}}</td>
+                        <td style="text-align: center;">
+                            <button (click)="removeItemArray(item)">
+                                <span class="btn btn-danger btn-xs" >
+                                    Remover
+                                </span>
+                            </button>
+                           
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <table>
+                        <tr>
+                            <td><button class="btn btn-primary btn-circle" (click)="guardar()">GUARDAR</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

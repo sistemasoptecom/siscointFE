@@ -1,0 +1,51 @@
+<div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content modal-xl">
+            <div class="modal-header modal-xl">
+                  
+                <h4 class="modal-title">DETALLE ESQUEMAS</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <td colspan="2">MEGAS</td>
+                        <td class="2">MOVIL</td>
+                        <td colspan="2">NUNCA PAGOS</td>
+                        <td colspan="2">OTROS CONCEPTOS</td>
+                    </tr>
+                    <tr>
+                        <td>Altas - </td><td><label for="" > <input type="submit" value="{{altasMegas}}" (click)="descargarEsquemas($event,'altasMegas')" /></label></td>
+                        <td>Altas -  </td><td><label for="" > <input type="submit" value="{{altasMovil}}" (click)="descargarEsquemas($event,'altasMovil')" /></label> </td>
+                        <td>Procesados - </td><td><label for="" > <input type="submit" value="{{procesadosNp}}" (click)="descargarEsquemas($event,'procesadosNp')" /></label></td>
+                        <td>Procesados - </td><td><label for="" > <input type="submit" value="{{procesadosOc}}" (click)="descargarEsquemas($event,'procesadosOc')" /></label></td>
+                    </tr>
+                    <tr>
+                        <td>Penalizaciones - </td><td><label for="" > <input type="submit" value="{{PenalizaMegas}}" (click)="descargarEsquemas($event,'PenalizaMegas')"  /></label></td>
+                        <td>Penalizaciones - </td><td><label for="" > <input type="submit" value="{{penalizaMovil}}" (click)="descargarEsquemas($event,'penalizaMovil')"  /></label></td>
+                        <td>No procesados - </td><td><label for="" > <input type="submit" value="{{noProcesadoNp}}" (click)="descargarEsquemas($event,'noProcesadoNp')"/></label></td>
+                        <td>No procesados - </td><td><label for="" > <input type="submit" value="{{noProcesadoOc}}" (click)="descargarEsquemas($event,'noProcesadoOc')"/></label></td>
+                    </tr>
+                    <tr>
+                        <td>Migraciones - </td><td><label for="" > <input type="submit" value="{{migracionMegas}}" (click)="descargarEsquemas($event,'migracionMegas')"/></label></td>
+                        <td>Migraciones - </td><td><label for="" > <input type="submit" value="{{migracionMovil}}" (click)="descargarEsquemas($event,'migracionMovil')"/></label></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>No procesados - </td><td><label for="" > <input type="submit" value="{{noProcesaMegas}}" (click)="descargarEsquemas($event,'noProcesaMegas')"/></label></td>
+                        <td>No procesados - </td><td><label for="" > <input type="submit" value="{{noProcesaMovil}}" (click)="descargarEsquemas($event,'noProcesaMovil')"/></label></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Total - </td><td><label for="" > <input type="submit" value="{{TotalMegas}}" (click)="descargarEsquemas($event,'TotalMegas')"/></label></td>
+                        <td>Total - </td><td><label for="" > <input type="submit" value="{{TotalMovil}}" (click)="descargarEsquemas($event,'TotalMovil')"/></label></td>
+                        <td>Total - </td><td><label for="" > <input type="submit" value="{{TotalNp}}" (click)="descargarEsquemas($event,'TotalNp')"/></label></td>
+                        <td>Total - </td><td><label for="" > <input type="submit" value="{{TotalOc}}" (click)="descargarEsquemas($event,'TotalOc')"/></label></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

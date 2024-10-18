@@ -1,0 +1,91 @@
+<div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{titulo}}</h4>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="ocultarHabilitar">
+                    <button (click)="habilitarCampos()">HABILITAR</button>
+                </div>
+                <div *ngIf="ocultarIbhanilitar">
+                    <button (click)="inHabilitarCampos()">INHABILITAR</button>
+                </div>
+                <div *ngIf="ventanaMegas">
+                    <table>
+                        <tr>
+                            
+                            <th>VALOR MEGA</th>
+                            <th>VALOR</th>
+                            <th>ACCIONES</th>
+                            <th></th>
+                        </tr>
+                        <tr *ngFor="let item of arrMegas">
+                            <td style="text-align: center;" >
+                                <span >{{item.valor_mega}}</span>
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="item.valor_mega" ng-disabled="disabledInput" id="valorItem">
+                            </td>
+                            <td>
+                                <button (click)="actualizarMegas(item)" [disabled]="disabledButton">GUARDAR</button>
+                            </td>
+                            
+                        </tr>
+                    </table>
+                </div>
+                <div *ngIf="ventanaNivel">
+                    <h1>ESPACIO PARA LAS CONF NIVEL</h1>
+                    <table>
+                        <tr>
+                            <th># ESCALA</th>
+                            <th>NIVEL</th>
+                            <th>ACCIONES</th>
+                            <th></th>
+                        </tr>
+                        <tr *ngFor="let item of arrNivel">
+                            <td style="text-align: center;" >
+                                <span >{{item.numero_escala_alta}}</span>
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="item.rango_altas" ng-disabled="disabledInput" id="valorItem">
+                            </td>
+                            <td>
+                                <button (click)="actualizarMegas(item)" [disabled]="disabledButton">GUARDAR</button>
+                            </td>
+                            
+                        </tr>
+                    </table>
+                </div>
+                <div *ngIf="ventanaEmpaq">
+                    <h1>ESPACIO PARA LAS CONF EMPAQUETAMIENTO</h1>
+                    <table>
+                        <tr>
+                            <th>DESCRIPCION</th>
+                            <th>NIVEL CUMPLIEMIENTO</th>
+                            <th>VALOR</th>
+                            <th>ACCIONES</th>
+                            <th></th>
+                        </tr>
+                        <tr *ngFor="let item of arrEmpHom">
+                            <td style="text-align: center;" >
+                                <span >{{item.descripcion}}</span>
+                            </td>
+                            <td style="text-align: center;" >
+                                <span >{{item.cumplimiento}}</span>
+                            </td>
+                            <td>
+                                <input type="number" [(ngModel)]="item.valor" ng-disabled="disabledInput" id="valorItem">
+                            </td>
+                            <td>
+                                <button (click)="actualizarEmpHome(item)" [disabled]="disabledButton">GUARDAR</button>
+                            </td>
+                            
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

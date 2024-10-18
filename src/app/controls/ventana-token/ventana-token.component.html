@@ -1,0 +1,37 @@
+<div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td>Enviar a: </td>
+                        <td>
+                            <select class="form-control" [(ngModel)]="codigoValorUser" 
+                                [value] = "codigoValorUser" [ngModelOptions]="{standalone: true}" 
+                                (change) = "selectUserToken($event)">
+                                <option *ngFor ="let item of usersToken" value="{{item.id}}">{{item.nombre_usuario}}</option>
+                            </select>
+
+                        </td>
+                        <td>
+                            <button (click)="EnviarKeyToken()">ENVIAR</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Token</td>
+                        <td>
+                            <input type="number" [(ngModel)]="token" >
+                        </td>
+                        <td>
+                            <button (click)="validarKeyToken()">VALIDAR</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

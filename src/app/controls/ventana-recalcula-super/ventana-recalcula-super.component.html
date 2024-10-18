@@ -1,0 +1,42 @@
+<div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content modal-xl">
+            <div class="modal-header modal-xl">
+                <h4 class="modal-title">DETALLE LIQUIDADOR SUPERVISORES RECALCULO DE ALTAS Y MOVILES {{nombre_esquema}}</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-hover table-striped" style="font-size:70%">
+                    <thead>
+                        <tr>
+                            <th>CEDULA</th>
+                            <th>NOMBRES</th>
+                            <th>META FTTH</th>
+                            <th>EJECUCION FTTH</th>
+                            <th>META MOVIL</th>
+                            <th>EJECUCION MOVIL</th>
+                            <th>TOTAL COMISION</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of arrSupervisores | paginate : {itemsPerPage: 5, currentPage: p}">
+                            <td>{{item.cedula_supervisor}}</td>
+                            <td>{{item.nombre_supervisor}}</td>
+                            <td><input type="number" [(ngModel)]="item.numero_meta_ftth" [ngModelOptions]="{standalone: true}"></td>
+                            <td><input type="number" [(ngModel)]="item.numero_cumplimiento_asesor_ftth" [ngModelOptions]="{standalone: true}"></td>
+                            <td><input type="number" [(ngModel)]="item.numero_meta_movil" [ngModelOptions]="{standalone: true}"></td>
+                            <td><input type="number" [(ngModel)]="item.numero_cumpliento_asesor_movil" [ngModelOptions]="{standalone: true}"></td>
+                            <td>{{item.total_comision}}</td>
+                            <td>
+                                <button (click)="recalcular(item)">Recalcular</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event" previousLabel="Inicio"
+                nextLabel="Final" class="float-right"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

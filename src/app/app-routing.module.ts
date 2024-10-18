@@ -13,6 +13,12 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 import { BancoAgrarioComponent } from './views/banco-agrario/banco-agrario.component';
 import { LiqConfigComponent } from './views/liq_comisiones/liq-config/liq-config.component';
 import { ImporteCartaMetaComponent } from './views/liq_comisiones/importe-carta-meta/importe-carta-meta.component';
+import { ReportesComponent } from './views/reportes/reportes.component';
+import { ConsultasComisionesComponent } from './views/liq_comisiones/consultas-comisiones/consultas-comisiones.component';
+import { HistoricoPeriodosComponent } from './views/liq_comisiones/historico-periodos/historico-periodos.component';
+import { ImportePlanitllaComponent } from './views/importe-planitlla/importe-planitlla.component';
+import { ConfigPeriodosComponent } from './views/liq_tecnicas/config-periodos/config-periodos.component';
+import { ConfPuntajeComponent } from './views/liq_tecnicas/conf-puntaje/conf-puntaje.component';
 
 const routes: Routes = [
   {path:'', component: LoginComponent},
@@ -31,8 +37,13 @@ const routes: Routes = [
   {path:'pedidosDiferidos', component : GenerarPedidosComponent},
   {path:'excelbancoagrario', component : BancoAgrarioComponent},
   {path:'liquidadorConfig', component : LiqConfigComponent},
-  {path:'importeCartaMeta', component : ImporteCartaMetaComponent}
-
+  {path:'importeCartaMeta', component : ImporteCartaMetaComponent},
+  {path:'reportes', component : ReportesComponent},
+  {path:'ComisionesConsultas', component : ConsultasComisionesComponent},
+  {path:'HistoricoComisiones', component: HistoricoPeriodosComponent},
+  {path:'ImporteEmpleados', component:ImportePlanitllaComponent},
+  {path:'ConfiguracionPeriodosPuntos', component :ConfigPeriodosComponent},
+  {path:'ConfiguracionPuntaje', component: ConfPuntajeComponent}
 ];
 
 @NgModule({
