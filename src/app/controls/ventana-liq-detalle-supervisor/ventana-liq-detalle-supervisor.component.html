@@ -1,0 +1,113 @@
+<style>
+    .fthh, .thFthh, .tdFthh {
+      border: 1px solid black;
+    }
+
+    .movil, .thmovil, .tdmovil {
+      border: 1px solid black;
+    }
+
+    .call, .thCall, .tdCall {
+      border: 1px solid black;
+    }
+    .totales, .thTotal, .tdTotal {
+      border: 1px solid black;
+    }
+    </style>
+<div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content modal-xl">
+            <div class="modal-header modal-xl">
+
+                <h4 class="modal-title">DETALLE LIQUIDADOR SUPERVISORES</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <th>{{cedula_supervisor}}</th>
+                        <th>{{nombre_supervisor}}</th>
+
+                        <th>{{zona_supervisor}}</th>
+                    </thead>
+                </table>
+                <!-- para pap y pynmes FTTH -->
+                <div>
+
+                    <table class="fthh">
+                        <caption>FTTH</caption>
+                        <tr>
+                            <th class="thFthh">META</th>
+                            <th class="thFthh">CUMPLIMIENTO</th>
+                            <th class="thFthh">% CUMPLIMIENTO</th>
+                            <th class="thFthh">% PESO 90</th>
+                        </tr>
+                        <tr>
+                            <td class="tdFthh">{{arrLiqComisionSupervisor.numero_meta_ftth}}</td>
+                            <td class="tdFthh">{{arrLiqComisionSupervisor.numero_cumplimiento_asesor_ftth}}</td>
+                            <td class="tdFthh">{{arrLiqComisionSupervisor.porcentaje_cumplimiento_asesor_ftth}}</td>
+                            <td class="tdFthh">{{arrLiqComisionSupervisor.peso_cumpliento_ftth}}</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                <div>
+                    <table class="movil">
+                        <caption>MOVIL</caption>
+                        <tr>
+                            <th class="thmovil">META</th>
+                            <th class="thmovil">CUMPLIMIENTO</th>
+                            <th class="thmovil">% CUMPLIMIENTO</th>
+                            <th class="thmovil">% PESO 10</th>
+                        </tr>
+                        <tr>
+                            <td class="tdmovil">{{arrLiqComisionSupervisor.numero_meta_movil}}</td>
+                            <td class="tdmovil">{{arrLiqComisionSupervisor.numero_cumpliento_asesor_movil}}</td>
+                            <td class="tdmovil">{{arrLiqComisionSupervisor.porcentaje_cumplimiento_asesor_movil}}</td>
+                            <td class="tdmovil">{{arrLiqComisionSupervisor.peso_cumplimiento_movil}}</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                <div>
+                    <table class="call">
+                        <caption>TV</caption>
+                        <tr>
+                            <th class="thCall">META</th>
+                            <th class="thCall">CUMPLIMIENTO</th>
+                            <th class="thCall">% CUMPLIMIENTO</th>
+                            <th class="thCall">% PESO 10</th>
+                        </tr>
+                        <tr>
+                            <td class="tdCall">{{arrLiqComisionSupervisor.numero_meta_tv}}</td>
+                            <td class="tdCall">{{arrLiqComisionSupervisor.numero_cumplimiento_asesor_tv}}</td>
+                            <td class="tdCall">{{arrLiqComisionSupervisor.porcentaje_cumplimiento_asesor_tv}}</td>
+                            <td class="tdCall">{{arrLiqComisionSupervisor.peso_cumplimiento_tv}}</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                <div>
+                    <table class="totales">
+                        <caption>TOTALES</caption>
+                        <tr>
+                            <th class="thTotal">TOTAL CUMPLIMIENTO</th>
+                            <th class="thTotal">COMISION</th>
+                            <th class="thTotal">% ASESORES </th>
+                            <th class="thTotal">% FACTOR DES O ACE</th>
+                            <th class="thTotal">TOTAL COMISION</th>
+                        </tr>
+                        <tr>
+                            <td class="tdTotal">{{arrLiqComisionSupervisor.total_porcentaje_cumplimiento}}</td>
+                            <td class="tdTotal">{{arrLiqComisionSupervisor.comision}}</td>
+                            <td class="tdTotal">{{arrLiqComisionSupervisor.factor_acelearion_desaceleracion}}</td>
+                            <td class="tdTotal">{{arrLiqComisionSupervisor.aceleracion_desaceleracion}}</td>
+                            <td class="tdTotal">{{arrLiqComisionSupervisor.total_comision}}</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

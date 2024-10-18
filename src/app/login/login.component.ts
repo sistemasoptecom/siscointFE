@@ -8,6 +8,7 @@ import { NgForm, FormsModule, ReactiveFormsModule, FormGroup, FormBuilder,Valida
 import { SiscointService } from '../siscoint.service';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,13 +20,15 @@ export class LoginComponent implements OnInit {
   credenciales: LoginModel = {Username:'', Password:''};
   usuario : string = '';
   password : string = '';
+  EsRenderWait : boolean = false;
   //addCredeniales : FormGroup;
   constructor(private fb: FormBuilder,
               private router: Router, 
               private http: HttpClient, 
               private siscointService : SiscointService,
               private aRouter : ActivatedRoute,
-              private toastr: ToastrService
+              private toastr: ToastrService,
+              
               ) {  this.token = undefined; }
 
   ngOnInit(): void {
@@ -33,18 +36,20 @@ export class LoginComponent implements OnInit {
 
   login(){
     
-      
+      this.EsRenderWait = true;
       this.credenciales = {
         Username : this.usuario,
         Password : this.password
       }
 
-      //console.log(this.credenciales);
+      
       this.siscointService.Authenticated(this.credenciales)
+      
       .subscribe(data => {
-        //console.log(data);
+       
         localStorage.setItem('jwt', data);
         this.router.navigateByUrl('/home')
+        this.EsRenderWait = false;
       })
       
   }

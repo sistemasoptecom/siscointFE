@@ -1,0 +1,153 @@
+<div style="width: auto; overflow: auto;">
+    <app-navbar></app-navbar>
+</div>
+<div class="d-flex" id="wrapper">
+    <div style="height: auto;width: auto;overflow-y: scroll; width: 150px; width: auto;">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div id="page-content-wrapper" style="float: right ; width: auto; height: auto;">
+        
+       
+        <div class="container-fluid">
+            <div class="window-body windowBodyLiq">
+                <!-- <ngb-tabset class="tabset1">
+                    <ngb-tab title="Simple" >
+                        <ng-template ngbTabContent >
+                            <p>Hola 2</p>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Another tab">
+                        <ng-template ngbTabContent>
+                            <p>Hola 1</p>
+                        </ng-template>
+                    </ngb-tab>
+                    
+                </ngb-tabset> -->
+                <div class="col-xs-10">
+                    <div class="col-xs-16">
+                        <div class="panel panel-primary borderFormUsuario">
+                            <div class="panel-heading panelHeadind">
+                                <h3 class="panel-title backgroudNavUsu">CONFIGURAR PAP</h3>
+                            </div>
+                            
+                            <div class="col-xs-16">
+                                <div class="col-xs-16">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-body" >
+                                           
+                                           
+                                            <div class="col-md-10">
+                                                <div class="col-1">
+                                                    <label class="req">Liquidador<span class="req">*</span></label>
+                                                    
+                                                </div>
+                                                <div class="col-3">
+                                                    <select class="form-control" [(ngModel)]="codigoLiqTipoEaquema"
+                                                    [value] = "codigoLiqTipoEaquema"[ngModelOptions]="{standalone: true}" 
+                                                    (change)="seleccionarTipoLiquidador($event)" 
+                                                    >
+                                                    <option *ngFor="let item of arrLiqTipoEsquema"  value="{{item.codigo_valor}}">{{item.nombre_tipo_esquema}}</option>
+                                                    </select>
+                                                </div>
+                                                <div *ngIf="muestraLiqPapPyme">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <h1 style="font-size: 10px; font-weight: bold;">LIQUIDADOR {{tituloLiquidador}}</h1>
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <button class="form-control btn btn-primary"
+                                                                style="font-size: 10px; font-weight: bold;" (click)="configurarVentanaLiq(tituloLiquidador,1,'MEGAS')">CONFIGURAR MEGAS</button>
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <button class="form-control btn btn-primary" 
+                                                                style="font-size: 10px; font-weight: bold;" (click)="configurarVentanaLiq(tituloLiquidador,2,'NIVEL')">CONFIGURAR NIVEL</button>
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <button class="form-control btn btn-primary" 
+                                                                style="font-size: 10px; font-weight: bold;" (click)="configurarVentanaLiq(tituloLiquidador,3,'EMPHOME')">CONFIGURAR EMPHOME</button>
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <label class="form-control" style="font-size: 10px; font-weight: bold;">IMPORTAR ESQUEMA</label>
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <input type="file" class="form-control" (change)="onFileSelectedImport($event)">
+                                                            </td>
+                                                            <td *ngIf="muestraLiqMovil">
+                                                                <button class="form-control btn btn-primary" style="font-size: 10px; font-weight: bold;"
+                                                                (click)="subirExcelImporte()">ENVIAR</button>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                    <table class="table table-bordered table-hover table-striped" width="100px"  style="overflow-y:scroll;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>NIVEL ESCALA</th>
+                                                                <th *ngIf="muestraColumnaMegas">VALOR MEGA</th>
+                                                                <th *ngIf="muestraColumnaMovil">TIPO RENTA</th>
+                                                                <th>VALOR</th>
+                                                                <th>CUMPLIMIENTO</th>
+                                                                <th>TIPO ESQUEMA</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let item of arrTblLiqPap | paginate : {itemsPerPage: 10, currentPage: p}">
+                                                                <td style="text-align: center;" >
+                                                                    <span >{{item.nivel_escala}}</span>
+                                                                </td>
+                                                                <td *ngIf="muestraColumnaMegas" style="text-align: center;" >
+                                                                    <span >{{item.valor_mega}}</span>
+                                                                </td>
+                                                                <td *ngIf="muestraColumnaMovil" style="text-align: center;" >
+                                                                    <span >{{item.tipo_renta}}</span>
+                                                                </td>
+                                                                <td style="text-align: center;" >
+                                                                    <span >{{item.valor}}</span>
+                                                                </td>
+                                                                <td style="text-align: center;" *ngIf="item.id === editRowId" >
+                                                                    
+                                                                    <input type="number" [(ngModel)]="item.valor" ng-disabled="disabledInput" id="valorItem">
+                                                                </td>
+                                                                <td style="text-align: center;" >
+                                                                    <span >{{item.cumplimiento}}</span>
+                                                                </td>
+                                                                <td style="text-align: center;" >
+                                                                    <span >{{item.descripcion}}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <button  *ngIf="item.id !== editRowId && this.isButtonVisibleEdit"  (click)="validarRow(item.id)">
+                                                                        <span>Editar</span>
+                                                                    </button>
+                                                                    <button *ngIf="this.isButtonVisibleSave" (click)="guardarRow(item.id)">
+                                                                        <span>Guardar</span>
+                                                                    </button>
+                                                                    <button  *ngIf="this.isButtonVisibleCancel" (click)="cancelarItem(item.id)">
+                                                                        <span>Cancelar</span>
+                                                                    </button>
+                                                                         
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <pagination-controls (pageChange)="p = $event" previousLabel="Inicio"
+                                                    nextLabel="Final" class="float-right"></pagination-controls>
+                                                </div>
+                                                
+                                                
+                                                
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@ export interface UsuariosModels{
     nombre_usuario : string;
     username : string;
     password : string;
-    pssword : string;
+    pssword? : string;
     id_tipo_usuario : number;
     estado : number;
     cargo : string;

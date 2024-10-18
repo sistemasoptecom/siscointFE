@@ -1,0 +1,200 @@
+
+   
+      <div>
+      
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content modal-xl">
+                <div class="modal-header modal-xl">
+                  
+                    <h4 class="modal-title">DETALLE LIQUIDADOR ASESORES</h4>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+                </div>
+                <div class="modal-body">
+                   <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                      
+                      <th>{{arrLiqComisionAsesor.cedula_asesor}}</th>
+                      <th>{{nombre_asesor}}</th>
+                     
+                      <th>{{zona_asesor}}</th>
+                      <th>ASESOR VALIDO : </th>
+                      <th><input type="checkbox"  [(ngModel)]="arrLiqComisionAsesor.esAsesorValido"  [checked]="arrLiqComisionAsesor.esAsesorValido" /></th>
+                    </thead>
+                   </table>
+                   <font size="2">
+                   <table>
+                    <tr>
+                      <td><span class="detalle_liq">META: </span></td>
+                      <td><label>{{arrLiqComisionAsesor.meta_asesor}}</label></td>
+                    </tr>
+                    <tr>
+                      <td><span class="detalle_liq">CUMPL. ASESOR: </span></td>
+                      <td ><span *ngIf ="arrLiqComisionAsesor.cumplimiento_asesor == 0">NO</span></td>
+                      <td ><span *ngIf ="arrLiqComisionAsesor.cumplimiento_asesor >= 80">SI</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="detalle_liq">CUMPLIMIENTO: </span></td>
+                      <td>{{arrLiqComisionAsesor.cumplimiento_asesor}} %</td>
+                    </tr>
+                    <tr>
+                      <td><span class="detalle_liq">NIVEL : </span></td>
+                      <td>TABLA - {{arrLiqComisionAsesor.nivel}}</td>
+                    </tr>
+                  </table>
+                  <table>
+                    <tr>
+                      <td><span class="detalle_liq">Cantidad {{valor_mega_1}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_cant_megas_1" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMegas()"></td>
+                      <td><span class="detalle_liq">Cantidad {{valor_mega_2}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_cant_megas_2" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMegas()"></td>
+                      <td><span class="detalle_liq">Cantidad {{valor_mega_3}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_cant_megas_3" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMegas()"></td>
+                      <td><span class="detalle_liq">Cantidad {{valor_mega_4}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_cant_megas_4" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMegas()"></td>
+                      <td *ngIf="EsUltimaColumna"><span class="detalle_liq">Cantidad {{valor_mega_5}} MB : </span></td>
+                      <td *ngIf="EsUltimaColumna"><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_cant_megas_5" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMegas()"></td>
+                    </tr>
+                    <tr>
+                      <td><span class="detalle_liq">valor {{valor_mega_1}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.valor_mega_1" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMegas()"></td>
+                      <td><span class="detalle_liq">valor {{valor_mega_2}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.valor_mega_2" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMegas()"></td>
+                      <td><span class="detalle_liq">valor {{valor_mega_3}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.valor_mega_3" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMegas()"></td>
+                      <td><span class="detalle_liq">valor {{valor_mega_4}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.valor_mega_4" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMegas()"></td>
+                      <td *ngIf="EsUltimaColumna"><span class="detalle_liq">Cantidad {{valor_mega_5}} MB : </span></td>
+                      <td *ngIf="EsUltimaColumna"><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.valor_mega_5" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMegas()"></td>
+                    </tr>
+                    <tr>
+                      <td><span class="detalle_liq">Total {{valor_mega_1}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_valor_mega_1" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledTotal"></td>
+                      <td><span class="detalle_liq">Total {{valor_mega_2}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_valor_mega_2" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledTotal"></td>
+                      <td><span class="detalle_liq">Total {{valor_mega_3}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_valor_mega_3" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledTotal"></td>
+                      <td><span class="detalle_liq">Total {{valor_mega_4}} MB : </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_valor_mega_4" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledTotal"></td>
+                      <td *ngIf="EsUltimaColumna"><span class="detalle_liq">Cantidad {{valor_mega_5}} MB : </span></td>
+                      <td *ngIf="EsUltimaColumna"><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_valor_mega_5" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMegas()"></td>
+                    </tr>
+                  </table>
+                  <table>
+                    <tr *ngIf="ContendidoGeneral">
+                      <td><span class="detalle_liq">CANTIDAD DUOS: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_duos" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" ></td>
+                      
+                      <td><span class="detalle_liq">BONO DUOS: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_valor_duos" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" ></td>
+                    </tr>
+                    <tr *ngIf="ContendidoGeneral">                      
+                      <td><span class="detalle_liq">CANTIDAD NAKED: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_naked" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" ></td>
+                      
+                      <td><span class="detalle_liq">BONO NAKED: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_valor_naked" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" ></td>
+                     
+                    </tr>
+                    <tr *ngIf="ContenidoPyme">
+                      <td><span class="detalle_liq">CANTIDAD TRIOS: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_trios" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" ></td>
+
+                      <td><span class="detalle_liq">BONO TRIOS: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_valor_trios" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" ></td>
+                    </tr>
+
+                  </table> 
+                    
+                  <table>
+                    <tr>
+                      <td><span class="detalle_liq">CANT MIGRACION: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_migracion" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMovil()"></td>
+          
+                      <td><span class="detalle_liq">MIGRACION: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.valor_migracion" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMovil()"></td>
+                      <td><span class="detalle_liq">TOTAL MIGRACION: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_migracion" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledTotal"></td>
+                    </tr>
+                    <tr *ngIf="ContenidoPap">
+                      <td><span class="detalle_liq">CANT PLAN MOVIL: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_plan_movil" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMovil()"></td>
+                      <td><span class="detalle_liq">PLAN MOVIL: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.valor_plan_movil" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMovil()"></td>
+                      <td><span class="detalle_liq">TOTAL PLAN MOVIL: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_plan_movil" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledTotal"></td>
+                    </tr>
+                    <tr *ngIf="ContenidoCall">
+                      <td><span class="detalle_liq">CANT VENTAS C2C: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_venta_c2c" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMovil()"></td>
+                      <td><span class="detalle_liq">VALOR VENTA C2C: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.valor_venta_c2c" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMovil()"></td>
+                      <td><span class="detalle_liq">TOTAL VENTA C2C: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_venta_c2c" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledTotal"></td>
+                    </tr>
+                    <tr *ngIf="ContenidoCall">
+                      <td><span class="detalle_liq">CANT VENTAS BASE: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_venta_base" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMovil()"></td>
+                      <td><span class="detalle_liq">VALOR VENTA BASE: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.valor_venta_base" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMovil()"></td>
+                      <td><span class="detalle_liq">TOTAL VENTA BASE: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_venta_base" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledTotal"></td>
+                    </tr>
+                    <tr *ngIf="ContenidoCall">
+                      <!-- <td><span class="detalle_liq">CANT TV: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.numero_venta_fibra_tv" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMovil()"></td>
+                      <td><span class="detalle_liq">TV: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.valor_venta_fibra_tv" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularMovil()"></td>
+                      <td><span class="detalle_liq">TOTAL TV: </span></td>
+                      <td><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_venta_fibra_tv" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledTotal"></td>
+                    </tr> -->
+                    <tr>
+                      <td><span class="detalle_liq">SUB TOTAL COMISION: </span></td>
+                      <td><span style="font-size: 14px; color: red; font-weight: bold;">{{arrLiqComisionAsesor.sub_total_comision}}</span></td>
+                    </tr>
+                    <tr>
+                      <td><span class="detalle_liq">AJUSTES: </span></td>
+                      <td colspan="2"><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.ajustes" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos" (keyup.enter)="calcularAjustes()"></td>
+                    </tr>
+                    <tr>
+                      <td><span class="detalle_liq">Reversión Comision por Nunca Pago: </span></td>
+                      <td colspan="2"><input type="number" class="form-control" [(ngModel)]="arrLiqComisionAsesor.total_nunca_pago" [ngModelOptions]="{standalone: true}" [disabled]="IsDisabledCampos"></td>
+                    </tr>
+                    <tr>
+                      <td><span class="detalle_liq">Descripcion nun Pagos: </span></td>
+                      <td>{{arrLiqComisionAsesor.descripcion_nunca_pagos}}</td>
+                    </tr>
+                   
+                   
+                    <tr>
+                      <td><span class="detalle_liq">TOTAL COMISION: </span></td>
+                      <td colspan="2"><span style="font-size: 14px; color: red; font-weight: bold;"> {{arrLiqComisionAsesor.total_comision}} </span></td>
+                    </tr> 
+                    
+                  </table>
+                  <br>
+                  
+                  <table>
+                    <tr>
+                      <td>
+                        <button (click) ="EditarFormLiq()" [disabled]="IsDisabledEditar">EDITAR</button>
+
+                      </td>
+                      <td>
+                        <button (click) = "guardarFormLiq()" [disabled]="IsDisabledCampos">GUARDAR</button>
+                      </td>
+                      <td>
+                        <button (click) = "cancelarFormLiq()" [disabled]="IsDisabledCampos">CANCELAR</button>
+                      </td>
+                    </tr>
+                  </table>
+                  
+                   </font>
+                </div>
+             </div>
+          </div>
+      </div>
+        
+  
+       
+      
+

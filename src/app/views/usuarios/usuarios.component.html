@@ -1,18 +1,20 @@
 
 <div class="d-flex" id="wrapper">
     <!-- Sidebar-->
-    <app-sidebar></app-sidebar>
+    <div style="height: 650px;width: auto;overflow-y: scroll; width: 350px; margin-top:70px;">
+        <app-sidebar></app-sidebar>
+    </div>
     
     
   <!-- Page content wrapper-->
-  <div id="page-content-wrapper">
+  <div id="page-content-wrapper" style="float: right ; margin-left: -320px;">
     <!-- Top navigation-->
     
     <app-navbar></app-navbar>
     <!-- Page content-->
     <div class="container-fluid">
         
-        <div class="window-body windowBody">
+        <div class="window-body windowBody" style="margin-left: 320px;">
             <form>
                 <div class="col-xs-16">
                     <div class="col-xs-16">
@@ -43,7 +45,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row rowFormUser">
+                            <div class="row rowFormUser" *ngIf="EsMostrarContrasenas">
                                 <div class="col">
                                     <label class="req">Contraseña<span class="req">*</span></label>
                                     <input type="password" name="pssword"  class="form-control"
@@ -68,6 +70,7 @@
                                 <div class="panel-body" >
                                     <div class="col-md-12">
                                         <table class="table table-bordered table-hover table-striped" width="100px" style="overflow-y:scroll">
+                                            <caption>TITULO</caption>
                                             <thead>
                                                 <tr>
                                                     <th>ITEM</th>

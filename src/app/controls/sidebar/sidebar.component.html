@@ -2,11 +2,31 @@
 
     <!-- Sidebar-->
     <div class="border-end bg-white" id="sidebar-wrapper" *ngIf="Ocultar == true" style="background-color:#001b58 ;">
-        <div class="sidebar-heading border-bottom  backgroudNav" routerLink="/home">Start Bootstrap</div>
+
         <div class="list-group list-group-flush backgroudNav">
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/usuarios" >Usuarios</a>
+            <a *ngFor="let item of arrayMenuHijo" class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="{{item.routeurl}}">{{item.name_module}}</a>
+            <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/usuarios" >Usuarios</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/empleados" >Empleados</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/articulos" >Entrada Elementos</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/gestionar/activos" >Gestionar Activos</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/reportes/activos" >Reportes Activos</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/gestionar/devolutivos" >Gest. Devolutivos</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/reportes/devolutivos" >Re. Devolutivos</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/pedidos" >Generar pedidos</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/pedidosAF" >Pedidos AF</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" routerLink="/pedidosDiferidos" >Pedidos Diferidos</a> -->
+            <!-- <ul>
+                <li *ngFor="let item of arrMenuPadre" class="active">
+                    <a  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        {{item.menu_padre}}
+                    </a>-->
+                    <!-- <ul>
+                        <li *ngFor="let item2 of arrayMenuHijo" class="active">
+                            <a>{{item2.name_module}}</a>
+                        </li>
+                    </ul> -->
+                <!--</li>
+            </ul>  -->
         </div>
     </div>
     

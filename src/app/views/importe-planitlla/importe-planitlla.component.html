@@ -1,0 +1,20 @@
+<div style="width: auto; overflow: auto;">
+    <app-navbar></app-navbar>
+</div>
+<div class="d-flex" id="wrapper">
+    <div style="height: auto;width: 150px; width: auto;">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div id="page-content-wrapper" style="float: right ; width: auto; height: auto;">
+        <div class="container-fluid">
+            <div class="window-body windowBodyLiq">
+                <h3 class="panel-title backgroudNavUsu">CARGUE EMPLEADOS</h3>
+                <table>
+                    <td><label class="form-control">CARGUE </label></td>
+                    <td ><input type="file" id="file_excel" name="file_excel" class="form-control" [(ngModel)]="archivoExcel" (change)="onFileSelected_archivo($event)"></td>
+                    <td><button class="form-control" (click)="enviaDataExcel()">CONSULTAR</button></td>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

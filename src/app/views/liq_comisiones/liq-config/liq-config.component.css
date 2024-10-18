@@ -1,0 +1,22 @@
+:host ::ng-deep .tab-content{
+    border:1px solid #e6e6e6;
+  }
+:host ::ng-deep .nav-tabs{
+    border:none;
+    background-color:#f8f9fa!important;
+  }
+
+  :host ::ng-deep .tabset1 a.nav-link.active {
+   color: #ffeef6;    
+    background-color: #5890e8;
+      font-weight: bold;
+     border-bottom: double;
+  }
+
+  :host ::ng-deep .tabset1 a.nav-link {
+    margin-right: 0.1em;
+    color: #6c6f8a;
+
+    background-color:#f4f4f4;
+     border:0.092em solid #e6e6e6;
+  }

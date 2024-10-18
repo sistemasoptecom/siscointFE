@@ -1,0 +1,198 @@
+<div style="width: auto; overflow: auto;">
+    <app-navbar></app-navbar>
+</div>
+<div class="d-flex" id="wrapper">
+    <div style="height: auto;width: auto;overflow-y: scroll; width: 150px; width: auto;">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div id="page-content-wrapper" style="float: right ; width: auto; height: auto;">
+        <div class="container-fluid">
+            <div class="window-body windowBodyLiq">
+                <div class="col-xs-10">
+                    <div class="col-xs-16">
+                        <div class="panel panel-primary borderFormUsuario">
+                            <div class="panel-heading panelHeadind">
+                                <h3 class="panel-title backgroudNavUsu">CONFIGURAR PERIODO COMISION TECNICOS </h3>
+                            </div>
+                            <div class="col-xs-16">
+                                <div class="col-xs-16">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-body" >
+                                            
+                                            <button class="btn btn-primary btn-circle" style="width: 90px;" (click)="openVentanaAdd()">AGREGAR</button>
+                                            <table  class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 30px;">
+                                                            DETALLES
+                                                        </th>
+                                                        <th style="text-align: center">
+                                                            PERIODOS
+                                                        </th>
+                                                        <th style="text-align: center">
+                                                            ESTADO
+                                                        </th>
+                                                        <th></th>
+                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngFor="let item of arrPeriodoComision; let i = index">
+                                                    <tr >
+                                                        <td>
+                                                            <button class="btn btn-primary" 
+                                                            *ngIf="hideme[i]"
+                                                            (click)="hideme[i] = !hideme[i]">
+                                                            -
+                                                            </button>
+                                                            <button  class="btn btn-info"  
+                                                            *ngIf="!hideme[i]" 
+                                                            id="{{item.id}}"
+                                                            (click)="showSubTable1(i,item)">
+                                                            +
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            {{item.periodo}}
+                                                        </td>
+                                                        <td>
+                                                            <span *ngIf="item.estado == 1">ABIERTO</span>
+                                                            <span *ngIf="item.estado == 0">CERRADO</span>
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                    <tr [hidden]="!hideme[i]">
+                                                        <td colspan="4">
+                                                            <table class="table table-bordered table-hover table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                     <th>DETALLES</th>
+                                                                     <th>CIUDAD</th>
+                                                                     <th>PERIODO</th>
+                                                                     <th>TOTAL METAS</th>
+                                                                     
+                                                                     
+                                                                    </tr>
+                                                                 </thead>
+                                                                  <tbody *ngFor="let item2 of arrListCiudadPeriodo; let j = index">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <button class="btn btn-primary" *ngIf="hideme2[j]"
+                                                                                (click)="hideme2[j] = !hideme2[j]">
+                                                                            -
+                                                                            </button>
+                                                                            <button class="btn btn-info" *ngIf="!hideme2[j]" 
+                                                                            (click)="showSubTable2(j,item2)">
+                                                                            +
+                                                                            </button>
+                                                                        </td>
+                                                                        <td>
+                                                                            {{item2.nombre}} 
+                                                                        </td>
+                                                                        <td>
+                                                                            {{item2.periodo}} 
+                                                                        </td> 
+                                                                        <td>
+                                                                            {{item2.metas}} 
+                                                                        </td> 
+                                                                        
+                                                                    </tr>
+                                                                    <tr [hidden]="!hideme2[j]">
+                                                                        <td colspan="5">
+                                                                            <table class="table table-bordered table-hover table-striped">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>DETALLES</th>
+                                                                                        <th>SEMANA</th>
+                                                                                        <th>META</th>
+                                                                                        <th>MES</th>
+                                                                                        <th>AÑO</th>
+                                                                                        <th colspan="2">CIERRE</th>
+                                                                                        <th>DETALLES</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody *ngFor="let item3 of arrListPeriodoSemanal_aux; let k = index">
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <button class="btn btn-primary" *ngIf="hideme3[k]"
+                                                                                                (click)="hideme3[k] = !hideme3[k]">
+                                                                                            -
+                                                                                            </button>
+                                                                                            <button class="btn btn-info" *ngIf="!hideme3[k]" 
+                                                                                            (click)="showSubTable3(k,item3)">
+                                                                                            +
+                                                                                            </button>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item3.numero_semana}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item3.puntaje_semana}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item3.mm_comision}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item3.aaaa_comision}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="file" class="form-control">
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <button class="form-control btn btn-primary">CARGUE</button>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <button class="form-control btn btn-info">DETALLES</button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr [hidden]="!hideme3[k]">
+                                                                                        <td colspan="5">
+                                                                                            <table class="table table-bordered table-hover table-striped">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th>DIA</th>
+                                                                                                        <th colspan="2">CARGUE TECNICOS</th>
+                                                                                                        <th></th>
+                                                                                                    </tr>
+                                                                                                    
+                                                                                                </thead>
+                                                                                                <tbody *ngFor="let item4 of arrListDiasSemana_aux">
+                                                                                                    <tr>
+                                                                                                        <td>{{item4}}</td>
+                                                                                                        <td><input type="file" class="form-control" (change)="onFileSeletedTec($event)"></td>
+                                                                                                        <td><button class="form-control btn btn-info" (click)="enviarImportTec(item4)">CARGAR</button></td>
+                                                                                                        <td><button class="btn btn-info" (click)="openVentanaDetalle(item4)">DETALLES</button></td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                 </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+
+                                            <table>
+                                                <tr></tr>
+                                            </table>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+</div>

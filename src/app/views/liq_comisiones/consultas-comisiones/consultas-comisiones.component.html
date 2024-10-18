@@ -1,0 +1,42 @@
+<div style="width: auto; overflow: auto;">
+    <app-navbar></app-navbar>
+</div>
+<div class="d-flex" id="wrapper">
+    <div style="height: auto;width: 150px; width: auto;">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div id="page-content-wrapper" style="float: right ; width: auto; height: auto;">
+        <div class="container-fluid">
+            <div class="window-body windowBodyLiq">
+                <div >
+                    <div >
+                        <div>
+                            <h3 class="panel-title backgroudNavUsu">CONSULTAS</h3>
+                            <table>
+                                <tr>
+                                    <td><label class="form-control">TIPO</label></td>
+                                    <td>
+                                        <div class="col-10">
+                                            <select class="form-control" [(ngModel)]="codigoTipoComisionConsulta" 
+                                                            [value] = "codigoTipoComisionConsulta" 
+                                                            [ngModelOptions] = "{standalone : true}"
+                                                            (change)="validaCambioTipoConsulta($event)">
+                                                <option *ngFor="let item of arrLiqComisionConsultas"  value="{{item.id}}">{{item.descripcion}}</option>
+                                            
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td *ngIf="EsConsulta == 1"><label class="form-control">PERIODO</label></td>
+                                    <td *ngIf="EsConsulta == 1"><input type="text" class="form-control" [(ngModel)]="periodoConsulta" /></td>
+                                    <td *ngIf="EsConsulta == 0"><input type="file" id="file_excel" name="file_excel" class="form-control" 
+                                                                        [(ngModel)]="archivoExcel" (change)="onFileSelected_archivo($event)"  ></td>
+                                    <td><button class="form-control" (click)="ValidoTipoConsulta()">CONSULTAR</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

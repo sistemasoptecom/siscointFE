@@ -1,5 +1,4 @@
-<div class="top-content">
-    <div class="inner-bg">
+
         <div class="container">
             <div class="row">
             </div>
@@ -33,15 +32,17 @@
                                 </div>
                             </div>
                             <div class="col-xs-4">
-                                <button class="btn" type="submit" ><span style="color:black;font-family:arial">INGRESAR</span></button>
+                                <button class="btn" type="submit" ><span style="color:black; background-color: white;">INGRESAR</span></button>
                             </div>
                             
                         </form>
                     </div>
                 </div>
             </div>
+            <div *ngIf="EsRenderWait">
+                <img src="../../assets/backgrounds/_loader.gif" width="90" height="90"/>
+                <h1 style="color: white;">Espere....</h1>
+            </div>
             
         </div>
-    </div>
     
-</div>

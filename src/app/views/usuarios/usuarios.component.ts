@@ -43,6 +43,7 @@ export class UsuariosComponent implements OnInit {
   EsEditar : boolean = false;
   EsAgregar : boolean = false;
   EsFormularioValido : boolean = false;
+  EsMostrarContrasenas : Boolean = true;
   //userModel: UsuariosModels = {} as UsuariosModels;
   
   constructor(private router : Router, private siscointService : SiscointService) { }
@@ -55,7 +56,6 @@ export class UsuariosComponent implements OnInit {
     });
     this.siscointService.showsUserValues.subscribe(valor => {
       this.idusuario = valor;
-      //console.log("El id del usuario es : ", this.idusuario)
       if(this.idusuario > 0){
         this.cargarDataUsuario(this.idusuario);
       }
@@ -63,6 +63,7 @@ export class UsuariosComponent implements OnInit {
     this.siscointService.esActualizarFormUser.subscribe(valor => {
       this.EsEditar = valor;
       if(this.EsEditar == true){
+        //this.EsMostrarContrasenas = false;
         this.EsEditarFormUser();
       }
     })
@@ -71,14 +72,14 @@ export class UsuariosComponent implements OnInit {
       if(this.EsAgregar == true){
         this.EsAgregarFormUser();
       }else{
-        console.log("nada no entra actualizar")
+        
       }
     })
   }
 
   getMenuViews(){
     this.siscointService.getViews().subscribe((res : ViewsModels[]) => {
-      //console.log(res);
+      
       this.dataviews = res;
       localStorage.setItem('dataviews', JSON.stringify(this.dataviews));
     });
@@ -92,11 +93,12 @@ export class UsuariosComponent implements OnInit {
 
 
   cargarDataUsuario(idUsuario : number){
-    //alert("hola id usuario "+ idUsuario);
+    
     const usuariosM : UsuariosModels = {id: idUsuario, username :'', codigo : '', nombre_usuario : '', password:'', pssword:'', id_tipo_usuario:0, estado:0, cargo:'',area:'', modulo:0 }
     this.siscointService.getUsuariosID(usuariosM).subscribe((res : UsuariosModels[]) => {
       this.cargarHeaders(res)
       this.cargarDataPermisos(res[0].username)
+      this.EsMostrarContrasenas = false;
     });
   }
 
@@ -139,6 +141,9 @@ export class UsuariosComponent implements OnInit {
   }
   
   EsEditarFormUser(){
+    if(this.EsEditar){
+      this.EsFormularioValido = true;
+    }
     if(this.EsFormularioValido){
       const usuariosA : UsuariosModels = {
         id: this.id, 
@@ -146,41 +151,43 @@ export class UsuariosComponent implements OnInit {
         codigo : this.codigo, 
         nombre_usuario : this.nombre_usuario, 
         password:'', 
-        pssword:this.pssword, 
+        
         id_tipo_usuario:this.id_tipo_usuario, 
         estado:1, 
         cargo:'',
         area:'', 
         modulo:0  } 
       this.siscointService.updateUsuario(this.id, usuariosA).subscribe(valor => {
+        if(valor > 0){
+          this.dataviews.forEach((item) => {
+          
+            const permisoUsuario : permisosUsuII = {
+              id_permiso : 0,
+              id_view : item.id,
+              cod_usuario : this.codigo,
+              id_usuario : 0,
+              usuario : this.username,
+              autorizacion : item.autorizacion,
+              pe1 : item.pe1,
+              pe2 : item.pe2,
+              usuario_crea : 'string',
+              Fecha_creacion : new Date(),
+              fecha_modificacion : new Date(),
+              Estado : 1
+            }
+            this.dataPermisos.push(permisoUsuario)
+          })
+         
+          this.siscointService.updatePermisosUsuarios(this.dataPermisos).subscribe(valor => {
+            
+            alert("Datos Actulizados")
+  
+            
+            this.dataPermisos = []
+            this.router.navigateByUrl('/usuarios');
+          })
+        }
         
-        this.dataviews.forEach((item) => {
-          
-          const permisoUsuario : permisosUsuII = {
-            id_permiso : 0,
-            id_view : item.id,
-            cod_usuario : this.codigo,
-            id_usuario : 0,
-            usuario : this.username,
-            autorizacion : item.autorizacion,
-            pe1 : item.pe1,
-            pe2 : item.pe2,
-            usuario_crea : 'string',
-            Fecha_creacion : new Date(),
-            fecha_modificacion : new Date(),
-            Estado : 1
-          }
-          this.dataPermisos.push(permisoUsuario)
-        })
-       
-        this.siscointService.updatePermisosUsuarios(this.dataPermisos).subscribe(valor => {
-          
-          alert("Datos Actulizados")
-
-          
-          this.dataPermisos = []
-          this.router.navigateByUrl('/usuarios');
-        })
       })
     }
   }
@@ -200,34 +207,37 @@ export class UsuariosComponent implements OnInit {
         area:'', 
         modulo:0  } 
         this.siscointService.addUsuario(usuariosA).subscribe(valor => {
-          this.dataviews.forEach((item) => {
+          if(valor > 0){
+            this.dataviews.forEach((item) => {
           
-            const permisoUsuario : permisosUsuII = {
-              id_permiso : 0,
-              id_view : item.id,
-              cod_usuario : this.codigo,
-              id_usuario : 0,
-              usuario : this.username,
-              autorizacion : item.autorizacion,
-              pe1 : item.pe1,
-              pe2 : item.pe2,
-              usuario_crea : JSON.stringify(localStorage.getItem('usuario')),
-              Fecha_creacion : new Date(),
-              fecha_modificacion : new Date(),
-              Estado : 1
-            }
-            this.dataPermisos.push(permisoUsuario)
-          })
-
-          this.siscointService.updatePermisosUsuarios(this.dataPermisos).subscribe(valor => {
+              const permisoUsuario : permisosUsuII = {
+                id_permiso : 0,
+                id_view : item.id,
+                cod_usuario : this.codigo,
+                id_usuario : 0,
+                usuario : this.username,
+                autorizacion : item.autorizacion,
+                pe1 : item.pe1,
+                pe2 : item.pe2,
+                usuario_crea : JSON.stringify(localStorage.getItem('usuario')),
+                Fecha_creacion : new Date(),
+                fecha_modificacion : new Date(),
+                Estado : 1
+              }
+              this.dataPermisos.push(permisoUsuario)
+            })
+  
+            this.siscointService.updatePermisosUsuarios(this.dataPermisos).subscribe(valor => {
+            
+              alert("Datos Actulizados")
+              this.dataPermisos = []
+              this.router.navigateByUrl('/usuarios');
+            })
+          }
           
-            alert("Datos Actulizados")
-            this.dataPermisos = []
-            this.router.navigateByUrl('/usuarios');
-          })
         })
     }else{
-      console.log("nada no agrega")
+      
     }
   }
 

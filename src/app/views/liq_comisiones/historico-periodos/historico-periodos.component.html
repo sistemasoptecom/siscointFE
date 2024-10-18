@@ -1,0 +1,175 @@
+<div class="d-flex" id="wrapper">
+    <div style="height: auto; width: 350px; margin-top:70px;">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div id="page-content-wrapper" style="float: right ; margin-left: -320px;">
+        <app-navbar></app-navbar>
+        <div class="container-fluid">
+            <div class="window-body windowBodyLiqConsultas" style="margin-left: 320px;">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 30px;">
+                                DETALLES
+                            </th>
+                            <th style="text-align: center">
+                                PERIODOS
+                            </th>
+                            <th style="text-align: center">
+                                ESTADO
+                            </th>
+                            <th></th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of arrLiqPeriodos; let i = index">
+                        <tr >
+                            <td>
+                                <button class="btn btn-primary" *ngIf="hideme[i]"
+                                (click)="hideme[i] = !hideme[i]" >
+                                -
+                                </button>
+                                <button  class="btn btn-info" *ngIf="!hideme[i]" id="{{item.id}}"
+                                (click)="showSubTable1(i,item)" >
+                                +
+                                </button>
+                            </td>
+                            <td>
+                                {{item.periodo}}
+                            </td>
+                            <td>
+                                <span *ngIf="item.estado == 1">ABIERTO</span>
+                                <span *ngIf="item.estado == 0">CERRADO</span>
+                                
+                            </td>
+                        </tr>
+                        <tr [hidden]="!hideme[i]">
+                            <td colspan="4">
+                                <table class="table table-bordered table-hover table-striped" id="myTable2">
+                                    <thead>
+                                        <tr>
+                                         <td>DETALLES</td>
+                                         <td>ESQUEMA</td>
+                                         <td>SUPERVISORES</td>
+                                         <td>ASESORES</td>
+                                         <td></td>
+                                        </tr>
+                                     </thead>
+                                     <tbody *ngFor="let item2 of arrLiqTipoEsquema_aux; let j = index">
+                                        <tr>
+                                            <td>
+                                                <button class="btn btn-primary" *ngIf="hideme2[j]"
+                                                    (click)="hideme2[j] = !hideme2[j]">
+                                                -
+                                                </button>
+                                                <button class="btn btn-info" *ngIf="!hideme2[j]" 
+                                                (click)="showSubTable2(j,item2)">
+                                                +
+                                                </button>
+                                            </td>
+                                            <td>
+                                                {{item2.nombre_tipo_esquema}} - {{item2.periodo}}
+                                            </td>  
+                                            <td><button >EXCEL</button></td>
+                                            <td><button>EXCEL</button></td>    
+                                            <td><button >DETALLES</button></td>   
+                                        </tr>
+                                        <tr [hidden]="!hideme2[j]">
+                                            <td colspan="4">
+                                                <table class="table table-bordered table-hover table-striped" id="myTable2">
+                                                    <thead>
+                                                        <tr>
+                                                         <td>DETALLES</td>
+                                                         <td>SUPERVISOR</td>
+                                                         <td>ZONA</td>
+                                                         <td>PERIDO</td>
+                                                         <td>DETALLES</td>
+                                                         <td>LIQUIDADOR</td>
+                                                         <td>REPROCESAR</td>
+                                                        </tr>
+                                                     </thead>
+                                                     <tbody *ngFor="let item3 of arrSuperEsquemaPerido; let k = index">
+                                                        <tr>
+                                                            <td>
+                                                                <button class="btn btn-primary" *ngIf="hideme3[k]"
+                                                                    (click)="hideme3[k] = !hideme3[k]">
+                                                                -
+                                                                </button>
+                                                                <button class="btn btn-info" *ngIf="!hideme3[k]" 
+                                                                (click)="showSubTable3(k,item3)">
+                                                                +
+                                                                </button>
+
+                                                            </td>
+                                                            <td>
+                                                                {{item3.nombre_supervisor}}
+                                                            </td>
+                                                            <td>
+                                                                {{item3.zona}}
+                                                            </td>
+                                                            <td>
+                                                                {{item3.periodo}}
+                                                            </td>
+                                                            <td>
+                                                                <button style="font-size: 5;" >DETALLES</button>
+                                                            </td>
+                                                            <td>
+                                                                <button style="font-size: 5;">EXCEL</button>
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr [hidden]="!hideme3[k]">
+                                                            <td colspan="7">
+                                                                <table class="table table-bordered table-hover table-striped" id="myTable3">
+                                                                    <thead>
+                                                                        <tr>
+                                                                         
+                                                                         <td>NOMBRE</td>
+                                                                         <td>META ALTA</td>
+                                                                         <td>META MOVIL</td>
+                                                                         <td>CUMPLIEMIENTO</td>
+                                                                         <td>TOTAL COMISION</td>
+                                                                         <td>DETALLES</td>
+                                                                        
+                                                                        </tr>
+                                                                     </thead>
+                                                                     <tbody *ngFor="let item4 of arrAsesorSuperEsquemaPerido">
+                                                                        <td>
+                                                                            {{item4.asesor}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{item4.meta_asesor}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{item4.meta_asesor_2}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{item4.cumplimiento_asesor}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{item4.total_comision}}
+                                                                        </td>
+                                                                        <td>
+                                                                            <button style="font-size: 5;" (click)="openModalDetalleComisionAsesor(item4)" >DETALLES</button>
+                                                                        </td>
+                                                                     </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                     </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                     </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

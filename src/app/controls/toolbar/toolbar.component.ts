@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators } from '@angular/forms';
 import { SiscointService } from 'src/app/siscoint.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VentanabusquedaComponent } from '../ventanabusqueda/ventanabusqueda.component';
+import { ArticulosComponent } from 'src/app/views/articulos/articulos.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -22,6 +24,10 @@ export class ToolbarComponent implements OnInit {
   cerrar : boolean = true;
 
   EsHabilitarEditar : boolean = false;
+
+  @ViewChild(ArticulosComponent)
+  private articulos! : ArticulosComponent;
+  //@Output() notificarArticulo: EventEmitter<any> = new EventEmitter();
   constructor(private siscointService : SiscointService, private modalService : NgbModal, private router:Router) { }
 
   ngOnInit(): void {
@@ -96,6 +102,25 @@ export class ToolbarComponent implements OnInit {
         break;
       case '/empleados':
         this.siscointService.esGuardarFormEmpleado.emit(true);
+        break;
+      case '/articulos':
+        this.siscointService.esGuardarFormArticulo.emit(true);
+        //this.articulo.validarAddArticulos();
+        break;
+      case '/gestionar/activos':
+        this.siscointService.EsGuardarActivoFijo.emit(true);
+        break;
+      case '/gestionar/devolutivos':
+        this.siscointService.EsGuardarDevolutivo.emit(true);
+        break;
+      case '/pedidos':
+        this.siscointService.EsGuardarPedidoNormal.emit(true);
+        break;
+      case '/pedidosAF':
+        this.siscointService.EsGuardarPedidoAF.emit(true);
+        break;
+      case '/pedidosDiferidos':
+        this.siscointService.EsGuardarPedidoDiff.emit(true);
         break;
     }
     

@@ -1,0 +1,32 @@
+<div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content modal-xl">
+            <div class="modal-header modal-xl">
+                  
+               <h4>VENTANA {{tituloVentana}}</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+            </div>
+            <div class="modal-body">
+                <!--ESTA SECCION SON PARA LA VISTA DE LOS TECNICOS-->
+                <div *ngIf="ShowImporteTec">
+                    <table>
+                        <thead>
+                            <th>CEDULA TEC LIDER</th>
+                            <th>NOMBRE TEC LIDER</th>
+                            <th>CEDULA TEC AUXILIAR</th>
+                            <th>NOMBRE TEC AUXILIAR</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of arrayImportTec">
+                                <td>{{item.cedulA_TEC_LIDER}}</td>
+                                <td>{{item.nombrE_TECNICO_LIDER}}</td>
+                                <td>{{item.cedulA_TEC_AUX}}</td>
+                                <td>{{item.nombrE_TEC_AUX}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
